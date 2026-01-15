@@ -340,6 +340,217 @@ const topicsData: Topic[] = [
     description: "Làm quen với các số từ 41 đến 70",
     completed: false,
   },
+  /* --- LỚP 2 --- */
+    /* --- LỚP 2 - HỌC KÌ 1 --- */
+  {
+    id: "L2-1",
+    lessonId: "L2",
+    semester: 1,
+    title: "Nhận Biết Đơn Vị Chục, Trăm, Nghìn",
+    videoUrl: "https://www.youtube.com/embed/GqOC3khhHYk",
+    description: "Nhận Biết Đơn Vị Chục, Trăm, Nghìn"
+  },
+  {
+    id: "L2-2",
+    lessonId: "L2",
+    semester: 1,
+    title: "Học So Sánh Các Số Tròn Trăm",
+    videoUrl: "https://www.youtube.com/embed/w_9hbyNwbEw",
+    description: "Học So Sánh Các Số Tròn Trăm"
+  },
+  {
+    id: "L2-3",
+    lessonId: "L2",
+    semester: 1,
+    title: "Làm Quen Với Các Số Từ 111 Đến 200",
+    videoUrl: "https://www.youtube.com/embed/lrc8idC9Itc",
+    description: "Làm Quen Với Các Số Từ 111 Đến 200"
+  },
+  {
+    id: "L2-4",
+    lessonId: "L2",
+    semester: 1,
+    title: "Làm Quen Với Các Số Có Ba Chữ Số",
+    videoUrl: "https://www.youtube.com/embed/tklyRfsxrq8",
+    description: "Làm Quen Với Các Số Có Ba Chữ Số"
+  },
+  {
+    id: "L2-5",
+    lessonId: "L2",
+    semester: 1,
+    title: "Học Cách Tìm Một Số Hạng Trong Một Tổng",
+    videoUrl: "https://www.youtube.com/embed/iq4s2yWVFYE",
+    description: "Học Cách Tìm Một Số Hạng Trong Một Tổng"
+  },
+  {
+    id: "L2-6",
+    lessonId: "L2",
+    semester: 1,
+    title: "Phân Biệt Ngày, Giờ, Xem Đồng Hồ",
+    videoUrl: "https://www.youtube.com/embed/HPsUJQ4amsM",
+    description: "Phân Biệt Ngày, Giờ, Xem Đồng Hồ"
+  },
+  {
+    id: "L2-7",
+    lessonId: "L2",
+    semester: 1,
+    title: "Phân Biệt Ngày, Tháng, Xem Lịch",
+    videoUrl: "https://www.youtube.com/embed/FfM5bGSUsJ4",
+    description: "Phân Biệt Ngày, Tháng, Xem Lịch"
+  },
+  {
+    id: "L2-8",
+    lessonId: "L2",
+    semester: 1,
+    title: "Ki-Lo-Gam (Kg) Là Gì?",
+    videoUrl: "https://www.youtube.com/embed/P5TGyT263tg",
+    description: "Ki-Lo-Gam (Kg) Là Gì?"
+  },
+  {
+    id: "L2-9",
+    lessonId: "L2",
+    semester: 1,
+    title: "Lít (L) Là Gì?",
+    videoUrl: "https://www.youtube.com/embed/sq6w6YTOy2g",
+    description: "Lít (L) Là Gì?"
+  },
+  {
+    id: "L2-10",
+    lessonId: "L2",
+    semester: 1,
+    title: "Nhận Biết Tiền Việt Nam",
+    videoUrl: "https://www.youtube.com/embed/ysFv_hBPiM8",
+    description: "Nhận Biết Tiền Việt Nam"
+  },
+  {
+    id: "L2-11",
+    lessonId: "L2",
+    semester: 1,
+    title: "Học Cách Giải Bài Toán Về Nhiều Hơn",
+    videoUrl: "https://www.youtube.com/embed/CTBmx61GEU8",
+    description: "Học Cách Giải Bài Toán Về Nhiều Hơn"
+  },
+  {
+    id: "L2-12",
+    lessonId: "L2",
+    semester: 1,
+    title: "Học Cách Giải Các Bài Toán Về Tuổi",
+    videoUrl: "https://www.youtube.com/embed/Xem-B2yn_f0",
+    description: "Học Cách Giải Các Bài Toán Về Tuổi"
+  },
+  {
+    id: "L2-13",
+    lessonId: "L2",
+    semester: 1,
+    title: "Làm Quen Với Số Hạng – Tổng Trong Phép Cộng",
+    videoUrl: "https://www.youtube.com/embed/5Szi-0_PRC8",
+    description: "Làm Quen Với Số Hạng – Tổng Trong Phép Cộng"
+  },
+  {
+    id: "L2-14",
+    lessonId: "L2",
+    semester: 1,
+    title: "Làm Quen Với Số Bị Trừ – Số Trừ – Hiệu",
+    videoUrl: "https://www.youtube.com/embed/3WVHjJfKivs",
+    description: "Làm Quen Với Số Bị Trừ – Số Trừ – Hiệu"
+  },
+  /* --- LỚP 2 - HỌC KÌ 2 --- */
+  {
+    id: "L2-15",
+    lessonId: "L2",
+    semester: 2,
+    title: "Khi Số Có Tận Cùng Là 1 Trừ Đi Một Số",
+    videoUrl: "https://www.youtube.com/embed/7oMjY5lXYRo",
+    description: "Khi Số Có Tận Cùng Là 1 Trừ Đi Một Số"
+  },
+  {
+    id: "L2-16",
+    lessonId: "L2",
+    semester: 2,
+    title: "Khi Số Có Tận Cùng Là 2 Trừ Đi Một Số",
+    videoUrl: "https://www.youtube.com/embed/G2S8vsjxFnw",
+    description: "Khi Số Có Tận Cùng Là 2 Trừ Đi Một Số"
+  },
+  {
+    id: "L2-17",
+    lessonId: "L2",
+    semester: 2,
+    title: "Làm Quen Với Kết Hợp Phép Tính",
+    videoUrl: "https://www.youtube.com/embed/YtBWfbUzGO4",
+    description: "Làm Quen Với Kết Hợp Phép Tính"
+  },
+  {
+    id: "L2-18",
+    lessonId: "L2",
+    semester: 2,
+    title: "Phép Cộng, Trừ Không Nhớ Trong Phạm Vi 1000",
+    videoUrl: "https://www.youtube.com/embed/VV_8RWXr5P0",
+    description: "Phép Cộng, Trừ Không Nhớ Trong Phạm Vi 1000"
+  },
+  {
+    id: "L2-19",
+    lessonId: "L2",
+    semester: 2,
+    title: "Làm Quen Với Thừa Số - Tích Trong Phép Nhân",
+    videoUrl: "https://www.youtube.com/embed/TcdHD4aAXZM",
+    description: "Làm Quen Với Thừa Số - Tích Trong Phép Nhân"
+  },
+  {
+    id: "L2-20",
+    lessonId: "L2",
+    semester: 2,
+    title: "Làm Quen Với Số Bị Chia - Số Chia - Thương",
+    videoUrl: "https://www.youtube.com/embed/aKKma5Pbe_o",
+    description: "Làm Quen Với Số Bị Chia - Số Chia - Thương"
+  },
+  {
+    id: "L2-21",
+    lessonId: "L2",
+    semester: 2,
+    title: "Khi Số 1 Trong Phép Nhân Và Phép Chia",
+    videoUrl: "https://www.youtube.com/embed/bMu4KVezAy8",
+    description: "Khi Số 1 Trong Phép Nhân Và Phép Chia"
+  },
+  {
+    id: "L2-22",
+    lessonId: "L2",
+    semester: 2,
+    title: "Làm Quen Với Đường Gấp Khúc - Độ Dài Đường Gấp Khúc",
+    videoUrl: "https://www.youtube.com/embed/stX8wTTHbhg",
+    description: "Làm Quen Với Đường Gấp Khúc - Độ Dài Đường Gấp Khúc"
+  },
+  {
+    id: "L2-23",
+    lessonId: "L2",
+    semester: 2,
+    title: "Học So Sánh Các Số Có Ba Chữ Số",
+    videoUrl: "https://www.youtube.com/embed/LmpZNBdynyM",
+    description: "Học So Sánh Các Số Có Ba Chữ Số"
+  },
+  {
+    id: "L2-24",
+    lessonId: "L2",
+    semester: 2,
+    title: "Khi Phép Cộng Có Tổng Bằng 100",
+    videoUrl: "https://www.youtube.com/embed/QpltsNVai3U",
+    description: "Khi Phép Cộng Có Tổng Bằng 100"
+  },
+  {
+    id: "L2-25",
+    lessonId: "L2",
+    semester: 2,
+    title: "Học Cách Tìm Một Thừa Số Của Phép Nhân",
+    videoUrl: "https://www.youtube.com/embed/Ky0QKfWGLIk",
+    description: "Học Cách Tìm Một Thừa Số Của Phép Nhân"
+  },
+  {
+    id: "L2-26",
+    lessonId: "L2",
+    semester: 2,
+    title: "Học Nhanh Bảng Chia 4 - Một Phần Tư",
+    videoUrl: "https://www.youtube.com/embed/F9h_I64L1qM",
+    description: "Học Nhanh Bảng Chia 4 - Một Phần Tư"
+  },
   /* --- LỚP 3 --- */
   /* --- LỚP 3 - HỌC KÌ 1 --- */
   {
