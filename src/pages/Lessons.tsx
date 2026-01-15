@@ -731,15 +731,7 @@ const topicsData: Topic[] = [
     description: " Học Nhanh Về Dãy Số",
     completed: false,
   },
-  {
-    id: "L3-20",
-    lessonId: "L3",
-    semester: 1,
-    title: "Dãy số",
-    videoUrl: "https://www.youtube.com/embed/FCCfoClQ1CA",
-    description: " Học Nhanh Về Dãy Số",
-    completed: false,
-  },
+ 
   /* --- LỚP 3 - HỌC KÌ 2 --- */
   {
     id: "L3-21",

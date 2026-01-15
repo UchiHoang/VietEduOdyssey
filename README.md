@@ -1,6 +1,6 @@
 # VietEdu Odyssey
 
-This repository contains the frontend for VietEdu Odyssey — an educational, game-like platform that teaches children using Vietnamese folktales and interactive lessons.
+This repository contains the project for VietEdu Odyssey — an educational, game-like platform that teaches children using Vietnamese folktales and interactive lessons.
 
 ## Quick start
 
