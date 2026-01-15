@@ -55,8 +55,19 @@
       "activityRef": "g3-l2-qs",
       "cutscene": [
         {
+          "sprite": "assets/user/VuaHung.png",
+          "speaker": "Vua Hùng",
+          "text": "Con đã vào đến rừng sâu. Muốn tìm được voi thiêng, con cần biết xem giờ và hiểu rõ về thời gian."
+        },
+        {
+          "sprite": "assets/user/SonTinh.png",
           "speaker": "Sơn Tinh",
-          "text": "Tính số voi cần bắt, nhân 7 nào!"
+          "text": "Hãy quan sát kim giờ, kim phút thật kỹ. Biết xem đồng hồ sẽ giúp con đi đúng lúc, đúng đường."
+        },
+        {
+          "sprite": "assets/user/ThuyTinh.png",
+          "speaker": "Thủy Tinh",
+          "text": "Đừng nhầm lẫn giữa giờ và phút nhé! Chỉ cần sai thời gian là con có thể lạc trong rừng sâu đấy."
         }
       ]
     },
@@ -69,8 +80,19 @@
       "activityRef": "g3-l3-qs",
       "cutscene": [
         {
+          "sprite": "assets/user/VuaHung.png",
+          "speaker": "Vua Hùng",
+          "text": "Suối nguồn đầy thử thách. Muốn tìm đủ gà dâng lễ, con phải biết đo đạc thật chính xác."
+        },
+        {
+          "sprite": "assets/user/SonTinh.png",
           "speaker": "Sơn Tinh",
-          "text": "Đếm gà trống, chia đều cho dân."
+          "text": "Hãy đo độ dài con đường, cân khối lượng gà bằng gam và tính diện tích bãi suối."
+        },
+        {
+          "sprite": "assets/user/ThuyTinh.png",
+          "speaker": "Thủy Tinh",
+          "text": "Cẩn thận với các đơn vị đo nhé! Nhầm lẫn một chút thôi là tính sai ngay đấy."
         }
       ]
     },
@@ -83,8 +105,19 @@
       "activityRef": "g3-l4-qs",
       "cutscene": [
         {
-          "speaker": "Người kể chuyện",
-          "text": "Tính diện tích bãi thả ngựa để đủ chỗ."
+          "sprite": "assets/user/VuaHung.png",
+          "speaker": "Vua Hùng",
+          "text": "Suối nguồn đầy thử thách. Muốn tìm đủ gà dâng lễ, con phải biết đo đạc thật chính xác."
+        },
+        {
+          "sprite": "assets/user/SonTinh.png",
+          "speaker": "Sơn Tinh",
+          "text": "Hãy đo độ dài con đường, cân khối lượng gà bằng gam và tính diện tích bãi suối."
+        },
+        {
+          "sprite": "assets/user/ThuyTinh.png",
+          "speaker": "Thủy Tinh",
+          "text": "Cẩn thận với các đơn vị đo nhé! Nhầm lẫn một chút thôi là tính sai ngay đấy."
         }
       ]
     },
