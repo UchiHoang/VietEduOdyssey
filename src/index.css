@@ -174,4 +174,29 @@ All colors MUST be HSL.
     animation: float-y 3.5s ease-in-out infinite;
     will-change: transform;
   }
+
+  /* Custom scrollbar cho danh sách bài học - mảnh và tinh tế */
+  .lesson-list-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--primary) / 0.25) transparent;
+  }
+  
+  .lesson-list-scroll::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  .lesson-list-scroll::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 4px 0;
+  }
+  
+  .lesson-list-scroll::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.25);
+    border-radius: 10px;
+    transition: background 0.2s ease;
+  }
+  
+  .lesson-list-scroll::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.45);
+  }
 }
