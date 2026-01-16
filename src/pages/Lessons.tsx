@@ -939,7 +939,7 @@ const topicsData: Topic[] = [
     lessonId: "L4",
     semester: 1,
     title: "Làm Quen Với Hàng Và Lớp",
-    videoUrl: "https://www.youtube.com/embed/78OsABM5Go0",
+    videoUrl: "https://www.youtube.com/embed/_78OsABM5Go",
     description: "Học về hàng và lớp trong số học",
   },
   {
