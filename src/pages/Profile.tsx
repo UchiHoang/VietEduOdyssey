@@ -34,8 +34,10 @@ interface GameProgress {
   total_points: number;
   level: number;
   current_node: number;
-  completed_nodes: string[];
+  completed_nodes: (string | number)[];
   earned_badges: string[];
+  global_level?: number;
+  coins?: number;
 }
 
 interface StreakData {
@@ -116,24 +118,62 @@ const Profile = () => {
   };
 
   const loadGameProgress = async (userId: string) => {
-    const { data, error } = await supabase
+    // Load global progress from game_globals (PRIMARY SOURCE for XP)
+    const { data: globalData, error: globalError } = await supabase
+      .from("game_globals")
+      .select("*")
+      .eq("user_id", userId)
+      .single();
+
+    // Load all course progress to calculate total completed nodes
+    const { data: coursesData } = await supabase
+      .from("course_progress")
+      .select("*")
+      .eq("user_id", userId);
+
+    // Load from game_progress (legacy, for compatibility)
+    const { data: progressData } = await supabase
       .from("game_progress")
       .select("*")
       .eq("user_id", userId)
       .single();
 
-    if (error) {
-      console.error("Error loading game progress:", error);
-      return;
+    if (globalError && !globalData) {
+      console.error("Error loading global progress:", globalError);
     }
 
-    if (data) {
-      setGameProgress({
-        ...data,
-        completed_nodes: (data.completed_nodes as string[]) || [],
-        earned_badges: (data.earned_badges as string[]) || [],
+    // Calculate total completed nodes from ALL courses
+    const allCompletedNodes: (string | number)[] = [];
+    let totalPoints = 0;
+    
+    if (coursesData && coursesData.length > 0) {
+      coursesData.forEach((course: any) => {
+        // completed_nodes can be array of numbers [0,1,2] or strings ["n1","n2"]
+        const nodes = Array.isArray(course.completed_nodes) ? course.completed_nodes : [];
+        allCompletedNodes.push(...nodes);
+        totalPoints += (course.total_stars || 0);
       });
     }
+
+    // Use global_xp from game_globals as PRIMARY source
+    const totalXP = (globalData?.total_xp as number) || (progressData?.total_xp as number) || 0;
+    const globalLevel = (globalData?.global_level as number) || (progressData?.level as number) || 1;
+
+    // Combine data from all sources
+    const combinedProgress: GameProgress = {
+      total_xp: totalXP,
+      total_points: totalPoints || (progressData?.total_points as number) || 0,
+      level: globalLevel,
+      current_node: (progressData?.current_node as number) || 0,
+      completed_nodes: allCompletedNodes.length > 0 
+        ? allCompletedNodes 
+        : ((progressData?.completed_nodes as string[]) || []),
+      earned_badges: ((globalData?.unlocked_badges as string[]) || (progressData?.earned_badges as string[]) || []),
+      global_level: globalLevel,
+      coins: (globalData?.coins as number) || 0,
+    };
+
+    setGameProgress(combinedProgress);
   };
 
   const loadUserRole = async (userId: string) => {

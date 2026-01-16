@@ -7,6 +7,9 @@ interface GameProgress {
   total_points: number;
   level: number;
   earned_badges: string[];
+  completed_nodes: (string | number)[];
+  global_level?: number;
+  coins?: number;
 }
 
 interface StreakData {
@@ -47,8 +50,10 @@ const AVAILABLE_ACHIEVEMENTS = [
 
 const StatsTab = ({ gameProgress, streak, achievements }: StatsTabProps) => {
   const earnedAchievementIds = achievements.map(a => a.achievement_id);
+  const totalXP = gameProgress?.total_xp || 0;
   const xpForNextLevel = (gameProgress?.level || 1) * 200;
-  const xpProgress = ((gameProgress?.total_xp || 0) % 200) / 2;
+  const xpProgress = (totalXP % 200) / 2;
+  const completedLessonsCount = gameProgress?.completed_nodes?.length || 0;
 
   return (
     <div className="space-y-6">
@@ -58,7 +63,7 @@ const StatsTab = ({ gameProgress, streak, achievements }: StatsTabProps) => {
           <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-3">
             <Zap className="h-6 w-6 text-primary" />
           </div>
-          <div className="text-3xl font-bold text-primary">{gameProgress?.total_xp || 0}</div>
+          <div className="text-3xl font-bold text-primary">{totalXP}</div>
           <div className="text-sm text-muted-foreground">Tổng XP</div>
         </Card>
         
@@ -67,7 +72,7 @@ const StatsTab = ({ gameProgress, streak, achievements }: StatsTabProps) => {
             <Star className="h-6 w-6 text-secondary" />
           </div>
           <div className="text-3xl font-bold text-secondary">{gameProgress?.total_points || 0}</div>
-          <div className="text-sm text-muted-foreground">Điểm</div>
+          <div className="text-sm text-muted-foreground">Tổng điểm</div>
         </Card>
         
         <Card className="p-5 text-center bg-gradient-to-br from-orange-500/10 to-orange-500/5 border-orange-500/20">
@@ -87,17 +92,45 @@ const StatsTab = ({ gameProgress, streak, achievements }: StatsTabProps) => {
         </Card>
       </div>
 
+      {/* Progress Summary Card */}
+      <Card className="p-6 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 border-green-200 dark:border-green-800">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center">
+            <Target className="h-6 w-6 text-white" />
+          </div>
+          <div>
+            <h3 className="font-bold text-lg text-green-700 dark:text-green-300">Thành tích học tập</h3>
+            <p className="text-sm text-green-600/70 dark:text-green-400/70">Tổng số bài đã hoàn thành</p>
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-3 gap-4">
+          <div className="text-center p-4 bg-white/60 dark:bg-black/20 rounded-xl">
+            <div className="text-3xl font-bold text-green-600">{completedLessonsCount}</div>
+            <div className="text-xs text-muted-foreground">Bài đã hoàn thành</div>
+          </div>
+          <div className="text-center p-4 bg-white/60 dark:bg-black/20 rounded-xl">
+            <div className="text-3xl font-bold text-green-600">{totalXP}</div>
+            <div className="text-xs text-muted-foreground">Tổng XP tích lũy</div>
+          </div>
+          <div className="text-center p-4 bg-white/60 dark:bg-black/20 rounded-xl">
+            <div className="text-3xl font-bold text-green-600">{gameProgress?.total_points || 0}</div>
+            <div className="text-xs text-muted-foreground">Tổng điểm đạt được</div>
+          </div>
+        </div>
+      </Card>
+
       {/* Level Progress */}
       <Card className="p-6">
         <div className="flex items-center justify-between mb-3">
           <h3 className="font-bold text-lg">Tiến độ cấp độ</h3>
           <span className="text-sm text-muted-foreground">
-            {(gameProgress?.total_xp || 0) % 200} / 200 XP
+            {totalXP % 200} / 200 XP
           </span>
         </div>
         <Progress value={xpProgress} className="h-3" />
         <p className="text-sm text-muted-foreground mt-2">
-          Còn {200 - ((gameProgress?.total_xp || 0) % 200)} XP để lên cấp {(gameProgress?.level || 1) + 1}
+          Còn {200 - (totalXP % 200)} XP để lên cấp {(gameProgress?.level || 1) + 1}
         </p>
       </Card>
 
