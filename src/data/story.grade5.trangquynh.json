@@ -13,6 +13,7 @@
       "id": "g5-l1",
       "order": 1,
       "title": "Chiêu Mộ Binh Sĩ",
+      "mathTopic": "Khái niệm Số thập phân",
       "badgeOnComplete": "badge-soldier",
       "activityRef": "g5-l1-qs",
       "assets": {
@@ -31,6 +32,7 @@
       "id": "g5-l2",
       "order": 2,
       "title": "Kiểm Kê Kho Lương",
+      "mathTopic": "Đổi đơn vị đo & Số thập phân",
       "badgeOnComplete": "badge-rice",
       "activityRef": "g5-l2-qs",
       "assets": {
@@ -49,6 +51,7 @@
       "id": "g5-l3",
       "order": 3,
       "title": "Bản Đồ Biên Giới",
+      "mathTopic": "Tỉ lệ bản đồ",
       "badgeOnComplete": "badge-map",
       "activityRef": "g5-l3-qs",
       "assets": {
@@ -67,6 +70,7 @@
       "id": "g5-l4",
       "order": 4,
       "title": "Tính Toán Quân Nhu",
+      "mathTopic": "Cộng, Trừ Số thập phân",
       "badgeOnComplete": "badge-calculator",
       "activityRef": "g5-l4-qs",
       "assets": {
@@ -85,6 +89,7 @@
       "id": "g5-l5",
       "order": 5,
       "title": "Gấp Rút Hành Quân",
+      "mathTopic": "Toán chuyển động: Vận tốc",
       "badgeOnComplete": "badge-boot",
       "activityRef": "g5-l5-qs",
       "assets": {
@@ -103,6 +108,7 @@
       "id": "g5-l6",
       "order": 6,
       "title": "Chia Nhỏ Đội Hình",
+      "mathTopic": "Tỉ số phần trăm",
       "badgeOnComplete": "badge-percent",
       "activityRef": "g5-l6-qs",
       "assets": {
@@ -121,6 +127,7 @@
       "id": "g5-l7",
       "order": 7,
       "title": "Đắp Đê Phòng Thủ",
+      "mathTopic": "Thể tích hình hộp chữ nhật",
       "badgeOnComplete": "badge-shovel",
       "activityRef": "g5-l7-qs",
       "assets": {
@@ -139,6 +146,7 @@
       "id": "g5-l8",
       "order": 8,
       "title": "Tính Thuế Quân Điền",
+      "mathTopic": "Nhân số thập phân & Diện tích",
       "badgeOnComplete": "badge-coin",
       "activityRef": "g5-l8-qs",
       "assets": {
@@ -157,6 +165,7 @@
       "id": "g5-l9",
       "order": 9,
       "title": "Trận Địa Hình Tam Giác",
+      "mathTopic": "Diện tích Hình Tam Giác",
       "badgeOnComplete": "badge-triangle",
       "activityRef": "g5-l9-qs",
       "assets": {
@@ -175,6 +184,7 @@
       "id": "g5-l10",
       "order": 10,
       "title": "Xây Thành Lũy",
+      "mathTopic": "Diện tích Hình Thang",
       "badgeOnComplete": "badge-wall",
       "activityRef": "g5-l10-qs",
       "assets": {
@@ -193,6 +203,7 @@
       "id": "g5-l11",
       "order": 11,
       "title": "Vòng Vây Khép Kín",
+      "mathTopic": "Chu vi Hình Tròn",
       "badgeOnComplete": "badge-circle",
       "activityRef": "g5-l11-qs",
       "assets": {
@@ -211,6 +222,7 @@
       "id": "g5-l12",
       "order": 12,
       "title": "Thủy Chiến Trên Sông",
+      "mathTopic": "Chuyển động trên dòng nước",
       "badgeOnComplete": "badge-ship",
       "activityRef": "g5-l12-qs",
       "assets": {
@@ -229,6 +241,7 @@
       "id": "g5-l13",
       "order": 13,
       "title": "Truy Kích Quân Thù",
+      "mathTopic": "Chuyển động cùng chiều",
       "badgeOnComplete": "badge-horse",
       "activityRef": "g5-l13-qs",
       "assets": {
@@ -247,6 +260,7 @@
       "id": "g5-l14",
       "order": 14,
       "title": "Cuộc Đua Thời Gian",
+      "mathTopic": "Tính Quãng đường & Thời gian",
       "badgeOnComplete": "badge-clock",
       "activityRef": "g5-l14-qs",
       "assets": {
@@ -265,6 +279,7 @@
       "id": "g5-l15",
       "order": 15,
       "title": "Khải Hoàn Ca",
+      "mathTopic": "Ôn tập tổng hợp",
       "badgeOnComplete": "badge-medal",
       "activityRef": "g5-l15-qs",
       "assets": {
