@@ -46,7 +46,7 @@ export const StoryIntro = ({ prologue, onComplete }: StoryIntroProps) => {
             {/* Character Image - Left Side */}
             <div className="bg-primary/10 p-6 flex flex-col items-center justify-center gap-4 min-h-0 h-full">
               <img 
-                src={`/${prologue[currentSlide].sprite}`}
+                src={prologue[currentSlide].sprite}
                 alt={prologue[currentSlide].speaker}
                 className="w-full max-w-[300px] h-auto object-contain"
               />

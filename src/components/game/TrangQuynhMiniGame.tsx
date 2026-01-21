@@ -681,10 +681,10 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
       else if (frame.speaker === "Trạng Quỳnh" || frame.speaker.includes("Quỳnh")) {
         const isExcited = frame.text.includes("!") || frame.text.includes("thích");
         sprite = isExcited 
-          ? (currentNode.assets?.sprite_main_cheer || "assets/user/trang_cheer.png")
-          : (currentNode.assets?.sprite_main_idle || "assets/user/trang_idle.png");
+          ? (currentNode.assets?.sprite_main_cheer || "/assets/grades/grade2/trangquynh/characters/trang_cheer.png")
+          : (currentNode.assets?.sprite_main_idle || "/assets/grades/grade2/trangquynh/characters/trang_idle.png");
       } else if (frame.speaker !== "Người kể chuyện") {
-        sprite = currentNode.assets?.sprite_main_idle || "assets/user/trang_portrait.png";
+        sprite = currentNode.assets?.sprite_main_idle || "/assets/grades/grade2/trangquynh/characters/trang_portrait.png";
       }
       
       return {

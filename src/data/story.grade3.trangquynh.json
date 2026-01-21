@@ -5,17 +5,17 @@
   },
   "prologue": [
     {
-      "sprite": "assets/user/VuaHung.png",
+      "sprite": "/assets/grades/grade3/fraction-quest/characters/vuahung_idle.png",
       "speaker": "Vua Hùng",
       "text": "Ai mang đủ sính lễ sẽ được cưới Mị Nương."
     },
     {
-      "sprite": "assets/user/SonTinh.png",
+      "sprite": "/assets/grades/grade3/fraction-quest/characters/sontinh_idle.png",
       "speaker": "Sơn Tinh",
       "text": "Ta cần tính toán thật nhanh để vượt Thủy Tinh."
     },
     {
-      "sprite": "assets/user/ThuyTinh.png",
+      "sprite": "/assets/grades/grade3/fraction-quest/characters/thuytinh_idle.png",
       "speaker": "Thủy Tinh",
       "text": "Người chơi hãy giúp ta ngăn chặn Sơn Tinh!"
     }
@@ -30,17 +30,17 @@
       "activityRef": "g3-l1-qs",
       "cutscene": [
         {
-          "sprite": "assets/user/VuaHung.png",
+          "sprite": "/assets/grades/grade3/fraction-quest/characters/vuahung_idle.png",
           "speaker": "Vua Hùng",
           "text": "Muốn tiếp nhận chiếu chỉ, con hãy chứng tỏ mình hiểu rõ các số có 4 chữ số, 5 chữ số và cả số La Mã."
         },
         {
-          "sprite": "assets/user/SonTinh.png",
+          "sprite": "/assets/grades/grade3/fraction-quest/characters/sontinh_idle.png",
           "speaker": "Sơn Tinh",
           "text": "Hãy đọc, viết và so sánh thật chính xác các số lớn. Ta tin con sẽ làm được!"
         },
         {
-          "sprite": "assets/user/ThuyTinh.png",
+          "sprite": "/assets/grades/grade3/fraction-quest/characters/thuytinh_idle.png",
           "speaker": "Thủy Tinh",
           "text": "Cẩn thận với số La Mã nhé! Chỉ cần nhầm lẫn một ký hiệu là sai ngay đấy."
         }
@@ -55,17 +55,17 @@
       "activityRef": "g3-l2-qs",
       "cutscene": [
         {
-          "sprite": "assets/user/VuaHung.png",
+          "sprite": "/assets/grades/grade3/fraction-quest/characters/vuahung_idle.png",
           "speaker": "Vua Hùng",
           "text": "Con đã vào đến rừng sâu. Muốn tìm được voi thiêng, con cần biết xem giờ và hiểu rõ về thời gian."
         },
         {
-          "sprite": "assets/user/SonTinh.png",
+          "sprite": "/assets/grades/grade3/fraction-quest/characters/sontinh_idle.png",
           "speaker": "Sơn Tinh",
           "text": "Hãy quan sát kim giờ, kim phút thật kỹ. Biết xem đồng hồ sẽ giúp con đi đúng lúc, đúng đường."
         },
         {
-          "sprite": "assets/user/ThuyTinh.png",
+          "sprite": "/assets/grades/grade3/fraction-quest/characters/thuytinh_idle.png",
           "speaker": "Thủy Tinh",
           "text": "Đừng nhầm lẫn giữa giờ và phút nhé! Chỉ cần sai thời gian là con có thể lạc trong rừng sâu đấy."
         }
@@ -80,17 +80,17 @@
       "activityRef": "g3-l3-qs",
       "cutscene": [
         {
-          "sprite": "assets/user/VuaHung.png",
+          "sprite": "/assets/grades/grade3/fraction-quest/characters/vuahung_idle.png",
           "speaker": "Vua Hùng",
           "text": "Suối nguồn đầy thử thách. Muốn tìm đủ gà dâng lễ, con phải biết đo đạc thật chính xác."
         },
         {
-          "sprite": "assets/user/SonTinh.png",
+          "sprite": "/assets/grades/grade3/fraction-quest/characters/sontinh_idle.png",
           "speaker": "Sơn Tinh",
           "text": "Hãy đo độ dài con đường, cân khối lượng gà bằng gam và tính diện tích bãi suối."
         },
         {
-          "sprite": "assets/user/ThuyTinh.png",
+          "sprite": "/assets/grades/grade3/fraction-quest/characters/thuytinh_idle.png",
           "speaker": "Thủy Tinh",
           "text": "Cẩn thận với các đơn vị đo nhé! Nhầm lẫn một chút thôi là tính sai ngay đấy."
         }
@@ -105,17 +105,17 @@
       "activityRef": "g3-l4-qs",
       "cutscene": [
         {
-          "sprite": "assets/user/VuaHung.png",
+          "sprite": "/assets/grades/grade3/fraction-quest/characters/vuahung_idle.png",
           "speaker": "Vua Hùng",
           "text": "Suối nguồn đầy thử thách. Muốn tìm đủ gà dâng lễ, con phải biết đo đạc thật chính xác."
         },
         {
-          "sprite": "assets/user/SonTinh.png",
+          "sprite": "/assets/grades/grade3/fraction-quest/characters/sontinh_idle.png",
           "speaker": "Sơn Tinh",
           "text": "Hãy đo độ dài con đường, cân khối lượng gà bằng gam và tính diện tích bãi suối."
         },
         {
-          "sprite": "assets/user/ThuyTinh.png",
+          "sprite": "/assets/grades/grade3/fraction-quest/characters/thuytinh_idle.png",
           "speaker": "Thủy Tinh",
           "text": "Cẩn thận với các đơn vị đo nhé! Nhầm lẫn một chút thôi là tính sai ngay đấy."
         }

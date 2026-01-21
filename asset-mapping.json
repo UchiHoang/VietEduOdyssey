@@ -1,0 +1,442 @@
+{
+  "metadata": {
+    "description": "Bản đồ ánh xạ di chuyển assets từ cấu trúc cũ sang cấu trúc mới",
+    "version": "1.0",
+    "date": "2026-01-21"
+  },
+  "mappings": [
+    {
+      "category": "Preschool - Characters",
+      "grade": "preschool",
+      "game": "counting-animals",
+      "files": [
+        {
+          "old": "public/assets/user/chucuoi.png",
+          "new": "public/assets/grades/preschool/counting-animals/characters/cuoi_idle.png",
+          "description": "Chú Cuội đứng yên"
+        },
+        {
+          "old": "public/assets/user/cuoi1.png",
+          "new": "public/assets/grades/preschool/counting-animals/characters/cuoi_idle1.png",
+          "description": "Chú Cuội - tư thế 1"
+        },
+        {
+          "old": "public/assets/user/cuoi2.png",
+          "new": "public/assets/grades/preschool/counting-animals/characters/cuoi_thinking.png",
+          "description": "Thỏ Ngọc/Cuội suy nghĩ"
+        },
+        {
+          "old": "public/assets/user/cuoi3.png",
+          "new": "public/assets/grades/preschool/counting-animals/characters/cuoi_happy.png",
+          "description": "Cuội vui vẻ"
+        },
+        {
+          "old": "public/assets/user/cuoi4.png",
+          "new": "public/assets/grades/preschool/counting-animals/characters/cuoi_pointing.png",
+          "description": "Thỏ Ngọc chỉ tay"
+        },
+        {
+          "old": "public/assets/user/chihang.png",
+          "new": "public/assets/grades/preschool/counting-animals/characters/chihang_idle.png",
+          "description": "Chị Hằng"
+        },
+        {
+          "old": "public/assets/user/chimse.png",
+          "new": "public/assets/grades/preschool/counting-animals/characters/bird_idle.png",
+          "description": "Chim sẻ"
+        }
+      ]
+    },
+    {
+      "category": "Preschool - Questions/Objects",
+      "grade": "preschool",
+      "game": "counting-animals",
+      "files": [
+        {
+          "old": "public/assets/user/firefly.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/firefly_yellow.png",
+          "description": "Đom đóm vàng"
+        },
+        {
+          "old": "public/assets/user/fireflyblue.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/firefly_blue.png",
+          "description": "Đom đóm xanh"
+        },
+        {
+          "old": "public/assets/user/water.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/water_drop1.png",
+          "description": "Giọt sương 1"
+        },
+        {
+          "old": "public/assets/user/water2.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/water_drop2.png",
+          "description": "Giọt sương 2"
+        },
+        {
+          "old": "public/assets/user/leaf.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/leaf_green.png",
+          "description": "Lá xanh"
+        },
+        {
+          "old": "public/assets/user/leaf_yellow.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/leaf_yellow.png",
+          "description": "Lá vàng"
+        },
+        {
+          "old": "public/assets/user/leafg.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/leaf_wet_green.png",
+          "description": "Lá đọng sương xanh"
+        },
+        {
+          "old": "public/assets/user/leafo.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/leaf_dry_brown.png",
+          "description": "Lá khô nâu"
+        },
+        {
+          "old": "public/assets/user/plant.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/plant_sprout1.png",
+          "description": "Chồi non 1"
+        },
+        {
+          "old": "public/assets/user/plant2.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/plant_sprout2.png",
+          "description": "Chồi non 2"
+        },
+        {
+          "old": "public/assets/user/rock.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/rock_small.png",
+          "description": "Viên sỏi nhỏ"
+        },
+        {
+          "old": "public/assets/user/rock2.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/rock_big.png",
+          "description": "Hòn đá lớn"
+        },
+        {
+          "old": "public/assets/user/g0l5q3y.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/tree_yellow.png",
+          "description": "Cây đa vàng (grade0-lesson5-question3)"
+        },
+        {
+          "old": "public/assets/user/g0l5q3g.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/tree_green.png",
+          "description": "Cây đa xanh (grade0-lesson5-question3)"
+        },
+        {
+          "old": "public/assets/user/g0l5p3y.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/plant_yellow.png",
+          "description": "Mầm non vàng"
+        },
+        {
+          "old": "public/assets/user/g0l7q3b.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/cloud_blue.png",
+          "description": "Mây xanh (grade0-lesson7-question3)"
+        },
+        {
+          "old": "public/assets/user/g0l7q3p.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/cloud_pink.png",
+          "description": "Mây hồng (grade0-lesson7-question3)"
+        },
+        {
+          "old": "public/assets/user/g0l7q3y.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/cloud_yellow.png",
+          "description": "Mây vàng (grade0-lesson7-question3)"
+        },
+        {
+          "old": "public/assets/user/lantern_red.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/lantern_red.png",
+          "description": "Lồng đèn đỏ"
+        },
+        {
+          "old": "public/assets/user/lantern_yellow.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/lantern_yellow.png",
+          "description": "Lồng đèn vàng"
+        },
+        {
+          "old": "public/assets/user/lantern_green.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/lantern_green.png",
+          "description": "Lồng đèn xanh"
+        },
+        {
+          "old": "public/assets/user/l1q61.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/lantern_type1.png",
+          "description": "Lồng đèn xanh (lesson1-q6)"
+        },
+        {
+          "old": "public/assets/user/l1q62.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/lantern_type2.png",
+          "description": "Lồng đèn đỏ (lesson1-q6)"
+        },
+        {
+          "old": "public/assets/user/2fish.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/fish_2.png",
+          "description": "2 con cá"
+        },
+        {
+          "old": "public/assets/user/3fish.png",
+          "new": "public/assets/grades/preschool/counting-animals/questions/fish_3.png",
+          "description": "3 con cá"
+        }
+      ]
+    },
+    {
+      "category": "Grade 1 - Characters & Icons",
+      "grade": "grade1",
+      "game": "number-adventure",
+      "files": [
+        {
+          "old": "public/assets/user/zodiac1.png",
+          "new": "public/assets/grades/grade1/number-adventure/characters/zodiac_rat.png",
+          "description": "Con Chuột trong 12 con giáp"
+        },
+        {
+          "old": "public/assets/user/zodiac2.png",
+          "new": "public/assets/grades/grade1/number-adventure/characters/zodiac_ox.png",
+          "description": "Con Trâu trong 12 con giáp"
+        },
+        {
+          "old": "public/assets/user/zodiac3.png",
+          "new": "public/assets/grades/grade1/number-adventure/characters/zodiac_tiger.png",
+          "description": "Con Hổ trong 12 con giáp"
+        },
+        {
+          "old": "public/assets/user/tiger.png",
+          "new": "public/assets/grades/grade1/number-adventure/characters/tiger_idle.png",
+          "description": "Hổ đứng yên"
+        },
+        {
+          "old": "public/assets/user/trauvang.png",
+          "new": "public/assets/grades/grade1/number-adventure/characters/buffalo_golden.png",
+          "description": "Trâu vàng"
+        }
+      ]
+    },
+    {
+      "category": "Grade 2 - Trang Quynh Characters",
+      "grade": "grade2",
+      "game": "trangquynh",
+      "files": [
+        {
+          "old": "public/assets/user/trang_idle.png",
+          "new": "public/assets/grades/grade2/trangquynh/characters/trang_idle.png",
+          "description": "Trạng Quỳnh đứng yên"
+        },
+        {
+          "old": "public/assets/user/trang_cheer.png",
+          "new": "public/assets/grades/grade2/trangquynh/characters/trang_cheer.png",
+          "description": "Trạng Quỳnh vui mừng"
+        },
+        {
+          "old": "public/assets/user/trang_portrait.png",
+          "new": "public/assets/grades/grade2/trangquynh/characters/trang_portrait.png",
+          "description": "Chân dung Trạng Quỳnh"
+        }
+      ]
+    },
+    {
+      "category": "Grade 2 - Trang Quynh Icons",
+      "grade": "grade2",
+      "game": "trangquynh",
+      "files": [
+        {
+          "old": "public/assets/user/icon_apple.png",
+          "new": "public/assets/grades/grade2/trangquynh/icons/icon_apple.png",
+          "description": "Icon táo - Làng Thi Nhỏ"
+        },
+        {
+          "old": "public/assets/user/icon_bridge.png",
+          "new": "public/assets/grades/grade2/trangquynh/icons/icon_bridge.png",
+          "description": "Icon cầu - Thử Thách Trên Cầu"
+        },
+        {
+          "old": "public/assets/user/icon_bunch.png",
+          "new": "public/assets/grades/grade2/trangquynh/icons/icon_bunch.png",
+          "description": "Icon buồng cau - Giúp Bà Hàng Xóm"
+        },
+        {
+          "old": "public/assets/user/icon_clock.png",
+          "new": "public/assets/grades/grade2/trangquynh/icons/icon_clock.png",
+          "description": "Icon đồng hồ - Giờ Học Cuối Cùng"
+        },
+        {
+          "old": "public/assets/user/icon_money.png",
+          "new": "public/assets/grades/grade2/trangquynh/icons/icon_money.png",
+          "description": "Icon tiền - Tiền Thưởng Của Làng"
+        },
+        {
+          "old": "public/assets/user/icon_puzzle.png",
+          "new": "public/assets/grades/grade2/trangquynh/icons/icon_puzzle.png",
+          "description": "Icon câu đố"
+        },
+        {
+          "old": "public/assets/user/icon_badge.png",
+          "new": "public/assets/grades/grade2/trangquynh/icons/icon_badge.png",
+          "description": "Icon huy chương - Đối Đáp Trước Rồng Vàng"
+        },
+        {
+          "old": "public/assets/user/icon_ticket.png",
+          "new": "public/assets/grades/grade2/trangquynh/icons/icon_ticket.png",
+          "description": "Icon vé"
+        },
+        {
+          "old": "public/assets/user/6apple.png",
+          "new": "public/assets/grades/grade2/trangquynh/questions/apple_6.png",
+          "description": "6 quả táo"
+        },
+        {
+          "old": "public/assets/user/appleTree.png",
+          "new": "public/assets/grades/grade2/trangquynh/questions/apple_tree.png",
+          "description": "Cây táo"
+        },
+        {
+          "old": "public/assets/user/4nut.png",
+          "new": "public/assets/grades/grade2/trangquynh/questions/nut_4.png",
+          "description": "4 hạt/quả"
+        },
+        {
+          "old": "public/assets/user/10nut.png",
+          "new": "public/assets/grades/grade2/trangquynh/questions/nut_10.png",
+          "description": "10 hạt/quả"
+        }
+      ]
+    },
+    {
+      "category": "Grade 3 - Son Tinh Thuy Tinh Characters",
+      "grade": "grade3",
+      "game": "fraction-quest",
+      "files": [
+        {
+          "old": "public/assets/user/SonTinh.png",
+          "new": "public/assets/grades/grade3/fraction-quest/characters/sontinh_idle.png",
+          "description": "Sơn Tinh"
+        },
+        {
+          "old": "public/assets/user/ThuyTinh.png",
+          "new": "public/assets/grades/grade3/fraction-quest/characters/thuytinh_idle.png",
+          "description": "Thủy Tinh"
+        },
+        {
+          "old": "public/assets/user/VuaHung.png",
+          "new": "public/assets/grades/grade3/fraction-quest/characters/vuahung_idle.png",
+          "description": "Vua Hùng"
+        },
+        {
+          "old": "public/assets/user/bacdau.png",
+          "new": "public/assets/grades/grade3/fraction-quest/characters/bacdau_idle.png",
+          "description": "Bắc Đẩu (nhân vật phụ)"
+        },
+        {
+          "old": "public/assets/user/namtao.png",
+          "new": "public/assets/grades/grade3/fraction-quest/characters/namtao_idle.png",
+          "description": "Nam Tào (nhân vật phụ)"
+        }
+      ]
+    },
+    {
+      "category": "Grade 3 - Questions/Objects",
+      "grade": "grade3",
+      "game": "fraction-quest",
+      "files": [
+        {
+          "old": "public/assets/user/peach.png",
+          "new": "public/assets/grades/grade3/fraction-quest/questions/peach.png",
+          "description": "Quả đào"
+        },
+        {
+          "old": "public/assets/user/stepb.png",
+          "new": "public/assets/grades/grade3/fraction-quest/questions/step_blue.png",
+          "description": "Bậc thang xanh"
+        },
+        {
+          "old": "public/assets/user/stepl.png",
+          "new": "public/assets/grades/grade3/fraction-quest/questions/step_purple.png",
+          "description": "Bậc thang tím"
+        },
+        {
+          "old": "public/assets/user/uocluong.png",
+          "new": "public/assets/grades/grade3/fraction-quest/questions/measurement_tool.png",
+          "description": "Dụng cụ ước lượng"
+        }
+      ]
+    },
+    {
+      "category": "Grade 5 - Characters",
+      "grade": "grade5",
+      "game": "math-champion",
+      "files": [
+        {
+          "old": "public/assets/user/trangnguyen5.png",
+          "new": "public/assets/grades/grade5/math-champion/characters/trangnguyen_idle.png",
+          "description": "Trạng Nguyên"
+        },
+        {
+          "old": "public/assets/user/linhcongbinh5.png",
+          "new": "public/assets/grades/grade5/math-champion/characters/soldier_engineer.png",
+          "description": "Lính công binh"
+        },
+        {
+          "old": "public/assets/user/linhhaucan5.png",
+          "new": "public/assets/grades/grade5/math-champion/characters/soldier_support.png",
+          "description": "Lính hậu cần"
+        },
+        {
+          "old": "public/assets/user/thuyentruong5.png",
+          "new": "public/assets/grades/grade5/math-champion/characters/captain_ship.png",
+          "description": "Thuyền trưởng"
+        },
+        {
+          "old": "public/assets/user/tuongquan5.png",
+          "new": "public/assets/grades/grade5/math-champion/characters/general_army.png",
+          "description": "Tướng quân"
+        }
+      ]
+    },
+    {
+      "category": "Common Icons - Dùng chung cho nhiều lớp",
+      "grade": "common",
+      "files": [
+        {
+          "note": "Các icon đã tồn tại trong src/assets/icons - Cần xem xét có duplicate không",
+          "files_to_review": [
+            "src/assets/icons/icon_apple.png",
+            "src/assets/icons/icon_badge.png",
+            "src/assets/icons/icon_bridge.png",
+            "src/assets/icons/icon_bunch.png",
+            "src/assets/icons/icon_clock.png",
+            "src/assets/icons/icon_money.png",
+            "src/assets/icons/icon_puzzle.png",
+            "src/assets/icons/icon_ruler.png",
+            "src/assets/icons/icon_sack.png"
+          ],
+          "action_needed": "So sánh với public/assets/user/icon_*.png và quyết định giữ bản nào hoặc merge"
+        }
+      ]
+    },
+    {
+      "category": "Common Questions - src/assets/game",
+      "grade": "common",
+      "files": [
+        {
+          "note": "Các file trong src/assets/game đã đúng cấu trúc",
+          "existing_files": [
+            "src/assets/game/counting-apple.png",
+            "src/assets/game/counting-banana.png",
+            "src/assets/game/counting-dots.png",
+            "src/assets/game/counting-flower.png",
+            "src/assets/game/counting-star.png",
+            "src/assets/game/measurement-tools.png",
+            "src/assets/game/number-cards.png",
+            "src/assets/game/shapes-basic.png"
+          ],
+          "action": "Di chuyển sang public/assets/common/questions/"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "⚠️ CẦN XÁC NHẬN: Một số file có tên mã hóa (hash) khó hiểu. Tôi đã đoán nghĩa dựa vào ngữ cảnh JSON.",
+    "✅ DUPLICATE CHECK: Cần kiểm tra icon_*.png giữa public/assets/user và src/assets/icons",
+    "🔄 SRC/ASSETS: File trong src/assets/game cần di chuyển sang public/assets/common/questions",
+    "📝 MISSING FILES: Một số icon trong story JSON không có file tương ứng (icon_ruler, icon_sack, icon_calendar, etc.)"
+  ]
+}

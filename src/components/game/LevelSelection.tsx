@@ -2,41 +2,7 @@ import { memo } from "react";
 import { Lock, CheckCircle, Star } from "lucide-react";
 import { GameProgress } from "@/hooks/useGameEngine";
 import { StoryNode } from "@/types/game";
-
-// Import level icons
-import iconApple from "@/assets/icons/icon_apple.png";
-import iconBridge from "@/assets/icons/icon_bridge.png";
-import iconBunch from "@/assets/icons/icon_bunch.png";
-import iconClock from "@/assets/icons/icon_clock.png";
-import iconRuler from "@/assets/icons/icon_ruler.png";
-import iconSack from "@/assets/icons/icon_sack.png";
-import iconMoney from "@/assets/icons/icon_money.png";
-import iconPuzzle from "@/assets/icons/icon_puzzle.png";
-import iconBadge from "@/assets/icons/icon_badge.png";
-import iconFly from "@/assets/icons/domdom.png";
-import iconGate from "@/assets/icons/gate.png";
-import iconRabbit from "@/assets/icons/rabbit.png";
-import icon13 from "@/assets/icons/chihang.png";
-import icon14 from "@/assets/icons/14.png";
-import icon15 from "@/assets/icons/15.png";
-
-const levelIcons = [
-  iconApple,   // Level 1
-  iconBridge,  // Level 2
-  iconBunch,   // Level 3
-  iconClock,   // Level 4
-  iconRuler,   // Level 5
-  iconSack,    // Level 6
-  iconMoney,   // Level 7
-  iconPuzzle,  // Level 8
-  iconBadge,   // Level 9
-  iconFly,
-  iconGate,
-  iconRabbit,
-  icon13,
-  icon14,
-  icon15,
-];
+import { getLevelIcon } from "@/utils/levelIcons";
 
 interface LevelSelectionProps {
   title: string;
@@ -152,7 +118,7 @@ const LevelSelectionComponent = ({
                 {/* Level Icon */}
                 <div className="mb-4 flex justify-center">
                   <img
-                    src={levelIcons[index]}
+                    src={getLevelIcon(title, index)}
                     alt={node.title}
                     className={`w-20 h-20 object-contain ${
                       !isUnlocked ? "opacity-50 grayscale" : ""
