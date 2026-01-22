@@ -300,7 +300,12 @@
           "choices": ["235 000", "380 000", "150 000"],
           "answer": "380 000",
           "explanation": "380 000 là số lớn nhất trong ba số."
-        }
+        },
+        { "id": "g4-l1-q11", "type": "multiple-choice", "prompt": "Chữ số 5 trong số 45837 thuộc hàng nào?", "choices": ["Hàng chục", "Hàng trăm", "Hàng nghìn", "Hàng chục nghìn"], "answer": "Hàng nghìn", "explanation": "40 000 + 5 000 + 800 + 30 + 7" },
+        { "id": "g4-l1-q12", "type": "counting", "question": "Có một hình vuông chu vi 16 cm, nếu mở rộng về một phía thêm 2cm để được một hình chữ nhật thì diện tích hình chữ nhật bằng bao nhiêu xăng ti mét vuông?", "prompt": "", "countingItems": [{ "image": "/assets/grades/grade4/geometry-world/questions/l1q12.png", "count": 1 }], "countingAnswer": 24, "explanation": "24 xăng ti mét vuông" },
+        { "id": "g4-l1-q13", "type": "matching-pairs", "question": "Chọn kết quả thích hợp", "pairs": [{ "id": "p1", "left": "Chu vi hình vuộng có cạnh a = 5cm", "right": "2dm" }, { "id": "p2", "left": "Diện tích hình chữ nhật có chiều dài là 5cm, chiều rộng 4cm", "right": "20cm vuông" }, { "id": "p3", "left": "Cạnh của hình vuông có chu vi là 8m", "right": "20dm" }], "explanation": "" },
+        { "id": "g4-l1-q14", "type": "fill-blank", "question": " ___ : 3 = 12321", "blanks": [{ "position": 0, "answer": "36963", "placeholder": "___" }], "explanation": " 3 x 4 = 12" },
+        { "id": "g4-l1-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "11232 + 987","correctSlot": "small"},{"id": "d2","content": "11987 + 323","correctSlot": "medium"},{"id": "d3","content": "12232 + 923","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "12219"},{"id": "medium","label": "12310"},{"id": "large","label": "13155"}]}
       ]
     },
     {
@@ -409,7 +414,12 @@
           "choices": ["5", "6", "7", "8"],
           "answer": "6",
           "explanation": "Đếm được 6 chữ số: 1, 2, 3, 4, 5, 6."
-        }
+        },
+        { "id": "g4-l2-q11", "type": "multiple-choice", "prompt": "số đó gồm 5 triệu, 3 trăm, 2 chục và 1 đơn vị", "choices": ["5321", "50321", "500321", "5000321"], "answer": "5000321", "explanation": "5 000 000 + 300 + 20 + 1" },
+        { "id": "g4-l2-q12", "type": "counting", "question": "Chu vi của hình bình hành BECD lớn hơn chu vi hình chữ nhật ABCD là bao nhiêu cm?", "prompt": "", "countingItems": [{ "image": "/assets/grades/grade4/geometry-world/questions/l2q12.png", "count": 1 }], "countingAnswer": 8, "explanation": "" },
+        { "id": "g4-l2-q13", "type": "matching-pairs", "question": "Chọn kết quả thích hợp", "pairs": [{ "id": "p1", "left": "7 + 800 + 4060", "right": "4867" }, { "id": "p2", "left": "103 + 8710 + 40104", "right": "48917" }, { "id": "p3", "left": "4002 + 420 + 40000", "right": "44422" }], "explanation": "" },
+        { "id": "g4-l2-q14", "type": "fill-blank", "question": "Giá trị của chữ số 9 trong số 931035 là ___", "blanks": [{ "position": 0, "answer": "900000", "placeholder": "___" }], "explanation": "9 trăm ngàn" },
+        { "id": "g4-l2-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "11232 + 987","correctSlot": "small"},{"id": "d2","content": "11987 + 323","correctSlot": "medium"},{"id": "d3","content": "12232 + 923","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "12219"},{"id": "medium","label": "12310"},{"id": "large","label": "13155"}]}
       ]
     },
     {

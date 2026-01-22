@@ -85,7 +85,7 @@ export const getLevelIcon = (gradeOrGameTitle: string, levelIndex: number): stri
       // PLACEHOLDER: Dùng tạm questions, cần thay bằng icons/
       '/assets/grades/preschool/counting-animals/questions/firefly_yellow.png',
       '/assets/grades/preschool/counting-animals/questions/water_drop1.png',
-      '/assets/grades/preschool/counting-animals/questions/cloud_blue.png',
+      '/assets/grades/preschool/counting-animals/questions/plant_sprout1.png',
       '/assets/grades/preschool/counting-animals/questions/rock_big.png',
       '/assets/grades/preschool/counting-animals/questions/tree_green.png',
       '/assets/grades/preschool/counting-animals/characters/bird_idle.png',
