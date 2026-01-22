@@ -1,23 +1,10 @@
 import { useState, useMemo, useEffect } from "react";
-import {
-  PlayCircle,
-  BookOpen,
-  CheckCircle,
-  Search,
-  Video,
-  FileText,
-} from "lucide-react";
+import { PlayCircle, BookOpen, CheckCircle, Search, Video, FileText } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Header from "@/components/Header";
@@ -118,8 +105,7 @@ const topicsData: Topic[] = [
     semester: 1,
     title: "Học Cách So Sánh Nhiều Hơn, Ít Hơn, Bằng Nhau",
     videoUrl: "https://www.youtube.com/embed/Z8P-pmHMxDU",
-    description:
-      "Học cách nhận biết và so sánh số lượng: nhiều – ít – bằng nhau",
+    description: "Học cách nhận biết và so sánh số lượng: nhiều – ít – bằng nhau",
     completed: false,
   },
   {
@@ -218,8 +204,7 @@ const topicsData: Topic[] = [
     semester: 1,
     title: "Học Cách So Sánh Nhiều Hơn, Ít Hơn, Bằng Nhau",
     videoUrl: "https://www.youtube.com/embed/Z8P-pmHMxDU",
-    description:
-      "Học cách nhận biết và so sánh số lượng: nhiều – ít – bằng nhau. ",
+    description: "Học cách nhận biết và so sánh số lượng: nhiều – ít – bằng nhau. ",
     completed: false,
   },
   {
@@ -341,14 +326,14 @@ const topicsData: Topic[] = [
     completed: false,
   },
   /* --- LỚP 2 --- */
-    /* --- LỚP 2 - HỌC KÌ 1 --- */
+  /* --- LỚP 2 - HỌC KÌ 1 --- */
   {
     id: "L2-1",
     lessonId: "L2",
     semester: 1,
     title: "Nhận Biết Đơn Vị Chục, Trăm, Nghìn",
     videoUrl: "https://www.youtube.com/embed/GqOC3khhHYk",
-    description: "Nhận Biết Đơn Vị Chục, Trăm, Nghìn"
+    description: "Nhận Biết Đơn Vị Chục, Trăm, Nghìn",
   },
   {
     id: "L2-2",
@@ -356,7 +341,7 @@ const topicsData: Topic[] = [
     semester: 1,
     title: "Học So Sánh Các Số Tròn Trăm",
     videoUrl: "https://www.youtube.com/embed/w_9hbyNwbEw",
-    description: "Học So Sánh Các Số Tròn Trăm"
+    description: "Học So Sánh Các Số Tròn Trăm",
   },
   {
     id: "L2-3",
@@ -364,7 +349,7 @@ const topicsData: Topic[] = [
     semester: 1,
     title: "Làm Quen Với Các Số Từ 111 Đến 200",
     videoUrl: "https://www.youtube.com/embed/lrc8idC9Itc",
-    description: "Làm Quen Với Các Số Từ 111 Đến 200"
+    description: "Làm Quen Với Các Số Từ 111 Đến 200",
   },
   {
     id: "L2-4",
@@ -372,7 +357,7 @@ const topicsData: Topic[] = [
     semester: 1,
     title: "Làm Quen Với Các Số Có Ba Chữ Số",
     videoUrl: "https://www.youtube.com/embed/tklyRfsxrq8",
-    description: "Làm Quen Với Các Số Có Ba Chữ Số"
+    description: "Làm Quen Với Các Số Có Ba Chữ Số",
   },
   {
     id: "L2-5",
@@ -380,7 +365,7 @@ const topicsData: Topic[] = [
     semester: 1,
     title: "Học Cách Tìm Một Số Hạng Trong Một Tổng",
     videoUrl: "https://www.youtube.com/embed/iq4s2yWVFYE",
-    description: "Học Cách Tìm Một Số Hạng Trong Một Tổng"
+    description: "Học Cách Tìm Một Số Hạng Trong Một Tổng",
   },
   {
     id: "L2-6",
@@ -388,7 +373,7 @@ const topicsData: Topic[] = [
     semester: 1,
     title: "Phân Biệt Ngày, Giờ, Xem Đồng Hồ",
     videoUrl: "https://www.youtube.com/embed/HPsUJQ4amsM",
-    description: "Phân Biệt Ngày, Giờ, Xem Đồng Hồ"
+    description: "Phân Biệt Ngày, Giờ, Xem Đồng Hồ",
   },
   {
     id: "L2-7",
@@ -396,7 +381,7 @@ const topicsData: Topic[] = [
     semester: 1,
     title: "Phân Biệt Ngày, Tháng, Xem Lịch",
     videoUrl: "https://www.youtube.com/embed/FfM5bGSUsJ4",
-    description: "Phân Biệt Ngày, Tháng, Xem Lịch"
+    description: "Phân Biệt Ngày, Tháng, Xem Lịch",
   },
   {
     id: "L2-8",
@@ -404,7 +389,7 @@ const topicsData: Topic[] = [
     semester: 1,
     title: "Ki-Lo-Gam (Kg) Là Gì?",
     videoUrl: "https://www.youtube.com/embed/P5TGyT263tg",
-    description: "Ki-Lo-Gam (Kg) Là Gì?"
+    description: "Ki-Lo-Gam (Kg) Là Gì?",
   },
   {
     id: "L2-9",
@@ -412,7 +397,7 @@ const topicsData: Topic[] = [
     semester: 1,
     title: "Lít (L) Là Gì?",
     videoUrl: "https://www.youtube.com/embed/sq6w6YTOy2g",
-    description: "Lít (L) Là Gì?"
+    description: "Lít (L) Là Gì?",
   },
   {
     id: "L2-10",
@@ -420,7 +405,7 @@ const topicsData: Topic[] = [
     semester: 1,
     title: "Nhận Biết Tiền Việt Nam",
     videoUrl: "https://www.youtube.com/embed/ysFv_hBPiM8",
-    description: "Nhận Biết Tiền Việt Nam"
+    description: "Nhận Biết Tiền Việt Nam",
   },
   {
     id: "L2-11",
@@ -428,7 +413,7 @@ const topicsData: Topic[] = [
     semester: 1,
     title: "Học Cách Giải Bài Toán Về Nhiều Hơn",
     videoUrl: "https://www.youtube.com/embed/CTBmx61GEU8",
-    description: "Học Cách Giải Bài Toán Về Nhiều Hơn"
+    description: "Học Cách Giải Bài Toán Về Nhiều Hơn",
   },
   {
     id: "L2-12",
@@ -436,7 +421,7 @@ const topicsData: Topic[] = [
     semester: 1,
     title: "Học Cách Giải Các Bài Toán Về Tuổi",
     videoUrl: "https://www.youtube.com/embed/Xem-B2yn_f0",
-    description: "Học Cách Giải Các Bài Toán Về Tuổi"
+    description: "Học Cách Giải Các Bài Toán Về Tuổi",
   },
   {
     id: "L2-13",
@@ -444,7 +429,7 @@ const topicsData: Topic[] = [
     semester: 1,
     title: "Làm Quen Với Số Hạng – Tổng Trong Phép Cộng",
     videoUrl: "https://www.youtube.com/embed/5Szi-0_PRC8",
-    description: "Làm Quen Với Số Hạng – Tổng Trong Phép Cộng"
+    description: "Làm Quen Với Số Hạng – Tổng Trong Phép Cộng",
   },
   {
     id: "L2-14",
@@ -452,7 +437,7 @@ const topicsData: Topic[] = [
     semester: 1,
     title: "Làm Quen Với Số Bị Trừ – Số Trừ – Hiệu",
     videoUrl: "https://www.youtube.com/embed/3WVHjJfKivs",
-    description: "Làm Quen Với Số Bị Trừ – Số Trừ – Hiệu"
+    description: "Làm Quen Với Số Bị Trừ – Số Trừ – Hiệu",
   },
   /* --- LỚP 2 - HỌC KÌ 2 --- */
   {
@@ -461,7 +446,7 @@ const topicsData: Topic[] = [
     semester: 2,
     title: "Khi Số Có Tận Cùng Là 1 Trừ Đi Một Số",
     videoUrl: "https://www.youtube.com/embed/7oMjY5lXYRo",
-    description: "Khi Số Có Tận Cùng Là 1 Trừ Đi Một Số"
+    description: "Khi Số Có Tận Cùng Là 1 Trừ Đi Một Số",
   },
   {
     id: "L2-16",
@@ -469,7 +454,7 @@ const topicsData: Topic[] = [
     semester: 2,
     title: "Khi Số Có Tận Cùng Là 2 Trừ Đi Một Số",
     videoUrl: "https://www.youtube.com/embed/G2S8vsjxFnw",
-    description: "Khi Số Có Tận Cùng Là 2 Trừ Đi Một Số"
+    description: "Khi Số Có Tận Cùng Là 2 Trừ Đi Một Số",
   },
   {
     id: "L2-17",
@@ -477,7 +462,7 @@ const topicsData: Topic[] = [
     semester: 2,
     title: "Làm Quen Với Kết Hợp Phép Tính",
     videoUrl: "https://www.youtube.com/embed/YtBWfbUzGO4",
-    description: "Làm Quen Với Kết Hợp Phép Tính"
+    description: "Làm Quen Với Kết Hợp Phép Tính",
   },
   {
     id: "L2-18",
@@ -485,7 +470,7 @@ const topicsData: Topic[] = [
     semester: 2,
     title: "Phép Cộng, Trừ Không Nhớ Trong Phạm Vi 1000",
     videoUrl: "https://www.youtube.com/embed/VV_8RWXr5P0",
-    description: "Phép Cộng, Trừ Không Nhớ Trong Phạm Vi 1000"
+    description: "Phép Cộng, Trừ Không Nhớ Trong Phạm Vi 1000",
   },
   {
     id: "L2-19",
@@ -493,7 +478,7 @@ const topicsData: Topic[] = [
     semester: 2,
     title: "Làm Quen Với Thừa Số - Tích Trong Phép Nhân",
     videoUrl: "https://www.youtube.com/embed/TcdHD4aAXZM",
-    description: "Làm Quen Với Thừa Số - Tích Trong Phép Nhân"
+    description: "Làm Quen Với Thừa Số - Tích Trong Phép Nhân",
   },
   {
     id: "L2-20",
@@ -501,7 +486,7 @@ const topicsData: Topic[] = [
     semester: 2,
     title: "Làm Quen Với Số Bị Chia - Số Chia - Thương",
     videoUrl: "https://www.youtube.com/embed/aKKma5Pbe_o",
-    description: "Làm Quen Với Số Bị Chia - Số Chia - Thương"
+    description: "Làm Quen Với Số Bị Chia - Số Chia - Thương",
   },
   {
     id: "L2-21",
@@ -509,7 +494,7 @@ const topicsData: Topic[] = [
     semester: 2,
     title: "Khi Số 1 Trong Phép Nhân Và Phép Chia",
     videoUrl: "https://www.youtube.com/embed/bMu4KVezAy8",
-    description: "Khi Số 1 Trong Phép Nhân Và Phép Chia"
+    description: "Khi Số 1 Trong Phép Nhân Và Phép Chia",
   },
   {
     id: "L2-22",
@@ -517,7 +502,7 @@ const topicsData: Topic[] = [
     semester: 2,
     title: "Làm Quen Với Đường Gấp Khúc - Độ Dài Đường Gấp Khúc",
     videoUrl: "https://www.youtube.com/embed/stX8wTTHbhg",
-    description: "Làm Quen Với Đường Gấp Khúc - Độ Dài Đường Gấp Khúc"
+    description: "Làm Quen Với Đường Gấp Khúc - Độ Dài Đường Gấp Khúc",
   },
   {
     id: "L2-23",
@@ -525,7 +510,7 @@ const topicsData: Topic[] = [
     semester: 2,
     title: "Học So Sánh Các Số Có Ba Chữ Số",
     videoUrl: "https://www.youtube.com/embed/LmpZNBdynyM",
-    description: "Học So Sánh Các Số Có Ba Chữ Số"
+    description: "Học So Sánh Các Số Có Ba Chữ Số",
   },
   {
     id: "L2-24",
@@ -533,7 +518,7 @@ const topicsData: Topic[] = [
     semester: 2,
     title: "Khi Phép Cộng Có Tổng Bằng 100",
     videoUrl: "https://www.youtube.com/embed/QpltsNVai3U",
-    description: "Khi Phép Cộng Có Tổng Bằng 100"
+    description: "Khi Phép Cộng Có Tổng Bằng 100",
   },
   {
     id: "L2-25",
@@ -541,7 +526,7 @@ const topicsData: Topic[] = [
     semester: 2,
     title: "Học Cách Tìm Một Thừa Số Của Phép Nhân",
     videoUrl: "https://www.youtube.com/embed/Ky0QKfWGLIk",
-    description: "Học Cách Tìm Một Thừa Số Của Phép Nhân"
+    description: "Học Cách Tìm Một Thừa Số Của Phép Nhân",
   },
   {
     id: "L2-26",
@@ -549,7 +534,7 @@ const topicsData: Topic[] = [
     semester: 2,
     title: "Học Nhanh Bảng Chia 4 - Một Phần Tư",
     videoUrl: "https://www.youtube.com/embed/F9h_I64L1qM",
-    description: "Học Nhanh Bảng Chia 4 - Một Phần Tư"
+    description: "Học Nhanh Bảng Chia 4 - Một Phần Tư",
   },
   /* --- LỚP 3 --- */
   /* --- LỚP 3 - HỌC KÌ 1 --- */
@@ -731,7 +716,7 @@ const topicsData: Topic[] = [
     description: " Học Nhanh Về Dãy Số",
     completed: false,
   },
- 
+
   /* --- LỚP 3 - HỌC KÌ 2 --- */
   {
     id: "L3-21",
@@ -1603,8 +1588,7 @@ const topicsData: Topic[] = [
     semester: 2,
     title: "Diện Tích Xung Quanh Và Diện Tích Toàn Phần Hình Hộp Chữ Nhật",
     videoUrl: "https://www.youtube.com/embed/0YrZsFToDIk",
-    description:
-      "Diện Tích Xung Quanh Và Diện Tích Toàn Phần Hình Hộp Chữ Nhật",
+    description: "Diện Tích Xung Quanh Và Diện Tích Toàn Phần Hình Hộp Chữ Nhật",
   },
   {
     id: "L5-16",
@@ -1612,8 +1596,7 @@ const topicsData: Topic[] = [
     semester: 2,
     title: "Diện Tích Xung Quanh Và Diện Tích Toàn Phần Của Hình Lập Phương",
     videoUrl: "https://www.youtube.com/embed/TNgBCGNgl4Q",
-    description:
-      "Diện Tích Xung Quanh Và Diện Tích Toàn Phần Của Hình Lập Phương",
+    description: "Diện Tích Xung Quanh Và Diện Tích Toàn Phần Của Hình Lập Phương",
   },
   {
     id: "L5-23",
@@ -1719,17 +1702,14 @@ const Lessons = () => {
       (t) =>
         t.lessonId === selectedLessonId &&
         t.semester === selectedSemester && // Thêm điều kiện học kì
-        t.title.toLowerCase().includes(searchQuery.toLowerCase())
+        t.title.toLowerCase().includes(searchQuery.toLowerCase()),
     );
   }, [selectedLessonId, selectedSemester, searchQuery]);
 
   // Tự động chọn bài đầu tiên
   useEffect(() => {
     if (filteredTopics.length > 0) {
-      if (
-        !selectedTopicId ||
-        !filteredTopics.find((t) => t.id === selectedTopicId)
-      ) {
+      if (!selectedTopicId || !filteredTopics.find((t) => t.id === selectedTopicId)) {
         setSelectedTopicId(filteredTopics[0].id);
       }
     } else {
@@ -1746,9 +1726,9 @@ const Lessons = () => {
       <Header />
 
       {/* KHU VỰC NỘI DUNG */}
-      <div className="flex flex-1 overflow-hidden min-h-0">
+      <div className="flex flex-1 min-h-0">
         {/* --- SIDEBAR TRÁI (320px) --- */}
-        <div className="w-[320px] border-r flex flex-col bg-card shadow-sm z-10 flex-shrink-0 h-[calc(100vh-64px)] max-h-[calc(100vh-64px)] rounded-br-2xl overflow-hidden">
+        <div className="w-[320px] border-r flex flex-col bg-card shadow-sm z-10 flex-shrink-0 h-[780px] overflow-hidden rounded-br-2xl">
           {/* Phần điều khiển trên cùng */}
           <div className="p-4 space-y-4 flex-shrink-0">
             {/* 1. Chọn Lớp */}
@@ -1819,7 +1799,7 @@ const Lessons = () => {
           <Separator className="flex-shrink-0" />
 
           {/* Danh sách chủ điểm (Topics) */}
-          <div className="flex-1 overflow-hidden flex flex-col bg-gradient-to-b from-muted/20 to-muted/5 min-h-0 rounded-br-2xl">
+          <div className="flex-1 flex flex-col bg-gradient-to-b from-muted/20 to-muted/5 min-h-0 overflow-hidden">
             {/* Header danh sách */}
             <div className="px-4 py-3 bg-gradient-to-r from-primary/10 to-primary/5 text-sm font-black text-foreground uppercase tracking-wider border-b-2 border-primary/30 flex justify-between items-center flex-shrink-0">
               <span className="text-base">DANH SÁCH BÀI HỌC</span>
@@ -1832,8 +1812,8 @@ const Lessons = () => {
             </div>
 
             {/* Container scroll với chiều cao cố định */}
-            <div className="flex-1 overflow-y-auto overflow-x-hidden lesson-list-scroll min-h-0 rounded-br-2xl">
-              <div className="p-3 space-y-3 pb-4">
+            <div className="flex-1 overflow-y-auto overflow-x-hidden lesson-list-scroll min-h-0 pb-4">
+              <div className="p-3 space-y-3">
                 {filteredTopics.length > 0 ? (
                   filteredTopics.map((topic, index) => (
                     <button
@@ -1852,7 +1832,7 @@ const Lessons = () => {
                             <PlayCircle className="h-5 w-5" />
                           </div>
                         ) : topic.completed ? (
-                          <div className="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center text-white shadow-lg">
+                          <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground shadow-lg">
                             <CheckCircle className="h-5 w-5" />
                           </div>
                         ) : (
@@ -1877,7 +1857,7 @@ const Lessons = () => {
                         {/* Badge trạng thái - larger */}
                         <div className="flex items-center gap-2">
                           {topic.completed ? (
-                            <span className="text-xs px-2.5 py-1 bg-green-100 text-green-700 rounded-lg font-bold inline-flex items-center gap-1.5">
+                            <span className="text-xs px-2.5 py-1 bg-primary/15 text-primary rounded-lg font-bold inline-flex items-center gap-1.5">
                               <CheckCircle className="h-3 w-3" /> Hoàn thành
                             </span>
                           ) : (
@@ -1892,14 +1872,16 @@ const Lessons = () => {
                 ) : (
                   <div className="text-center py-12 px-4 text-muted-foreground">
                     <FileText className="h-10 w-10 mx-auto mb-2 opacity-20" />
-                    <p className="text-xs">
-                      Không tìm thấy bài học nào cho Học kì {selectedSemester}.
-                    </p>
+                    <p className="text-xs">Không tìm thấy bài học nào cho Học kì {selectedSemester}.</p>
                   </div>
                 )}
               </div>
             </div>
+
           </div>
+          
+          {/* Viền xanh lá ở đuôi sidebar */}
+          <div className="h-3 bg-primary rounded-b-2xl flex-shrink-0" />
         </div>
 
         {/* --- KHUNG CHÍNH (MAIN CONTENT) --- */}
@@ -1920,9 +1902,7 @@ const Lessons = () => {
                     <span className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground px-3 py-1.5 rounded-lg text-xs md:text-sm font-bold uppercase tracking-wider shadow-md">
                       {selectedLesson?.title}
                     </span>
-                    <span className="text-muted-foreground font-semibold">
-                      /
-                    </span>
+                    <span className="text-muted-foreground font-semibold">/</span>
                     <span className="bg-muted px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold">
                       Học kì {selectedSemester}
                     </span>
@@ -1958,13 +1938,10 @@ const Lessons = () => {
                         Nội dung bài học
                       </h3>
                       <div className="text-foreground/90 leading-relaxed text-base md:text-lg">
-                        <p className="mb-3 font-semibold text-primary">
-                          {selectedTopic.description}
-                        </p>
+                        <p className="mb-3 font-semibold text-primary">{selectedTopic.description}</p>
                         <p className="mt-2">
-                          Hãy xem kỹ video và ghi chép lại các công thức quan
-                          trọng. Sau khi xem xong, bạn có thể nhấn nút "Làm bài
-                          tập" bên cạnh để củng cố kiến thức.
+                          Hãy xem kỹ video và ghi chép lại các công thức quan trọng. Sau khi xem xong, bạn có thể nhấn
+                          nút "Làm bài tập" bên cạnh để củng cố kiến thức.
                         </p>
                       </div>
                     </div>
@@ -2010,7 +1987,7 @@ const Lessons = () => {
           )}
         </div>
       </div>
-      <Footer className="mt-auto" />
+      <Footer />
     </div>
   );
 };
