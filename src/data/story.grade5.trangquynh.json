@@ -309,7 +309,13 @@
         { "id": "g5-l1-q7", "type": "multiple-choice", "prompt": "Hỗn số 3 2/5 chuyển thành số thập phân là?", "choices": ["3,2", "3,4", "3,5", "3,25"], "answer": "3,4", "explanation": "2/5 = 4/10 = 0,4. Vậy là 3,4." },
         { "id": "g5-l1-q8", "type": "matching-pairs", "question": "Ghép phép tính với kết quả", "pairs": [{ "id": "p4", "left": "0,1 x 10", "right": "1" }, { "id": "p5", "left": "0,1 x 100", "right": "10" }, { "id": "p6", "left": "0,01 x 1000", "right": "10" }], "explanation": "Nhân với 10, 100 dịch dấu phẩy sang phải." },
         { "id": "g5-l1-q9", "type": "fill-blank", "question": "Tìm x biết: x - 1,2 = 4,5. Vậy x = __", "blanks": [{ "position": 0, "answer": "5,7" }], "explanation": "x = 4,5 + 1,2 = 5,7." },
-        { "id": "g5-l1-q10", "type": "multiple-choice", "prompt": "Mỗi xe chở 1,5 tấn gạo. 4 xe chở bao nhiêu tấn?", "choices": ["5 tấn", "6 tấn", "4,5 tấn", "7 tấn"], "answer": "6 tấn", "explanation": "1,5 x 4 = 6,0." }
+        { "id": "g5-l1-q10", "type": "multiple-choice", "prompt": "Mỗi xe chở 1,5 tấn gạo. 4 xe chở bao nhiêu tấn?", "choices": ["5 tấn", "6 tấn", "4,5 tấn", "7 tấn"], "answer": "6 tấn", "explanation": "1,5 x 4 = 6,0." },
+        { "id": "g5-l1-q11", "type": "multiple-choice", "prompt": "Kết quả của phép tính 105 x 45 là:", "choices": ["4 725", "4 625", "4 525", "4 825"], "answer": "4 725", "explanation": "" },
+        { "id": "g5-l1-q12", "type": "counting", "question": "Phân số chỉ số phần đã tô màu trong hình vẽ dưới đây là ___ phần 8", "prompt": "", "countingItems": [{ "image": "/assets/grades/grade5/math-champion/questions/l1q12.png", "count": 1 }], "countingAnswer": 5, "explanation": "5 : 8" },
+        { "id": "g5-l1-q13", "type": "matching-pairs", "question": "Chọn kết quả thích hợp", "pairs": [{ "id": "p1", "left": "2 phần 3 + 4 phần 7", "right": "26 phần 21" }, { "id": "p2", "left": "2 phần 5 + 4 phần 3", "right": "26 phần 15" }, { "id": "p3", "left": "1 phần 3 + 2 phần 6", "right": "2 phần 3" }], "explanation": "" },
+        { "id": "g5-l1-q14", "type": "fill-blank", "question": "17 804 = 10 000 + 5 900 + ___ + 4", "blanks": [{ "position": 0, "answer": "1900", "placeholder": "___" }], "explanation": "" },
+        { "id": "g5-l1-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "11232 + 987","correctSlot": "small"},{"id": "d2","content": "11987 + 323","correctSlot": "medium"},{"id": "d3","content": "12232 + 923","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "12219"},{"id": "medium","label": "12310"},{"id": "large","label": "13155"}]}
+     
       ]
     },
     {
