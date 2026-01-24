@@ -78,6 +78,38 @@ interface TrangQuynhMiniGameProps {
   theme?: ThemeConfig;
 }
 
+const shuffleWithConstraints = (questions: SimpleQuestion[]) => {
+  // 1. Xáo trộn ngẫu nhiên toàn bộ danh sách trước
+  let shuffled = [...questions].sort(() => Math.random() - 0.5);
+  let result: SimpleQuestion[] = [];
+  
+  while (shuffled.length > 0) {
+    let found = false;
+    for (let i = 0; i < shuffled.length; i++) {
+      const currentQ = shuffled[i];
+      const lastQ = result[result.length - 1];
+
+      // Điều kiện: Nếu câu trước là 'counting' thì câu này phải khác 'counting'
+      // Hoặc nếu đây là câu đầu tiên thì cứ thêm vào
+      if (!lastQ || !(lastQ.type === 'counting' && currentQ.type === 'counting')) {
+        result.push(currentQ);
+        shuffled.splice(i, 1);
+        found = true;
+        break;
+      }
+      console.log("Xáo trộn đã chạy!");
+    }
+
+    // Trường hợp xấu nhất: Chỉ còn toàn câu 'counting' ở cuối 
+    // thì đành phải chấp nhận xếp cạnh nhau
+    if (!found) {
+      result.push(...shuffled);
+      break;
+    }
+  }
+  return result;
+};
+
 export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", storyLoader, theme }: TrangQuynhMiniGameProps) => {
   // ========== HOOKS - Phải gọi theo thứ tự cố định ==========
   
@@ -301,12 +333,12 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
     return null;
 }, [currentNode?.activityRef, getActivity]);
 
-  useEffect(() => {
-    if (currentNode && gamePhase === "cutscene") {
-      setCurrentActivity(loadedActivity as SimpleActivity);
-      levelStartTime.current = Date.now();
-    }
-  }, [currentNode, gamePhase, loadedActivity]);
+  // useEffect(() => {
+  //   if (currentNode && gamePhase === "cutscene") {
+  //     setCurrentActivity(loadedActivity as SimpleActivity);
+  //     levelStartTime.current = Date.now();
+  //   }
+  // }, [currentNode, gamePhase, loadedActivity]);
 
   // Ensure currentActivity is preserved when moving to next question
   useEffect(() => {
@@ -347,11 +379,30 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
     
     // Pre-load activity
     const node = story.nodes[nodeIndex];
+    // if (node?.activityRef) {
+    //   const activity = getActivity(node.activityRef);
+    //   if (activity) {
+    //     console.log("Pre-loaded activity:", activity.id, "Questions:", activity.questions?.length);
+    //     setCurrentActivity(activity as SimpleActivity);
+    //   }
+    // }
     if (node?.activityRef) {
       const activity = getActivity(node.activityRef);
-      if (activity) {
-        console.log("Pre-loaded activity:", activity.id, "Questions:", activity.questions?.length);
-        setCurrentActivity(activity as SimpleActivity);
+      if (activity && activity.questions) {
+        // ÁP DỤNG THUẬT TOÁN XÁO TRỘN
+        const smartRandomQuestions = shuffleWithConstraints(activity.questions as SimpleQuestion[]);
+        
+        setCurrentActivity({
+          ...activity,
+          questions: smartRandomQuestions
+        } as SimpleActivity);
+        
+        console.log("Questions randomized with constraints");
+        //console.table(currentActivity.questions);
+      }
+      else {
+        console.error("Không tìm thấy activity hoặc questions cho ref:", node.activityRef);
+        // Có thể hiển thị toast báo lỗi ở đây
       }
     }
     
@@ -365,18 +416,38 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
     setShowBadgeModal(true);
   }, []);
 
-  const handleCutsceneComplete = () => {
-    const activity = getActivity(currentNode?.activityRef || "");
-    setCurrentActivity(activity as SimpleActivity);
-    setTimerSeconds(activity?.timerSec || activity?.duration || 120);
+  const startLevelLogic = () => {
+    const node = story.nodes[currentNodeIndex];
+    if (node?.activityRef) {
+      const activity = getActivity(node.activityRef);
+      if (activity && activity.questions) {
+        // Xáo trộn câu hỏi
+        const shuffledQuestions = shuffleWithConstraints(activity.questions as SimpleQuestion[]);
+        setCurrentActivity({
+          ...activity,
+          questions: shuffledQuestions
+        } as SimpleActivity);
+        
+        setTimerSeconds(activity?.timerSec || activity?.duration || 120);
+      }
+    }
     setGamePhase("questions");
   };
 
+  const handleCutsceneComplete = () => {
+    // const activity = getActivity(currentNode?.activityRef || "");
+    // setCurrentActivity(activity as SimpleActivity);
+    // setTimerSeconds(activity?.timerSec || activity?.duration || 120);
+    // setGamePhase("questions");
+    startLevelLogic();
+  };
+
   const handleCutsceneSkip = () => {
-    const activity = getActivity(currentNode?.activityRef || "");
-    setCurrentActivity(activity as SimpleActivity);
-    setTimerSeconds(activity?.timerSec || activity?.duration || 120);
-    setGamePhase("questions");
+    // const activity = getActivity(currentNode?.activityRef || "");
+    // setCurrentActivity(activity as SimpleActivity);
+    // setTimerSeconds(activity?.timerSec || activity?.duration || 120);
+    // setGamePhase("questions");
+    startLevelLogic();
   };
 
   const handleAnswer = async (isCorrect: boolean) => {
@@ -733,12 +804,12 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
   // Questions Phase
   if (gamePhase === "questions" && currentNode) {
     // Ensure activity is loaded
-    if (!currentActivity) {
-      console.warn("Activity not loaded, loading now...");
-      const activity = getActivity(currentNode.activityRef);
-      if (activity) {
-        setCurrentActivity(activity as SimpleActivity);
-      }
+    if (!currentActivity || !currentActivity.questions) {
+      // console.warn("Activity not loaded, loading now...");
+      // const activity = getActivity(currentNode.activityRef);
+      // if (activity) {
+      //   setCurrentActivity(activity as SimpleActivity);
+      // }
       return (
         <div className="min-h-screen flex items-center justify-center bg-background" style={rootStyle}>
           <div className="flex flex-col items-center gap-4">
