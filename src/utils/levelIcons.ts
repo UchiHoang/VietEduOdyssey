@@ -34,10 +34,10 @@ export const getLevelIcon = (gradeOrGameTitle: string, levelIndex: number): stri
     const grade1Icons = [
       // PLACEHOLDER: Dùng tạm characters, cần thay bằng icons/
       '/assets/grades/grade1/number-adventure/characters/zodiac_rat.png',
-      '/assets/grades/grade1/number-adventure/characters/zodiac_ox.png',
-      '/assets/grades/grade1/number-adventure/characters/zodiac_tiger.png',
       '/assets/grades/grade1/number-adventure/characters/buffalo_golden.png',
       '/assets/grades/grade1/number-adventure/characters/tiger_idle.png',
+      '/assets/grades/grade1/number-adventure/icons/cat.png',
+      '/assets/grades/grade1/number-adventure/icons/dragon.png',
       '/assets/common/icons/icon_ruler.png',
       '/assets/common/icons/icon_sack.png',
       '/assets/common/icons/icon_bridge.png',
@@ -47,7 +47,7 @@ export const getLevelIcon = (gradeOrGameTitle: string, levelIndex: number): stri
       '/assets/grades/grade1/number-adventure/characters/buffalo_golden.png',
       '/assets/grades/grade1/number-adventure/characters/tiger_idle.png',
       '/assets/common/icons/icon_ruler.png',
-      '/assets/common/icons/icon_sack.png',
+      '/assets/grades/grade1/number-adventure/characters/ngochoang.png',
     ];
     return grade1Icons[levelIndex] || grade1Icons[0];
   }
@@ -92,12 +92,12 @@ export const getLevelIcon = (gradeOrGameTitle: string, levelIndex: number): stri
       '/assets/grades/preschool/counting-animals/questions/cloud_pink.png',
       '/assets/grades/preschool/counting-animals/questions/cloud_yellow.png',
       '/assets/grades/preschool/counting-animals/questions/leaf_green.png',
-      '/assets/grades/preschool/counting-animals/questions/plant_sprout1.png',
-      '/assets/grades/preschool/counting-animals/questions/lantern_red.png',
-      '/assets/grades/preschool/counting-animals/questions/lantern_yellow.png',
-      '/assets/grades/preschool/counting-animals/questions/lantern_green.png',
-      '/assets/grades/preschool/counting-animals/questions/fish_2.png',
-      '/assets/grades/preschool/counting-animals/questions/firefly_blue.png',
+      '/assets/grades/preschool/counting-animals/characters/cuoi_happy.png',
+      '/assets/grades/preschool/counting-animals/icons/l11.png',
+      '/assets/grades/preschool/counting-animals/characters/cuoi_thinking.png',
+      '/assets/grades/preschool/counting-animals/characters/chihang_idle.png',
+      '/assets/grades/preschool/counting-animals/questions/lantern_type1.png',
+      '/assets/grades/preschool/counting-animals/icons/l15.png',
     ];
     return preschoolIcons[levelIndex] || preschoolIcons[0];
   }
