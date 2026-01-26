@@ -738,7 +738,12 @@
           "choices": ["Có", "Không", "Là 999 999", "Là 1 triệu"],
           "answer": "Không",
           "explanation": "Dãy số tự nhiên vô hạn, không có số lớn nhất."
-        }
+        },
+        { "id": "g4-l5-q11", "type": "multiple-choice", "prompt": "Có 4 chiếc can đựng dầu lần lượt là 45 lít, 50 lít, 38 lít, 35 lít. Hỏi trung bình mỗi can đựng được bao nhiêu lít dầu?", "choices": ["44", "43", "42", "41"], "answer": "42", "explanation": "Tính trung bình cộng" },
+        { "id": "g4-l5-q12", "type": "counting", "question": "Có một cái sân hình vuông có chu vi bằng 20 m. Người ta mở rộng bên phải 2m và mở rộng bên trái 1m. Hỏi sau khi mở rộng chu vi sân là bao nhiêu mét?", "prompt": "", "countingItems": [{ "image": "/assets/grades/grade4/geometry-world/questions/l5q12.png", "count": 1 }], "countingAnswer": 26, "explanation": "" },
+        { "id": "g4-l5-q13", "type": "matching-pairs", "question": "Chọn kết quả thích hợp", "pairs": [{ "id": "p1", "left": "7 + 800 + 4060", "right": "4867" }, { "id": "p2", "left": "103 + 8710 + 40104", "right": "48917" }, { "id": "p3", "left": "4002 + 420 + 40000", "right": "44422" }], "explanation": "" },
+        { "id": "g4-l5-q14", "type": "fill-blank", "question": "503g = 5___ 3g", "blanks": [{ "position": 0, "answer": "hg", "placeholder": "___" }], "explanation": "500g = 5hg" },
+        { "id": "g4-l5-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "3 tạ 70 ký","correctSlot": "small"},{"id": "d2","content": "3 yến 700 ký","correctSlot": "medium"},{"id": "d3","content": "7 ký 300 yến","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "370kg"},{"id": "medium","label": "730kg"},{"id": "large","label": "3007kg"}]}
       ]
     },
     {
@@ -840,7 +845,13 @@
           "choices": ["1", "2", "3", "4"],
           "answer": "2",
           "explanation": "Có 2 chữ số 0 trong số 60 304."
-        }
+        },
+        { "id": "g4-l6-q11", "type": "multiple-choice", "prompt": "Số lẻ bé nhất có tám chữ số là", "choices": ["11 111 111", "10 000 001", "11 000 000", "10 000 000"], "answer": "10 000 001", "explanation": "10 000 001 là số lẻ 8 chữ số bé nhất" },
+        { "id": "g4-l6-q12", "type": "counting", "question": "Có một hình vuông, nếu mở rộng hình vuông đó thêm 3cm về bên phải thì diện tích tăng thêm 21 cm2. Hỏi hình vuông đã cho có diện tích bằng bao nhiêu mi-li-mét vuông?", "prompt": "", "countingItems": [{ "image": "/assets/grades/grade4/geometry-world/questions/l3q12.png", "count": 1 }], "countingAnswer": 4900, "explanation": "49 xăng ti mét vuông" },
+        { "id": "g4-l6-q13", "type": "matching-pairs", "question": "Chọn kết quả thích hợp", "pairs": [{ "id": "p1", "left": "Số lớn nhất nhỏ hơn 1 000 000", "right": "999 999" }, { "id": "p2", "left": "Số liền sau số bé nhất có bảy chữ số khác nhau", "right": "1 023 457" }, { "id": "p3", "left": "Số liền trước số bé nhất có tám chữ số là", "right": "9 999 999" }], "explanation": "" },
+        { "id": "g4-l6-q14", "type": "fill-blank", "question": "Số ___ đọc là 8 chục nghìn, 7 trăm, 2 chục, 1 đơn vị.", "blanks": [{ "position": 0, "answer": "80721", "placeholder": "___" }], "explanation": "9 trăm ngàn" },
+        { "id": "g4-l6-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "20 triệu, 3 chục, 7 đơn vị","correctSlot": "small"},{"id": "d2","content": "20 triệu, 3 chục nghìn, 7 đơn vị","correctSlot": "medium"},{"id": "d3","content": "2 chục triệu, 3 triệu, 7 đơn vị","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "20 000 037"},{"id": "medium","label": "20 030 007"},{"id": "large","label": "23 000 007"}]}
+
       ]
     },
     {
