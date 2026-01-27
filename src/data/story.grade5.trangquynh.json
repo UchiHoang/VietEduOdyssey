@@ -315,7 +315,6 @@
         { "id": "g5-l1-q13", "type": "matching-pairs", "question": "Chọn kết quả thích hợp", "pairs": [{ "id": "p1", "left": "2 phần 3 + 4 phần 7", "right": "26 phần 21" }, { "id": "p2", "left": "2 phần 5 + 4 phần 3", "right": "26 phần 15" }, { "id": "p3", "left": "1 phần 3 + 2 phần 6", "right": "2 phần 3" }], "explanation": "" },
         { "id": "g5-l1-q14", "type": "fill-blank", "question": "17 804 = 10 000 + 5 900 + ___ + 4", "blanks": [{ "position": 0, "answer": "1900", "placeholder": "___" }], "explanation": "" },
         { "id": "g5-l1-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "11232 + 987","correctSlot": "small"},{"id": "d2","content": "11987 + 323","correctSlot": "medium"},{"id": "d3","content": "12232 + 923","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "12219"},{"id": "medium","label": "12310"},{"id": "large","label": "13155"}]}
-     
       ]
     },
     {
@@ -328,7 +327,15 @@
         { "id": "g5-l2-q4", "type": "matching-pairs", "question": "Đổi đơn vị khối lượng", "pairs": [{ "id": "p1", "left": "1 tấn", "right": "1000 kg" }, { "id": "p2", "left": "1 tạ", "right": "100 kg" }, { "id": "p3", "left": "1 yến", "right": "10 kg" }], "explanation": "Bảng đơn vị đo khối lượng." },
         { "id": "g5-l2-q5", "type": "multiple-choice", "prompt": "Xe tải chở 2,5 tấn gạo. Đổi sang kg là?", "choices": ["250 kg", "2500 kg", "2050 kg", "25000 kg"], "answer": "2500 kg", "explanation": "2,5 x 1000 = 2500." },
         { "id": "g5-l2-q6", "type": "fill-blank", "question": "3 tấn 50 kg = __ kg", "blanks": [{ "position": 0, "answer": "3050" }], "explanation": "3000 + 50 = 3050." },
-        { "id": "g5-l2-q7", "type": "multiple-choice", "prompt": "Một bao ngô nặng 5 yến. 4 bao nặng bao nhiêu tạ?", "choices": ["2 tạ", "20 tạ", "200 kg", "0,2 tạ"], "answer": "2 tạ", "explanation": "5 yến = 50kg. 4 bao = 200kg = 2 tạ." }
+        { "id": "g5-l2-q7", "type": "multiple-choice", "prompt": "Một bao ngô nặng 5 yến. 4 bao nặng bao nhiêu tạ?", "choices": ["2 tạ", "20 tạ", "200 kg", "0,2 tạ"], "answer": "2 tạ", "explanation": "5 yến = 50kg. 4 bao = 200kg = 2 tạ." },
+        { "id": "g5-l2-q8", "type": "matching-pairs", "question": "Nối các cặp số thập phân bằng nhau", "pairs": [{ "id": "p4", "left": "0,706", "right": "0,7060" }, { "id": "p5", "left": "0,076", "right": "0,0760" }, { "id": "p6", "left": "0,76", "right": "0,7600" }], "explanation": "" },
+        { "id": "g5-l2-q9", "type": "fill-blank", "question": "Có ___ số tự nhiên thoả mãn điền vào chỗ chấm sau: 4,3 < ... < 12,93", "blanks": [{ "position": 0, "answer": "8" }], "explanation": "x = 4,5 + 1,2 = 5,7." },
+        { "id": "g5-l2-q10", "type": "multiple-choice", "prompt": "Điểm số môn Toán của Mai là 9,75. Làm tròn số này đến hàng đơn vị thì điểm số môn Toán của Mai là:", "choices": ["9,8", "10", "9,75", "9"], "answer": "10", "explanation": "" },
+        { "id": "g5-l2-q11", "type": "counting", "question": "Số thập phân tương ứng với phần tô màu trong hình vẽ dưới đây là:", "prompt": "", "countingItems": [{ "image": "/assets/grades/grade5/math-champion/questions/l2q11.png", "count": 1 }], "countingAnswer": 0.4, "explanation": "4 phần 10" },
+        { "id": "g5-l2-q12", "type": "multiple-choice", "prompt": "Số lớn nhất trong các số sau đây, khi làm tròn đến số tự nhiên gần nhất ta được kết quả là 7 là:", "choices": ["7,89", "6,89", "6,099", "7,31"], "answer": "7,31", "explanation": "" },
+        { "id": "g5-l2-q13", "type": "matching-pairs", "question": "Chọn kết quả thích hợp", "pairs": [{ "id": "p1", "left": "2 phần 3 + 4 phần 7", "right": "26 phần 21" }, { "id": "p2", "left": "2 phần 5 + 4 phần 3", "right": "26 phần 15" }, { "id": "p3", "left": "1 phần 3 + 2 phần 6", "right": "2 phần 3" }], "explanation": "" },
+        { "id": "g5-l2-q14", "type": "fill-blank", "question": "Người ta vừa xây dựng một nhà máy xử lí rác thải trên một khu đất hình vuông cạnh 600 m. Hỏi khu đất đó có diện tích là ___ héc-ta", "blanks": [{ "position": 0, "answer": "36", "placeholder": "___" }], "explanation": "6hm * 6hm = 36ha" },
+        { "id": "g5-l2-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "11232 + 987","correctSlot": "small"},{"id": "d2","content": "11987 + 323","correctSlot": "medium"},{"id": "d3","content": "12232 + 923","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "12219"},{"id": "medium","label": "12310"},{"id": "large","label": "13155"}]}
       ]
     },
     {
