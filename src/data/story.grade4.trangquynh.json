@@ -5,14 +5,17 @@
   },
   "prologue": [
     {
+      "sprite": "/assets/grades/grade1/number-adventure/characters/thienbinh.png",
       "speaker": "Sứ Giả",
       "text": "Nhà vua cần người tài cứu nước, Gióng hãy lớn nhanh!"
     },
     {
+      "sprite": "/assets/grades/grade4/geometry-world/characters/giong.png",
       "speaker": "Thánh Gióng",
       "text": "Hãy giúp ta tính toán để rèn ngựa, giáp, roi sắt."
     },
     {
+      "sprite": "/assets/grades/grade1/number-adventure/characters/thienbinh.png",
       "speaker": "Người kể chuyện",
       "text": "Phân số, số lớn, trung bình cộng sẽ là thử thách của bạn."
     }
