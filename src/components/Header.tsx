@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, GraduationCap, LogOut, User, Shield } from "lucide-react";
+import { Menu, GraduationCap, LogOut, User, Shield, Moon, Sun, Library, Home, BookOpen, Info, Users, Trophy, Phone } from "lucide-react";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
@@ -117,33 +117,40 @@ const Header = ({ onRoleChange, currentRole = "student" }: HeaderProps) => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
-          <Link to="/" className="text-foreground hover:text-primary font-medium transition-colors">
+        <Link to="/" className="text-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5">
+        <Home className="h-4 w-4" />
             Trang chủ
           </Link>
 
-          <Link to="/lessons" className="text-foreground hover:text-primary font-medium transition-colors">
+          <Link to="/lessons" className="text-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5">
+            <BookOpen className="h-4 w-4" />
             Bài giảng
           </Link>
 
-          <button onClick={() => navigateAndScroll("about")}
-            className="text-foreground hover:text-primary font-medium transition-colors">
+          <Link to="/library" className="text-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5">
+          <Library className="h-4 w-4" />
+            Thư viện
+          </Link>
+
+          <Link to="#about" className="text-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5">
+            <Info className="h-4 w-4" />
             Giới thiệu
-          </button>
+          </Link>
 
-          <button onClick={() => navigateAndScroll("classes")}
-            className="text-foreground hover:text-primary font-medium transition-colors">
+          <Link to="#classes" className="text-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5">
+            <Users className="h-4 w-4" />
             Lớp học
-          </button>
+          </Link>
 
-          <button onClick={() => navigateAndScroll("leaderboard")}
-            className="text-foreground hover:text-primary font-medium transition-colors">
+          <Link to="#leaderboard" className="text-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5">
+            <Trophy className="h-4 w-4" />
             Xếp hạng
-          </button>
+          </Link>
 
-          <button onClick={() => navigateAndScroll("contact")}
-            className="text-foreground hover:text-primary font-medium transition-colors">
+          <Link to="#contact" className="text-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5">
+            <Phone className="h-4 w-4" />
             Liên hệ
-          </button>
+          </Link>
         </nav>
 
         {/* User + Mobile toggle */}
@@ -202,29 +209,35 @@ const Header = ({ onRoleChange, currentRole = "student" }: HeaderProps) => {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t bg-card p-4 space-y-3">
-          <button onClick={() => navigateAndScroll("home")} className="block py-2 text-foreground hover:text-primary">
+          <Link to="/" className="flex items-center gap-2 py-2 text-foreground hover:text-primary">
+            <Home className="h-4 w-4" />
             Trang chủ
-          </button>
-
-          <Link to="/lessons" className="block py-2 text-foreground hover:text-primary">
+          </Link>
+          <Link to="/lessons" className="flex items-center gap-2 py-2 text-foreground hover:text-primary">
+            <BookOpen className="h-4 w-4" />
             Bài giảng
           </Link>
-
-          <button onClick={() => navigateAndScroll("about")} className="block py-2 text-foreground hover:text-primary">
+          <Link to="/library" className="flex items-center gap-2 py-2 text-foreground hover:text-primary">
+            <Library className="h-4 w-4" />
+            Thư viện
+          </Link>
+          <Link to="#about" className="flex items-center gap-2 py-2 text-foreground hover:text-primary">
+            <Info className="h-4 w-4" />
             Giới thiệu
-          </button>
-
-          <button onClick={() => navigateAndScroll("classes")} className="block py-2 text-foreground hover:text-primary">
+          </Link>
+          <Link to="#classes" className="flex items-center gap-2 py-2 text-foreground hover:text-primary">
+            <Users className="h-4 w-4" />
             Lớp học
-          </button>
-
-          <button onClick={() => navigateAndScroll("leaderboard")} className="block py-2 text-foreground hover:text-primary">
+          </Link>
+          <Link to="#leaderboard" className="flex items-center gap-2 py-2 text-foreground hover:text-primary">
+            <Trophy className="h-4 w-4" />
             Xếp hạng
-          </button>
-
-          <button onClick={() => navigateAndScroll("contact")} className="block py-2 text-foreground hover:text-primary">
+          </Link>
+          <Link to="#contact" className="flex items-center gap-2 py-2 text-foreground hover:text-primary">
+            <Phone className="h-4 w-4" />
             Liên hệ
-          </button>
+          </Link>
+
 
           {user ? (
             <>
