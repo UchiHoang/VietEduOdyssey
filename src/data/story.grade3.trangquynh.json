@@ -1597,7 +1597,111 @@
             "description": "Biết diện tích và chiều rộng, tính chiều dài bằng phép chia",
             "mechanic": "Kéo thước đo để điều chỉnh chiều dài sao cho diện tích = 70m²"
           }
-        }
+        },
+                {
+          "id": "g3-l8-q4",
+          "type": "matching-pairs",
+          "question": "Nhiệm vụ 4: Ghép số La Mã trên đồng hồ cổ trong rừng với số thường tương ứng",
+          "pairs": [
+            { "id": "p1", "left": "III", "right": "3" },
+            { "id": "p2", "left": "VI", "right": "6" },
+            { "id": "p3", "left": "XII", "right": "12" }
+          ],
+          "explanation": "Đồng hồ La Mã: III = 3, VI = 6, XII = 12.",
+          "game": {
+            "type": "ancient-clock",
+            "title": "Đồng Hồ Cổ La Mã",
+            "description": "Ghép các số La Mã trên đồng hồ cổ với số thường",
+            "mechanic": "Nối dây từ số La Mã trên đồng hồ sang số thường bên cạnh"
+          }
+        },
+        {
+          "id": "g3-l8-q5",
+          "type": "multiple-choice",
+          "prompt": "Nhiệm vụ 5: Trên đồng hồ La Mã trong đền cổ, số IX tương ứng với số nào?",
+          "choices": ["7", "8", "9", "11"],
+          "answer": "9",
+          "explanation": "IX là số 9 trong hệ La Mã.",
+          "game": {
+            "type": "roman-nine",
+            "title": "Giải Mã IX",
+            "description": "Tìm hiểu cách viết số 9 trong hệ La Mã",
+            "mechanic": "Nhấp vào IX trên đồng hồ, hệ thống giải thích IX = 10-1 = 9"
+          }
+        },
+        {
+          "id": "g3-l8-q6",
+          "type": "fill-blank",
+          "question": "Nhiệm vụ 6: Sơn Tinh nghỉ trưa khi đồng hồ La Mã chỉ VI giờ. Đó là __ giờ.",
+          "blanks": [{ "position": 0, "answer": "6" }],
+          "explanation": "VI trong La Mã là số 6.",
+          "game": {
+            "type": "lunch-time",
+            "title": "Giờ Nghỉ Trưa",
+            "description": "Đọc đồng hồ La Mã để biết giờ nghỉ của Sơn Tinh",
+            "mechanic": "Nhấp vào VI trên đồng hồ và điền số 6 tương ứng"
+          }
+        },
+        {
+          "id": "g3-l8-q7",
+          "type": "multiple-choice",
+          "prompt": "Nhiệm vụ 7: Vua Hùng ban chiếu chỉ tìm voi vào tháng 3. Tháng 3 thuộc quý mấy trong năm?",
+          "choices": ["Quý I", "Quý II", "Quý III", "Quý IV"],
+          "answer": "Quý I",
+          "explanation": "Quý I gồm các tháng 1, 2, 3.",
+          "game": {
+            "type": "quarter-calendar",
+            "title": "Lịch Bốn Quý",
+            "description": "Phân chia 12 tháng thành 4 quý trong năm",
+            "mechanic": "Kéo tháng 3 vào ô Quý I trên lịch năm"
+          }
+        },
+        {
+          "id": "g3-l8-q8",
+          "type": "fill-blank",
+          "question": "Nhiệm vụ 8: Trong hành trình, tháng có số ngày ít nhất trong năm là tháng __.",
+          "blanks": [{ "position": 0, "answer": "2" }],
+          "explanation": "Tháng 2 có 28 hoặc 29 ngày.",
+          "game": {
+            "type": "month-comparison",
+            "title": "So Sánh Số Ngày Các Tháng",
+            "description": "Tìm tháng có số ngày ít nhất trong năm",
+            "mechanic": "Nhấp vào các tháng trên lịch, xem số ngày, tìm tháng ngắn nhất"
+          }
+        },
+        {
+          "id": "g3-l8-q9",
+          "type": "multiple-choice",
+          "prompt": "Nhiệm vụ 9: Cuộc thi tìm voi trong rừng sâu diễn ra vào tháng 7. Tháng 7 có bao nhiêu ngày?",
+          "choices": ["28 ngày", "29 ngày", "30 ngày", "31 ngày"],
+          "answer": "31 ngày",
+          "explanation": "Tháng 7 có 31 ngày.",
+          "game": {
+            "type": "month-days",
+            "title": "Đếm Ngày Tháng 7",
+            "description": "Xem lịch tháng 7 và đếm có bao nhiêu ngày",
+            "mechanic": "Nhấp lần lượt vào các ngày trên lịch tháng 7 để đếm"
+          }
+        },
+        {
+          "id": "g3-l8-q10",
+          "type": "multiple-choice",
+          "prompt": "Nhiệm vụ cuối: Để hoàn thành hành trình, em cần biết một năm có bao nhiêu tháng?",
+          "choices": ["10 tháng", "11 tháng", "12 tháng", "13 tháng"],
+          "answer": "12 tháng",
+          "explanation": "Một năm có 12 tháng.",
+          "game": {
+            "type": "year-calendar",
+            "title": "Lịch Cả Năm",
+            "description": "Đếm tổng số tháng trong một năm",
+            "mechanic": "Nhấp vào từng tháng trên lịch năm để đếm từ tháng 1 đến 12"
+          }
+        },
+        { "id": "g3-l8-q11", "type": "multiple-choice", "prompt": "Cho dãy số: 30, 27, 24, 21, …, …, …, 9, 6, 3. Các số thích hợp điền vào chỗ chấm lần lượt là:", "choices": ["20, 19, 18", "12, 11, 10", "18, 15, 12", "18, 16, 12"], "answer": "18, 15, 12", "explanation": "dãy số giảm 3 đơn vị" },
+        { "id": "g3-l8-q12", "type": "counting", "question": "Cho đoạn thẳng PQ = 80 cm, có M là trung điểm của đoạn PQ, N là trung điểm của đoạn thẳng MQ. Độ dài đoạn thẳng MN là:", "prompt": "", "countingItems": [{ "image": "/assets/grades/grade3/fraction-quest/questions/doanthang.png", "count": 1 }], "countingAnswer": 20, "explanation": "PM = MQ = 40cm, MN = NQ = 20cm" },
+        { "id": "g3-l8-q13", "type": "matching-pairs", "question": "Chọn số thích hợp", "pairs": [{ "id": "p1", "left": "8 x 3 = 3 x ?", "right": "8" }, { "id": "p2", "left": "7 x 2 = 7 + ?", "right": "7" }, { "id": "p3", "left": "10 : 2 = 10 - ?", "right": "5" }], "explanation": "" },
+        { "id": "g3-l8-q14", "type": "fill-blank", "question": "2 x 6 = 3 x ___", "blanks": [{ "position": 0, "answer": "4", "placeholder": "___" }], "explanation": " 3 x 4 = 12 bằng 2 x 6 = 12" },
+        { "id": "g3-l8-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "tích của 3 và 3","correctSlot": "small"},{"id": "d2","content": "Hiệu của 65 và 46","correctSlot": "medium"},{"id": "d3","content": "tổng của 55 và 56","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "9"},{"id": "medium","label": "19"},{"id": "large","label": "111"}]}
       ]
     },
     {
@@ -1664,7 +1768,108 @@
             "description": "Thêm 1 mâm gà vào tiệc và tính lại tổng số",
             "mechanic": "Kéo thêm 1 mâm có 8 con gà vào bàn tiệc, tính 72 + 8"
           }
-        }
+        },
+                {
+          "id": "g3-l9-q4",
+          "type": "multiple-choice",
+          "prompt": "Một con gà rừng nặng 800 g. 1000 g bằng?",
+          "choices": ["1 kg", "10 kg", "100 g", "800 g"],
+          "answer": "1 kg",
+          "explanation": "1000 gam = 1 kilôgam.",
+          "game": {
+            "type": "weight-balance",
+            "title": "Cân Khối Lượng",
+            "description": "Đặt các quả cân lên cân để cân bằng với con gà 800g",
+            "mechanic": "Kéo các quả cân 100g, 200g, 500g lên cân để tổng bằng 800g"
+          }
+        },
+        {
+          "id": "g3-l9-q5",
+          "type": "fill-blank",
+          "question": "Sơn Tinh bắt được con gà nặng 2 kg. Đổi ra gam là __ g",
+          "blanks": [{ "position": 0, "answer": "2000" }],
+          "explanation": "1 kg = 1000 g nên 2 kg = 2000 g.",
+          "game": {
+            "type": "unit-converter",
+            "title": "Đổi Đơn Vị Khối Lượng",
+            "description": "Giúp Sơn Tinh đổi kg sang gam bằng cách ghép đúng các con số",
+            "mechanic": "Nhấp vào các số để tạo thành đáp án 2000"
+          }
+        },
+        {
+          "id": "g3-l9-q6",
+          "type": "multiple-choice",
+          "prompt": "Hai đoạn suối dài lần lượt 120 m và 80 m. Tổng độ dài là?",
+          "choices": ["180 m", "200 m", "220 m", "300 m"],
+          "answer": "200 m",
+          "explanation": "120 + 80 = 200 m.",
+          "game": {
+            "type": "path-addition",
+            "title": "Nối Đường Suối",
+            "description": "Nối hai đoạn suối lại với nhau và tính tổng độ dài",
+            "mechanic": "Kéo hai đoạn suối 120m và 80m để nối lại, sau đó chọn tổng độ dài đúng"
+          }
+        },
+        {
+          "id": "g3-l9-q7",
+          "type": "fill-blank",
+          "question": "Thủy Tinh đi 150 m buổi sáng và 250 m buổi chiều. Tổng quãng đường là __ m",
+          "blanks": [{ "position": 0, "answer": "400" }],
+          "explanation": "150 + 250 = 400 m.",
+          "game": {
+            "type": "walking-distance",
+            "title": "Hành Trình Thủy Tinh",
+            "description": "Di chuyển Thủy Tinh theo hai đoạn đường và tính tổng",
+            "mechanic": "Nhấp để di chuyển nhân vật qua hai đoạn đường 150m và 250m, sau đó tính tổng"
+          }
+        },
+        {
+          "id": "g3-l9-q8",
+          "type": "multiple-choice",
+          "prompt": "Một mảnh đất bên suối có dạng hình vuông cạnh 4 cm. Diện tích là?",
+          "choices": ["8 cm²", "12 cm²", "16 cm²", "20 cm²"],
+          "answer": "16 cm²",
+          "explanation": "Diện tích hình vuông = cạnh × cạnh = 4 × 4 = 16 cm².",
+          "game": {
+            "type": "area-builder",
+            "title": "Xây Dựng Mảnh Đất",
+            "description": "Tạo hình vuông cạnh 4cm và tính diện tích bằng cách đếm ô vuông",
+            "mechanic": "Kéo thả các ô 1cm² để tạo thành hình vuông 4x4, đếm tổng số ô"
+          }
+        },
+        {
+          "id": "g3-l9-q9",
+          "type": "multiple-choice",
+          "prompt": "Đơn vị đo diện tích thường dùng là?",
+          "choices": ["cm", "m", "cm²", "kg"],
+          "answer": "cm²",
+          "explanation": "Diện tích được đo bằng đơn vị vuông.",
+          "game": {
+            "type": "unit-match",
+            "title": "Ghép Đơn Vị Đo",
+            "description": "Kéo thả các đơn vị đo vào đại lượng phù hợp",
+            "mechanic": "Kéo cm², m², kg, cm vào các ô: Diện tích, Độ dài, Khối lượng"
+          }
+        },
+        {
+          "id": "g3-l9-q10",
+          "type": "fill-blank",
+          "question": "Hình chữ nhật có chiều dài 5 cm, chiều rộng 3 cm. Diện tích là __ cm²",
+          "blanks": [{ "position": 0, "answer": "15" }],
+          "explanation": "Diện tích = dài × rộng = 5 × 3 = 15 cm².",
+          "game": {
+            "type": "rectangle-area",
+            "title": "Tính Diện Tích Hình Chữ Nhật",
+            "description": "Vẽ hình chữ nhật 5x3 và đếm số ô vuông để tính diện tích",
+            "mechanic": "Nhấp để tô màu các ô 1cm² trong lưới 5x3, đếm tổng số ô đã tô"
+          }
+        },
+        { "id": "g3-l9-q11", "type": "multiple-choice", "prompt": "Nếu ngày 15 tháng 8 là thứ Tư thì ngày 23 tháng 8 là:", "choices": ["Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu"], "answer": "Thứ năm", "explanation": "" },
+        { "id": "g3-l9-q12", "type": "counting", "question": "Để về đến nhà, Sâu cần đi quãng đường dài bao nhiêu đề-xi-mét?", "prompt": "", "countingItems": [{ "image": "/assets/grades/grade3/fraction-quest/questions/doanthang.png", "count": 1 }], "countingAnswer": 10, "explanation": "38 + 25 + 37 = 100 cm = 10 dm" },
+        { "id": "g3-l9-q13", "type": "matching-pairs", "question": "Chọn số thích hợp", "pairs": [{ "id": "p1", "left": "8 x 3 = 3 x ?", "right": "8" }, { "id": "p2", "left": "7 x 2 = 7 + ?", "right": "7" }, { "id": "p3", "left": "10 : 2 = 10 - ?", "right": "5" }], "explanation": "" },
+        { "id": "g3-l9-q14", "type": "fill-blank", "question": "Cho dãy số: 4, 8, 12, 16, …, 24, . Các số thích hợp điền vào chỗ trống là:", "blanks": [{ "position": 0, "answer": "20", "placeholder": "___" }], "explanation": "dãy số tăng dần 4 đơn vị" },
+        { "id": "g3-l9-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "tích của 3 và 3","correctSlot": "small"},{"id": "d2","content": "Hiệu của 65 và 46","correctSlot": "medium"},{"id": "d3","content": "tổng của 55 và 56","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "9"},{"id": "medium","label": "19"},{"id": "large","label": "111"}]}
+
       ]
     },
     {
@@ -1731,7 +1936,132 @@
             "description": "Nước rút đi 920cm, tính mực nước còn lại",
             "mechanic": "Nhấp để hạ mực nước từ 35920 xuống 35000, xem sự thay đổi"
           }
-        }
+        },
+                {
+          "id": "g3-l10-q4",
+          "type": "matching-pairs",
+          "question": "Nhiệm vụ 4: Ghép số La Mã khắc trên bia đá với số tự nhiên tương ứng",
+          "pairs": [
+            { "id": "p1", "left": "I", "right": "1" },
+            { "id": "p2", "left": "V", "right": "5" },
+            { "id": "p3", "left": "X", "right": "10" }
+          ],
+          "explanation": "I = 1, V = 5, X = 10.",
+          "game": {
+            "type": "roman-numeral-match",
+            "title": "Bia Đá Số La Mã",
+            "description": "Nối số La Mã trên bia đá cổ với số thường tương ứng",
+            "mechanic": "Kéo dây từ chữ La Mã (I, V, X) sang số (1, 5, 10)"
+          }
+        },
+        {
+          "id": "g3-l10-q5",
+          "type": "multiple-choice",
+          "prompt": "Nhiệm vụ 5: Vua Hùng đời thứ 5 được viết bằng số La Mã nào?",
+          "choices": ["III", "IV", "V", "VI"],
+          "answer": "V",
+          "explanation": "Số 5 trong hệ La Mã là V.",
+          "game": {
+            "type": "roman-converter",
+            "title": "Chuyển Đổi Số La Mã",
+            "description": "Tìm ký hiệu La Mã đúng cho đời vua Hùng thứ 5",
+            "mechanic": "Nhấp vào các ký hiệu La Mã để tìm ký hiệu tương ứng với số 5"
+          }
+        },
+        {
+          "id": "g3-l10-q6",
+          "type": "fill-blank",
+          "question": "Nhiệm vụ 6: Số La Mã X trên chiếu chỉ tương ứng với số __",
+          "blanks": [
+            {
+              "position": 0,
+              "answer": "10"
+            }
+          ],
+          "explanation": "X là số 10.",
+          "game": {
+            "type": "roman-to-number",
+            "title": "Giải Mã Chiếu Chỉ",
+            "description": "Đọc ký hiệu La Mã X trên chiếu chỉ và chuyển thành số",
+            "mechanic": "Nhấp vào X để xem giá trị, sau đó điền số 10"
+          }
+        },
+        {
+          "id": "g3-l10-q7",
+          "type": "multiple-choice",
+          "prompt": "Nhiệm vụ 7: Lễ hội của vua Hùng có 23456 người tham gia. Số 23456 là số có mấy chữ số?",
+          "choices": ["3 chữ số", "4 chữ số", "5 chữ số", "6 chữ số"],
+          "answer": "5 chữ số",
+          "explanation": "23456 gồm 5 chữ số.",
+          "game": {
+            "type": "count-people",
+            "title": "Đếm Người Dự Lễ",
+            "description": "Xem biển số người tham gia lễ hội và đếm có bao nhiêu chữ số",
+            "mechanic": "Nhấp lần lượt vào từng chữ số của 23456 để đếm tổng số chữ số"
+          }
+        },
+        {
+          "id": "g3-l10-q8",
+          "type": "fill-blank",
+          "question": "Nhiệm vụ 8: Viết số theo lễ vật Sơn Tinh chuẩn bị: 2 chục nghìn, 3 nghìn, 4 trăm, 5 chục, 6 đơn vị = __",
+          "blanks": [
+            {
+              "position": 0,
+              "answer": "23456"
+            }
+          ],
+          "explanation": "Ghép các hàng ta được số 23456.",
+          "game": {
+            "type": "build-number",
+            "title": "Ghép Số Từ Các Hàng",
+            "description": "Ghép các khối số hàng chục nghìn, nghìn, trăm, chục, đơn vị lại",
+            "mechanic": "Kéo thả các khối 20000, 3000, 400, 50, 6 vào đúng vị trí để tạo 23456"
+          }
+        },
+        {
+          "id": "g3-l10-q9",
+          "type": "multiple-choice",
+          "prompt": "Nhiệm vụ 9: Trong số 53124, chữ số 3 nằm ở hàng nào?",
+          "choices": [
+            "Hàng đơn vị",
+            "Hàng chục",
+            "Hàng trăm",
+            "Hàng nghìn",
+            "Hàng chục nghìn"
+          ],
+          "answer": "Hàng nghìn",
+          "explanation": "53124 gồm 5 chục nghìn, 3 nghìn, 1 trăm, 2 chục, 4 đơn vị.",
+          "game": {
+            "type": "place-value-quiz",
+            "title": "Xác Định Hàng Số",
+            "description": "Tìm vị trí hàng của chữ số 3 trong số 53124",
+            "mechanic": "Nhấp vào chữ số 3, hệ thống hiển thị các hàng, chọn hàng nghìn"
+          }
+        },
+        {
+          "id": "g3-l10-q10",
+          "type": "multiple-choice",
+          "prompt": "Nhiệm vụ cuối: Sơn Tinh mang đến 4098 lễ vật. Cách đọc đúng của số 4098 là?",
+          "choices": [
+            "Bốn nghìn không trăm chín mươi tám",
+            "Bốn nghìn chín mươi tám",
+            "Bốn nghìn không trăm chín tám",
+            "Bốn nghìn tám chín"
+          ],
+          "answer": "Bốn nghìn không trăm chín mươi tám",
+          "explanation": "Số 4098 gồm 4 nghìn, 0 trăm, 9 chục, 8 đơn vị.",
+          "game": {
+            "type": "read-with-zero",
+            "title": "Đọc Số Có Chữ Số 0",
+            "description": "Học cách đọc đúng số có chữ số 0 ở giữa",
+            "mechanic": "Nghe các cách đọc khác nhau và chọn cách đọc đúng cho 4098"
+          }
+        },
+        { "id": "g3-l10-q11", "type": "multiple-choice", "prompt": "Tìm số bị trừ biết số trừ là 620 và hiệu là 380", "choices": ["340", "1000", "440", "240"], "answer": "240", "explanation": "620 - 240 = 380" },
+        { "id": "g3-l10-q12", "type": "counting", "question": "Đếm số lượng con vật", "prompt": "", "countingItems": [{ "image": "/assets/grades/grade3/fraction-quest/questions/trucso.png", "count": 1 }], "countingAnswer": 45, "explanation": "Chính giữa 40 và 50 là 45." },
+        { "id": "g3-l10-q13", "type": "matching-pairs", "question": "Chọn phép tính thích hợp", "pairs": [{ "id": "p1", "left": "8 ? 3 = 24", "right": "x" }, { "id": "p2", "left": "18 ? 12 = 34", "right": "+" }, { "id": "p3", "left": "32 ? 15 = 17", "right": "-" }], "explanation": "" },
+        { "id": "g3-l10-q14", "type": "fill-blank", "question": "10 < 3 x ___ < 14", "blanks": [{ "position": 0, "answer": "4", "placeholder": "___" }], "explanation": " 3 x 4 = 12" },
+        { "id": "g3-l10-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "2 + 1","correctSlot": "small"},{"id": "d2","content": "5 + 4","correctSlot": "medium"},{"id": "d3","content": "3 + 8","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "3"},{"id": "medium","label": "9"},{"id": "large","label": "11"}]}
       ]
     },
     {
@@ -1794,7 +2124,111 @@
             "description": "Chia 81 khối đá thành 9 nhóm đều nhau",
             "mechanic": "Kéo 81 khối đá vào 9 nhóm, mỗi nhóm có bao nhiêu khối?"
           }
-        }
+        },
+        {
+          "id": "g3-l11-q4",
+          "type": "matching-pairs",
+          "question": "Nhiệm vụ 4: Ghép số La Mã trên đồng hồ cổ trong rừng với số thường tương ứng",
+          "pairs": [
+            { "id": "p1", "left": "III", "right": "3" },
+            { "id": "p2", "left": "VI", "right": "6" },
+            { "id": "p3", "left": "XII", "right": "12" }
+          ],
+          "explanation": "Đồng hồ La Mã: III = 3, VI = 6, XII = 12.",
+          "game": {
+            "type": "ancient-clock",
+            "title": "Đồng Hồ Cổ La Mã",
+            "description": "Ghép các số La Mã trên đồng hồ cổ với số thường",
+            "mechanic": "Nối dây từ số La Mã trên đồng hồ sang số thường bên cạnh"
+          }
+        },
+        {
+          "id": "g3-l11-q5",
+          "type": "multiple-choice",
+          "prompt": "Nhiệm vụ 5: Trên đồng hồ La Mã trong đền cổ, số IX tương ứng với số nào?",
+          "choices": ["7", "8", "9", "11"],
+          "answer": "9",
+          "explanation": "IX là số 9 trong hệ La Mã.",
+          "game": {
+            "type": "roman-nine",
+            "title": "Giải Mã IX",
+            "description": "Tìm hiểu cách viết số 9 trong hệ La Mã",
+            "mechanic": "Nhấp vào IX trên đồng hồ, hệ thống giải thích IX = 10-1 = 9"
+          }
+        },
+        {
+          "id": "g3-l11-q6",
+          "type": "fill-blank",
+          "question": "Nhiệm vụ 6: Sơn Tinh nghỉ trưa khi đồng hồ La Mã chỉ VI giờ. Đó là __ giờ.",
+          "blanks": [{ "position": 0, "answer": "6" }],
+          "explanation": "VI trong La Mã là số 6.",
+          "game": {
+            "type": "lunch-time",
+            "title": "Giờ Nghỉ Trưa",
+            "description": "Đọc đồng hồ La Mã để biết giờ nghỉ của Sơn Tinh",
+            "mechanic": "Nhấp vào VI trên đồng hồ và điền số 6 tương ứng"
+          }
+        },
+        {
+          "id": "g3-l11-q7",
+          "type": "multiple-choice",
+          "prompt": "Nhiệm vụ 7: Vua Hùng ban chiếu chỉ tìm voi vào tháng 3. Tháng 3 thuộc quý mấy trong năm?",
+          "choices": ["Quý I", "Quý II", "Quý III", "Quý IV"],
+          "answer": "Quý I",
+          "explanation": "Quý I gồm các tháng 1, 2, 3.",
+          "game": {
+            "type": "quarter-calendar",
+            "title": "Lịch Bốn Quý",
+            "description": "Phân chia 12 tháng thành 4 quý trong năm",
+            "mechanic": "Kéo tháng 3 vào ô Quý I trên lịch năm"
+          }
+        },
+        {
+          "id": "g3-l11-q8",
+          "type": "fill-blank",
+          "question": "Nhiệm vụ 8: Trong hành trình, tháng có số ngày ít nhất trong năm là tháng __.",
+          "blanks": [{ "position": 0, "answer": "2" }],
+          "explanation": "Tháng 2 có 28 hoặc 29 ngày.",
+          "game": {
+            "type": "month-comparison",
+            "title": "So Sánh Số Ngày Các Tháng",
+            "description": "Tìm tháng có số ngày ít nhất trong năm",
+            "mechanic": "Nhấp vào các tháng trên lịch, xem số ngày, tìm tháng ngắn nhất"
+          }
+        },
+        {
+          "id": "g3-l11-q9",
+          "type": "multiple-choice",
+          "prompt": "Nhiệm vụ 9: Cuộc thi tìm voi trong rừng sâu diễn ra vào tháng 7. Tháng 7 có bao nhiêu ngày?",
+          "choices": ["28 ngày", "29 ngày", "30 ngày", "31 ngày"],
+          "answer": "31 ngày",
+          "explanation": "Tháng 7 có 31 ngày.",
+          "game": {
+            "type": "month-days",
+            "title": "Đếm Ngày Tháng 7",
+            "description": "Xem lịch tháng 7 và đếm có bao nhiêu ngày",
+            "mechanic": "Nhấp lần lượt vào các ngày trên lịch tháng 7 để đếm"
+          }
+        },
+        {
+          "id": "g3-l11-q10",
+          "type": "multiple-choice",
+          "prompt": "Nhiệm vụ cuối: Để hoàn thành hành trình, em cần biết một năm có bao nhiêu tháng?",
+          "choices": ["10 tháng", "11 tháng", "12 tháng", "13 tháng"],
+          "answer": "12 tháng",
+          "explanation": "Một năm có 12 tháng.",
+          "game": {
+            "type": "year-calendar",
+            "title": "Lịch Cả Năm",
+            "description": "Đếm tổng số tháng trong một năm",
+            "mechanic": "Nhấp vào từng tháng trên lịch năm để đếm từ tháng 1 đến 12"
+          }
+        },
+        { "id": "g3-l11-q11", "type": "multiple-choice", "prompt": "Cho dãy số: 30, 27, 24, 21, …, …, …, 9, 6, 3. Các số thích hợp điền vào chỗ chấm lần lượt là:", "choices": ["20, 19, 18", "12, 11, 10", "18, 15, 12", "18, 16, 12"], "answer": "18, 15, 12", "explanation": "dãy số giảm 3 đơn vị" },
+        { "id": "g3-l11-q12", "type": "counting", "question": "Cho đoạn thẳng PQ = 80 cm, có M là trung điểm của đoạn PQ, N là trung điểm của đoạn thẳng MQ. Độ dài đoạn thẳng MN là:", "prompt": "", "countingItems": [{ "image": "/assets/grades/grade3/fraction-quest/questions/doanthang.png", "count": 1 }], "countingAnswer": 20, "explanation": "PM = MQ = 40cm, MN = NQ = 20cm" },
+        { "id": "g3-l11-q13", "type": "matching-pairs", "question": "Chọn số thích hợp", "pairs": [{ "id": "p1", "left": "8 x 3 = 3 x ?", "right": "8" }, { "id": "p2", "left": "7 x 2 = 7 + ?", "right": "7" }, { "id": "p3", "left": "10 : 2 = 10 - ?", "right": "5" }], "explanation": "" },
+        { "id": "g3-l11-q14", "type": "fill-blank", "question": "2 x 6 = 3 x ___", "blanks": [{ "position": 0, "answer": "4", "placeholder": "___" }], "explanation": " 3 x 4 = 12 bằng 2 x 6 = 12" },
+        { "id": "g3-l11-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "tích của 3 và 3","correctSlot": "small"},{"id": "d2","content": "Hiệu của 65 và 46","correctSlot": "medium"},{"id": "d3","content": "tổng của 55 và 56","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "9"},{"id": "medium","label": "19"},{"id": "large","label": "111"}]}
       ]
     },
     {
@@ -1861,7 +2295,107 @@
             "description": "Biết chia thành 6 đội, mỗi đội 8 người, tìm tổng số lính",
             "mechanic": "Nhấp các số từ 40-60 để thử, tìm số nào chia 6 được 8"
           }
-        }
+        },
+        {
+          "id": "g3-l12-q4",
+          "type": "multiple-choice",
+          "prompt": "Một con gà rừng nặng 800 g. 1000 g bằng?",
+          "choices": ["1 kg", "10 kg", "100 g", "800 g"],
+          "answer": "1 kg",
+          "explanation": "1000 gam = 1 kilôgam.",
+          "game": {
+            "type": "weight-balance",
+            "title": "Cân Khối Lượng",
+            "description": "Đặt các quả cân lên cân để cân bằng với con gà 800g",
+            "mechanic": "Kéo các quả cân 100g, 200g, 500g lên cân để tổng bằng 800g"
+          }
+        },
+        {
+          "id": "g3-l12-q5",
+          "type": "fill-blank",
+          "question": "Sơn Tinh bắt được con gà nặng 2 kg. Đổi ra gam là __ g",
+          "blanks": [{ "position": 0, "answer": "2000" }],
+          "explanation": "1 kg = 1000 g nên 2 kg = 2000 g.",
+          "game": {
+            "type": "unit-converter",
+            "title": "Đổi Đơn Vị Khối Lượng",
+            "description": "Giúp Sơn Tinh đổi kg sang gam bằng cách ghép đúng các con số",
+            "mechanic": "Nhấp vào các số để tạo thành đáp án 2000"
+          }
+        },
+        {
+          "id": "g3-l12-q6",
+          "type": "multiple-choice",
+          "prompt": "Hai đoạn suối dài lần lượt 120 m và 80 m. Tổng độ dài là?",
+          "choices": ["180 m", "200 m", "220 m", "300 m"],
+          "answer": "200 m",
+          "explanation": "120 + 80 = 200 m.",
+          "game": {
+            "type": "path-addition",
+            "title": "Nối Đường Suối",
+            "description": "Nối hai đoạn suối lại với nhau và tính tổng độ dài",
+            "mechanic": "Kéo hai đoạn suối 120m và 80m để nối lại, sau đó chọn tổng độ dài đúng"
+          }
+        },
+        {
+          "id": "g3-l12-q7",
+          "type": "fill-blank",
+          "question": "Thủy Tinh đi 150 m buổi sáng và 250 m buổi chiều. Tổng quãng đường là __ m",
+          "blanks": [{ "position": 0, "answer": "400" }],
+          "explanation": "150 + 250 = 400 m.",
+          "game": {
+            "type": "walking-distance",
+            "title": "Hành Trình Thủy Tinh",
+            "description": "Di chuyển Thủy Tinh theo hai đoạn đường và tính tổng",
+            "mechanic": "Nhấp để di chuyển nhân vật qua hai đoạn đường 150m và 250m, sau đó tính tổng"
+          }
+        },
+        {
+          "id": "g3-l12-q8",
+          "type": "multiple-choice",
+          "prompt": "Một mảnh đất bên suối có dạng hình vuông cạnh 4 cm. Diện tích là?",
+          "choices": ["8 cm²", "12 cm²", "16 cm²", "20 cm²"],
+          "answer": "16 cm²",
+          "explanation": "Diện tích hình vuông = cạnh × cạnh = 4 × 4 = 16 cm².",
+          "game": {
+            "type": "area-builder",
+            "title": "Xây Dựng Mảnh Đất",
+            "description": "Tạo hình vuông cạnh 4cm và tính diện tích bằng cách đếm ô vuông",
+            "mechanic": "Kéo thả các ô 1cm² để tạo thành hình vuông 4x4, đếm tổng số ô"
+          }
+        },
+        {
+          "id": "g3-l12-q9",
+          "type": "multiple-choice",
+          "prompt": "Đơn vị đo diện tích thường dùng là?",
+          "choices": ["cm", "m", "cm²", "kg"],
+          "answer": "cm²",
+          "explanation": "Diện tích được đo bằng đơn vị vuông.",
+          "game": {
+            "type": "unit-match",
+            "title": "Ghép Đơn Vị Đo",
+            "description": "Kéo thả các đơn vị đo vào đại lượng phù hợp",
+            "mechanic": "Kéo cm², m², kg, cm vào các ô: Diện tích, Độ dài, Khối lượng"
+          }
+        },
+        {
+          "id": "g3-l12-q10",
+          "type": "fill-blank",
+          "question": "Hình chữ nhật có chiều dài 5 cm, chiều rộng 3 cm. Diện tích là __ cm²",
+          "blanks": [{ "position": 0, "answer": "15" }],
+          "explanation": "Diện tích = dài × rộng = 5 × 3 = 15 cm².",
+          "game": {
+            "type": "rectangle-area",
+            "title": "Tính Diện Tích Hình Chữ Nhật",
+            "description": "Vẽ hình chữ nhật 5x3 và đếm số ô vuông để tính diện tích",
+            "mechanic": "Nhấp để tô màu các ô 1cm² trong lưới 5x3, đếm tổng số ô đã tô"
+          }
+        },
+        { "id": "g3-l12-q11", "type": "multiple-choice", "prompt": "Nếu ngày 15 tháng 8 là thứ Tư thì ngày 23 tháng 8 là:", "choices": ["Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu"], "answer": "Thứ năm", "explanation": "" },
+        { "id": "g3-l12-q12", "type": "counting", "question": "Để về đến nhà, Sâu cần đi quãng đường dài bao nhiêu đề-xi-mét?", "prompt": "", "countingItems": [{ "image": "/assets/grades/grade3/fraction-quest/questions/doanthang.png", "count": 1 }], "countingAnswer": 10, "explanation": "38 + 25 + 37 = 100 cm = 10 dm" },
+        { "id": "g3-l12-q13", "type": "matching-pairs", "question": "Chọn số thích hợp", "pairs": [{ "id": "p1", "left": "8 x 3 = 3 x ?", "right": "8" }, { "id": "p2", "left": "7 x 2 = 7 + ?", "right": "7" }, { "id": "p3", "left": "10 : 2 = 10 - ?", "right": "5" }], "explanation": "" },
+        { "id": "g3-l12-q14", "type": "fill-blank", "question": "Cho dãy số: 4, 8, 12, 16, …, 24, . Các số thích hợp điền vào chỗ trống là:", "blanks": [{ "position": 0, "answer": "20", "placeholder": "___" }], "explanation": "dãy số tăng dần 4 đơn vị" },
+        { "id": "g3-l12-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "tích của 3 và 3","correctSlot": "small"},{"id": "d2","content": "Hiệu của 65 và 46","correctSlot": "medium"},{"id": "d3","content": "tổng của 55 và 56","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "9"},{"id": "medium","label": "19"},{"id": "large","label": "111"}]}
       ]
     },
     {
@@ -1928,7 +2462,132 @@
             "description": "Tăng độ rộng đê từ 4m lên 5m, tính lại diện tích",
             "mechanic": "Kéo để mở rộng đê từ 4m lên 5m, xem diện tích thay đổi"
           }
-        }
+        },
+        {
+          "id": "g3-l13-q4",
+          "type": "matching-pairs",
+          "question": "Nhiệm vụ 4: Ghép số La Mã khắc trên bia đá với số tự nhiên tương ứng",
+          "pairs": [
+            { "id": "p1", "left": "I", "right": "1" },
+            { "id": "p2", "left": "V", "right": "5" },
+            { "id": "p3", "left": "X", "right": "10" }
+          ],
+          "explanation": "I = 1, V = 5, X = 10.",
+          "game": {
+            "type": "roman-numeral-match",
+            "title": "Bia Đá Số La Mã",
+            "description": "Nối số La Mã trên bia đá cổ với số thường tương ứng",
+            "mechanic": "Kéo dây từ chữ La Mã (I, V, X) sang số (1, 5, 10)"
+          }
+        },
+        {
+          "id": "g3-l13-q5",
+          "type": "multiple-choice",
+          "prompt": "Nhiệm vụ 5: Vua Hùng đời thứ 5 được viết bằng số La Mã nào?",
+          "choices": ["III", "IV", "V", "VI"],
+          "answer": "V",
+          "explanation": "Số 5 trong hệ La Mã là V.",
+          "game": {
+            "type": "roman-converter",
+            "title": "Chuyển Đổi Số La Mã",
+            "description": "Tìm ký hiệu La Mã đúng cho đời vua Hùng thứ 5",
+            "mechanic": "Nhấp vào các ký hiệu La Mã để tìm ký hiệu tương ứng với số 5"
+          }
+        },
+        {
+          "id": "g3-l13-q6",
+          "type": "fill-blank",
+          "question": "Nhiệm vụ 6: Số La Mã X trên chiếu chỉ tương ứng với số __",
+          "blanks": [
+            {
+              "position": 0,
+              "answer": "10"
+            }
+          ],
+          "explanation": "X là số 10.",
+          "game": {
+            "type": "roman-to-number",
+            "title": "Giải Mã Chiếu Chỉ",
+            "description": "Đọc ký hiệu La Mã X trên chiếu chỉ và chuyển thành số",
+            "mechanic": "Nhấp vào X để xem giá trị, sau đó điền số 10"
+          }
+        },
+        {
+          "id": "g3-l13-q7",
+          "type": "multiple-choice",
+          "prompt": "Nhiệm vụ 7: Lễ hội của vua Hùng có 23456 người tham gia. Số 23456 là số có mấy chữ số?",
+          "choices": ["3 chữ số", "4 chữ số", "5 chữ số", "6 chữ số"],
+          "answer": "5 chữ số",
+          "explanation": "23456 gồm 5 chữ số.",
+          "game": {
+            "type": "count-people",
+            "title": "Đếm Người Dự Lễ",
+            "description": "Xem biển số người tham gia lễ hội và đếm có bao nhiêu chữ số",
+            "mechanic": "Nhấp lần lượt vào từng chữ số của 23456 để đếm tổng số chữ số"
+          }
+        },
+        {
+          "id": "g3-l13-q8",
+          "type": "fill-blank",
+          "question": "Nhiệm vụ 8: Viết số theo lễ vật Sơn Tinh chuẩn bị: 2 chục nghìn, 3 nghìn, 4 trăm, 5 chục, 6 đơn vị = __",
+          "blanks": [
+            {
+              "position": 0,
+              "answer": "23456"
+            }
+          ],
+          "explanation": "Ghép các hàng ta được số 23456.",
+          "game": {
+            "type": "build-number",
+            "title": "Ghép Số Từ Các Hàng",
+            "description": "Ghép các khối số hàng chục nghìn, nghìn, trăm, chục, đơn vị lại",
+            "mechanic": "Kéo thả các khối 20000, 3000, 400, 50, 6 vào đúng vị trí để tạo 23456"
+          }
+        },
+        {
+          "id": "g3-l13-q9",
+          "type": "multiple-choice",
+          "prompt": "Nhiệm vụ 9: Trong số 53124, chữ số 3 nằm ở hàng nào?",
+          "choices": [
+            "Hàng đơn vị",
+            "Hàng chục",
+            "Hàng trăm",
+            "Hàng nghìn",
+            "Hàng chục nghìn"
+          ],
+          "answer": "Hàng nghìn",
+          "explanation": "53124 gồm 5 chục nghìn, 3 nghìn, 1 trăm, 2 chục, 4 đơn vị.",
+          "game": {
+            "type": "place-value-quiz",
+            "title": "Xác Định Hàng Số",
+            "description": "Tìm vị trí hàng của chữ số 3 trong số 53124",
+            "mechanic": "Nhấp vào chữ số 3, hệ thống hiển thị các hàng, chọn hàng nghìn"
+          }
+        },
+        {
+          "id": "g3-l13-q10",
+          "type": "multiple-choice",
+          "prompt": "Nhiệm vụ cuối: Sơn Tinh mang đến 4098 lễ vật. Cách đọc đúng của số 4098 là?",
+          "choices": [
+            "Bốn nghìn không trăm chín mươi tám",
+            "Bốn nghìn chín mươi tám",
+            "Bốn nghìn không trăm chín tám",
+            "Bốn nghìn tám chín"
+          ],
+          "answer": "Bốn nghìn không trăm chín mươi tám",
+          "explanation": "Số 4098 gồm 4 nghìn, 0 trăm, 9 chục, 8 đơn vị.",
+          "game": {
+            "type": "read-with-zero",
+            "title": "Đọc Số Có Chữ Số 0",
+            "description": "Học cách đọc đúng số có chữ số 0 ở giữa",
+            "mechanic": "Nghe các cách đọc khác nhau và chọn cách đọc đúng cho 4098"
+          }
+        },
+        { "id": "g3-l13-q11", "type": "multiple-choice", "prompt": "Tìm số bị trừ biết số trừ là 620 và hiệu là 380", "choices": ["340", "1000", "440", "240"], "answer": "240", "explanation": "620 - 240 = 380" },
+        { "id": "g3-l13-q12", "type": "counting", "question": "Đếm số lượng con vật", "prompt": "", "countingItems": [{ "image": "/assets/grades/grade3/fraction-quest/questions/trucso.png", "count": 1 }], "countingAnswer": 45, "explanation": "Chính giữa 40 và 50 là 45." },
+        { "id": "g3-l13-q13", "type": "matching-pairs", "question": "Chọn phép tính thích hợp", "pairs": [{ "id": "p1", "left": "8 ? 3 = 24", "right": "x" }, { "id": "p2", "left": "18 ? 12 = 34", "right": "+" }, { "id": "p3", "left": "32 ? 15 = 17", "right": "-" }], "explanation": "" },
+        { "id": "g3-l13-q14", "type": "fill-blank", "question": "10 < 3 x ___ < 14", "blanks": [{ "position": 0, "answer": "4", "placeholder": "___" }], "explanation": " 3 x 4 = 12" },
+        { "id": "g3-l13-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "2 + 1","correctSlot": "small"},{"id": "d2","content": "5 + 4","correctSlot": "medium"},{"id": "d3","content": "3 + 8","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "3"},{"id": "medium","label": "9"},{"id": "large","label": "11"}]}
       ]
     },
     {
@@ -1995,7 +2654,111 @@
             "description": "Cộng các số hàng để tạo thành số chiến thắng",
             "mechanic": "Kéo các khối số 50000, 1200, 80 vào để xếp thành 51280"
           }
-        }
+        },
+                {
+          "id": "g3-l14-q4",
+          "type": "matching-pairs",
+          "question": "Nhiệm vụ 4: Ghép số La Mã trên đồng hồ cổ trong rừng với số thường tương ứng",
+          "pairs": [
+            { "id": "p1", "left": "III", "right": "3" },
+            { "id": "p2", "left": "VI", "right": "6" },
+            { "id": "p3", "left": "XII", "right": "12" }
+          ],
+          "explanation": "Đồng hồ La Mã: III = 3, VI = 6, XII = 12.",
+          "game": {
+            "type": "ancient-clock",
+            "title": "Đồng Hồ Cổ La Mã",
+            "description": "Ghép các số La Mã trên đồng hồ cổ với số thường",
+            "mechanic": "Nối dây từ số La Mã trên đồng hồ sang số thường bên cạnh"
+          }
+        },
+        {
+          "id": "g3-l14-q5",
+          "type": "multiple-choice",
+          "prompt": "Nhiệm vụ 5: Trên đồng hồ La Mã trong đền cổ, số IX tương ứng với số nào?",
+          "choices": ["7", "8", "9", "11"],
+          "answer": "9",
+          "explanation": "IX là số 9 trong hệ La Mã.",
+          "game": {
+            "type": "roman-nine",
+            "title": "Giải Mã IX",
+            "description": "Tìm hiểu cách viết số 9 trong hệ La Mã",
+            "mechanic": "Nhấp vào IX trên đồng hồ, hệ thống giải thích IX = 10-1 = 9"
+          }
+        },
+        {
+          "id": "g3-l14-q6",
+          "type": "fill-blank",
+          "question": "Nhiệm vụ 6: Sơn Tinh nghỉ trưa khi đồng hồ La Mã chỉ VI giờ. Đó là __ giờ.",
+          "blanks": [{ "position": 0, "answer": "6" }],
+          "explanation": "VI trong La Mã là số 6.",
+          "game": {
+            "type": "lunch-time",
+            "title": "Giờ Nghỉ Trưa",
+            "description": "Đọc đồng hồ La Mã để biết giờ nghỉ của Sơn Tinh",
+            "mechanic": "Nhấp vào VI trên đồng hồ và điền số 6 tương ứng"
+          }
+        },
+        {
+          "id": "g3-l14-q7",
+          "type": "multiple-choice",
+          "prompt": "Nhiệm vụ 7: Vua Hùng ban chiếu chỉ tìm voi vào tháng 3. Tháng 3 thuộc quý mấy trong năm?",
+          "choices": ["Quý I", "Quý II", "Quý III", "Quý IV"],
+          "answer": "Quý I",
+          "explanation": "Quý I gồm các tháng 1, 2, 3.",
+          "game": {
+            "type": "quarter-calendar",
+            "title": "Lịch Bốn Quý",
+            "description": "Phân chia 12 tháng thành 4 quý trong năm",
+            "mechanic": "Kéo tháng 3 vào ô Quý I trên lịch năm"
+          }
+        },
+        {
+          "id": "g3-l14-q8",
+          "type": "fill-blank",
+          "question": "Nhiệm vụ 8: Trong hành trình, tháng có số ngày ít nhất trong năm là tháng __.",
+          "blanks": [{ "position": 0, "answer": "2" }],
+          "explanation": "Tháng 2 có 28 hoặc 29 ngày.",
+          "game": {
+            "type": "month-comparison",
+            "title": "So Sánh Số Ngày Các Tháng",
+            "description": "Tìm tháng có số ngày ít nhất trong năm",
+            "mechanic": "Nhấp vào các tháng trên lịch, xem số ngày, tìm tháng ngắn nhất"
+          }
+        },
+        {
+          "id": "g3-l14-q9",
+          "type": "multiple-choice",
+          "prompt": "Nhiệm vụ 9: Cuộc thi tìm voi trong rừng sâu diễn ra vào tháng 7. Tháng 7 có bao nhiêu ngày?",
+          "choices": ["28 ngày", "29 ngày", "30 ngày", "31 ngày"],
+          "answer": "31 ngày",
+          "explanation": "Tháng 7 có 31 ngày.",
+          "game": {
+            "type": "month-days",
+            "title": "Đếm Ngày Tháng 7",
+            "description": "Xem lịch tháng 7 và đếm có bao nhiêu ngày",
+            "mechanic": "Nhấp lần lượt vào các ngày trên lịch tháng 7 để đếm"
+          }
+        },
+        {
+          "id": "g3-l14-q10",
+          "type": "multiple-choice",
+          "prompt": "Nhiệm vụ cuối: Để hoàn thành hành trình, em cần biết một năm có bao nhiêu tháng?",
+          "choices": ["10 tháng", "11 tháng", "12 tháng", "13 tháng"],
+          "answer": "12 tháng",
+          "explanation": "Một năm có 12 tháng.",
+          "game": {
+            "type": "year-calendar",
+            "title": "Lịch Cả Năm",
+            "description": "Đếm tổng số tháng trong một năm",
+            "mechanic": "Nhấp vào từng tháng trên lịch năm để đếm từ tháng 1 đến 12"
+          }
+        },
+        { "id": "g3-l14-q11", "type": "multiple-choice", "prompt": "Cho dãy số: 30, 27, 24, 21, …, …, …, 9, 6, 3. Các số thích hợp điền vào chỗ chấm lần lượt là:", "choices": ["20, 19, 18", "12, 11, 10", "18, 15, 12", "18, 16, 12"], "answer": "18, 15, 12", "explanation": "dãy số giảm 3 đơn vị" },
+        { "id": "g3-l14-q12", "type": "counting", "question": "Cho đoạn thẳng PQ = 80 cm, có M là trung điểm của đoạn PQ, N là trung điểm của đoạn thẳng MQ. Độ dài đoạn thẳng MN là:", "prompt": "", "countingItems": [{ "image": "/assets/grades/grade3/fraction-quest/questions/doanthang.png", "count": 1 }], "countingAnswer": 20, "explanation": "PM = MQ = 40cm, MN = NQ = 20cm" },
+        { "id": "g3-l14-q13", "type": "matching-pairs", "question": "Chọn số thích hợp", "pairs": [{ "id": "p1", "left": "8 x 3 = 3 x ?", "right": "8" }, { "id": "p2", "left": "7 x 2 = 7 + ?", "right": "7" }, { "id": "p3", "left": "10 : 2 = 10 - ?", "right": "5" }], "explanation": "" },
+        { "id": "g3-l14-q14", "type": "fill-blank", "question": "2 x 6 = 3 x ___", "blanks": [{ "position": 0, "answer": "4", "placeholder": "___" }], "explanation": " 3 x 4 = 12 bằng 2 x 6 = 12" },
+        { "id": "g3-l14-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "tích của 3 và 3","correctSlot": "small"},{"id": "d2","content": "Hiệu của 65 và 46","correctSlot": "medium"},{"id": "d3","content": "tổng của 55 và 56","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "9"},{"id": "medium","label": "19"},{"id": "large","label": "111"}]}
       ]
     },
     {
@@ -2062,7 +2825,107 @@
             "description": "Tính diện tích sân cưới để biết sức chứa",
             "mechanic": "Kéo thả các ô 1m² để lát kín sân 15x6, đếm tổng diện tích"
           }
-        }
+        },
+                {
+          "id": "g3-l15-q4",
+          "type": "multiple-choice",
+          "prompt": "Một con gà rừng nặng 800 g. 1000 g bằng?",
+          "choices": ["1 kg", "10 kg", "100 g", "800 g"],
+          "answer": "1 kg",
+          "explanation": "1000 gam = 1 kilôgam.",
+          "game": {
+            "type": "weight-balance",
+            "title": "Cân Khối Lượng",
+            "description": "Đặt các quả cân lên cân để cân bằng với con gà 800g",
+            "mechanic": "Kéo các quả cân 100g, 200g, 500g lên cân để tổng bằng 800g"
+          }
+        },
+        {
+          "id": "g3-l15-q5",
+          "type": "fill-blank",
+          "question": "Sơn Tinh bắt được con gà nặng 2 kg. Đổi ra gam là __ g",
+          "blanks": [{ "position": 0, "answer": "2000" }],
+          "explanation": "1 kg = 1000 g nên 2 kg = 2000 g.",
+          "game": {
+            "type": "unit-converter",
+            "title": "Đổi Đơn Vị Khối Lượng",
+            "description": "Giúp Sơn Tinh đổi kg sang gam bằng cách ghép đúng các con số",
+            "mechanic": "Nhấp vào các số để tạo thành đáp án 2000"
+          }
+        },
+        {
+          "id": "g3-l15-q6",
+          "type": "multiple-choice",
+          "prompt": "Hai đoạn suối dài lần lượt 120 m và 80 m. Tổng độ dài là?",
+          "choices": ["180 m", "200 m", "220 m", "300 m"],
+          "answer": "200 m",
+          "explanation": "120 + 80 = 200 m.",
+          "game": {
+            "type": "path-addition",
+            "title": "Nối Đường Suối",
+            "description": "Nối hai đoạn suối lại với nhau và tính tổng độ dài",
+            "mechanic": "Kéo hai đoạn suối 120m và 80m để nối lại, sau đó chọn tổng độ dài đúng"
+          }
+        },
+        {
+          "id": "g3-l15-q7",
+          "type": "fill-blank",
+          "question": "Thủy Tinh đi 150 m buổi sáng và 250 m buổi chiều. Tổng quãng đường là __ m",
+          "blanks": [{ "position": 0, "answer": "400" }],
+          "explanation": "150 + 250 = 400 m.",
+          "game": {
+            "type": "walking-distance",
+            "title": "Hành Trình Thủy Tinh",
+            "description": "Di chuyển Thủy Tinh theo hai đoạn đường và tính tổng",
+            "mechanic": "Nhấp để di chuyển nhân vật qua hai đoạn đường 150m và 250m, sau đó tính tổng"
+          }
+        },
+        {
+          "id": "g3-l15-q8",
+          "type": "multiple-choice",
+          "prompt": "Một mảnh đất bên suối có dạng hình vuông cạnh 4 cm. Diện tích là?",
+          "choices": ["8 cm²", "12 cm²", "16 cm²", "20 cm²"],
+          "answer": "16 cm²",
+          "explanation": "Diện tích hình vuông = cạnh × cạnh = 4 × 4 = 16 cm².",
+          "game": {
+            "type": "area-builder",
+            "title": "Xây Dựng Mảnh Đất",
+            "description": "Tạo hình vuông cạnh 4cm và tính diện tích bằng cách đếm ô vuông",
+            "mechanic": "Kéo thả các ô 1cm² để tạo thành hình vuông 4x4, đếm tổng số ô"
+          }
+        },
+        {
+          "id": "g3-l15-q9",
+          "type": "multiple-choice",
+          "prompt": "Đơn vị đo diện tích thường dùng là?",
+          "choices": ["cm", "m", "cm²", "kg"],
+          "answer": "cm²",
+          "explanation": "Diện tích được đo bằng đơn vị vuông.",
+          "game": {
+            "type": "unit-match",
+            "title": "Ghép Đơn Vị Đo",
+            "description": "Kéo thả các đơn vị đo vào đại lượng phù hợp",
+            "mechanic": "Kéo cm², m², kg, cm vào các ô: Diện tích, Độ dài, Khối lượng"
+          }
+        },
+        {
+          "id": "g3-l15-q10",
+          "type": "fill-blank",
+          "question": "Hình chữ nhật có chiều dài 5 cm, chiều rộng 3 cm. Diện tích là __ cm²",
+          "blanks": [{ "position": 0, "answer": "15" }],
+          "explanation": "Diện tích = dài × rộng = 5 × 3 = 15 cm².",
+          "game": {
+            "type": "rectangle-area",
+            "title": "Tính Diện Tích Hình Chữ Nhật",
+            "description": "Vẽ hình chữ nhật 5x3 và đếm số ô vuông để tính diện tích",
+            "mechanic": "Nhấp để tô màu các ô 1cm² trong lưới 5x3, đếm tổng số ô đã tô"
+          }
+        },
+        { "id": "g3-l15-q11", "type": "multiple-choice", "prompt": "Nếu ngày 15 tháng 8 là thứ Tư thì ngày 23 tháng 8 là:", "choices": ["Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu"], "answer": "Thứ năm", "explanation": "" },
+        { "id": "g3-l15-q12", "type": "counting", "question": "Để về đến nhà, Sâu cần đi quãng đường dài bao nhiêu đề-xi-mét?", "prompt": "", "countingItems": [{ "image": "/assets/grades/grade3/fraction-quest/questions/doanthang.png", "count": 1 }], "countingAnswer": 10, "explanation": "38 + 25 + 37 = 100 cm = 10 dm" },
+        { "id": "g3-l15-q13", "type": "matching-pairs", "question": "Chọn số thích hợp", "pairs": [{ "id": "p1", "left": "8 x 3 = 3 x ?", "right": "8" }, { "id": "p2", "left": "7 x 2 = 7 + ?", "right": "7" }, { "id": "p3", "left": "10 : 2 = 10 - ?", "right": "5" }], "explanation": "" },
+        { "id": "g3-l15-q14", "type": "fill-blank", "question": "Cho dãy số: 4, 8, 12, 16, …, 24, . Các số thích hợp điền vào chỗ trống là:", "blanks": [{ "position": 0, "answer": "20", "placeholder": "___" }], "explanation": "dãy số tăng dần 4 đơn vị" },
+        { "id": "g3-l15-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "tích của 3 và 3","correctSlot": "small"},{"id": "d2","content": "Hiệu của 65 và 46","correctSlot": "medium"},{"id": "d3","content": "tổng của 55 và 56","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "9"},{"id": "medium","label": "19"},{"id": "large","label": "111"}]}
       ]
     }
   ]

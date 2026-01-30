@@ -1263,7 +1263,12 @@
           "choices": ["1 thế kỷ", "5 thế kỷ", "10 thế kỷ", "1 000 năm"],
           "answer": "1 000 năm",
           "explanation": "2000 - 1000 = 1 000 năm = 10 thế kỷ."
-        }
+        },
+        { "id": "g4-l10-q11", "type": "multiple-choice", "prompt": "Chữ số 5 trong số 45837 thuộc hàng nào?", "choices": ["Hàng chục", "Hàng trăm", "Hàng nghìn", "Hàng chục nghìn"], "answer": "Hàng nghìn", "explanation": "40 000 + 5 000 + 800 + 30 + 7" },
+        { "id": "g4-l10-q12", "type": "counting", "question": "Có một hình vuông chu vi 16 cm, nếu mở rộng về một phía thêm 2cm để được một hình chữ nhật thì diện tích hình chữ nhật bằng bao nhiêu xăng ti mét vuông?", "prompt": "", "countingItems": [{ "image": "/assets/grades/grade4/geometry-world/questions/l1q12.png", "count": 1 }], "countingAnswer": 24, "explanation": "24 xăng ti mét vuông" },
+        { "id": "g4-l10-q13", "type": "matching-pairs", "question": "Chọn kết quả thích hợp", "pairs": [{ "id": "p1", "left": "Chu vi hình vuộng có cạnh a = 5cm", "right": "2dm" }, { "id": "p2", "left": "Diện tích hình chữ nhật có chiều dài là 5cm, chiều rộng 4cm", "right": "20cm vuông" }, { "id": "p3", "left": "Cạnh của hình vuông có chu vi là 8m", "right": "20dm" }], "explanation": "" },
+        { "id": "g4-l10-q14", "type": "fill-blank", "question": " ___ : 3 = 12321", "blanks": [{ "position": 0, "answer": "36963", "placeholder": "___" }], "explanation": " 3 x 4 = 12" },
+        { "id": "g4-l10-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "11232 + 987","correctSlot": "small"},{"id": "d2","content": "11987 + 323","correctSlot": "medium"},{"id": "d3","content": "12232 + 923","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "12219"},{"id": "medium","label": "12310"},{"id": "large","label": "13155"}]}
       ]
     },
     {
@@ -1360,7 +1365,12 @@
           "choices": ["5/16", "5/8", "1/8", "6/8"],
           "answer": "5/8",
           "explanation": "Cộng tử số: 3+2=5, giữ nguyên mẫu."
-        }
+        },
+        { "id": "g4-l11-q11", "type": "multiple-choice", "prompt": "số đó gồm 5 triệu, 3 trăm, 2 chục và 1 đơn vị", "choices": ["5321", "50321", "500321", "5000321"], "answer": "5000321", "explanation": "5 000 000 + 300 + 20 + 1" },
+        { "id": "g4-l11-q12", "type": "counting", "question": "Chu vi của hình bình hành BECD lớn hơn chu vi hình chữ nhật ABCD là bao nhiêu cm?", "prompt": "", "countingItems": [{ "image": "/assets/grades/grade4/geometry-world/questions/l2q12.png", "count": 1 }], "countingAnswer": 8, "explanation": "" },
+        { "id": "g4-l11-q13", "type": "matching-pairs", "question": "Chọn kết quả thích hợp", "pairs": [{ "id": "p1", "left": "7 + 800 + 4060", "right": "4867" }, { "id": "p2", "left": "103 + 8710 + 40104", "right": "48917" }, { "id": "p3", "left": "4002 + 420 + 40000", "right": "44422" }], "explanation": "" },
+        { "id": "g4-l11-q14", "type": "fill-blank", "question": "Giá trị của chữ số 9 trong số 931035 là ___", "blanks": [{ "position": 0, "answer": "900000", "placeholder": "___" }], "explanation": "9 trăm ngàn" },
+        { "id": "g4-l11-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "3 tạ 70 ký","correctSlot": "small"},{"id": "d2","content": "3 yến 700 ký","correctSlot": "medium"},{"id": "d3","content": "7 ký 300 yến","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "370kg"},{"id": "medium","label": "730kg"},{"id": "large","label": "3007kg"}]}
       ]
     },
     {
@@ -1460,7 +1470,12 @@
           "choices": ["8", "9", "10", "11"],
           "answer": "10",
           "explanation": "100 : 10 = 10 bó."
-        }
+        },
+        { "id": "g4-l12-q11", "type": "multiple-choice", "prompt": "Số lẻ bé nhất có tám chữ số là", "choices": ["11 111 111", "10 000 001", "11 000 000", "10 000 000"], "answer": "10 000 001", "explanation": "10 000 001 là số lẻ 8 chữ số bé nhất" },
+        { "id": "g4-l12-q12", "type": "counting", "question": "Có một hình vuông, nếu mở rộng hình vuông đó thêm 3cm về bên phải thì diện tích tăng thêm 21 cm2. Hỏi hình vuông đã cho có diện tích bằng bao nhiêu mi-li-mét vuông?", "prompt": "", "countingItems": [{ "image": "/assets/grades/grade4/geometry-world/questions/l3q12.png", "count": 1 }], "countingAnswer": 4900, "explanation": "49 xăng ti mét vuông" },
+        { "id": "g4-l12-q13", "type": "matching-pairs", "question": "Chọn kết quả thích hợp", "pairs": [{ "id": "p1", "left": "Số lớn nhất nhỏ hơn 1 000 000", "right": "999 999" }, { "id": "p2", "left": "Số liền sau số bé nhất có bảy chữ số khác nhau", "right": "1 023 457" }, { "id": "p3", "left": "Số liền trước số bé nhất có tám chữ số là", "right": "9 999 999" }], "explanation": "" },
+        { "id": "g4-l12-q14", "type": "fill-blank", "question": "Số ___ đọc là 8 chục nghìn, 7 trăm, 2 chục, 1 đơn vị.", "blanks": [{ "position": 0, "answer": "80721", "placeholder": "___" }], "explanation": "9 trăm ngàn" },
+        { "id": "g4-l12-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "20 triệu, 3 chục, 7 đơn vị","correctSlot": "small"},{"id": "d2","content": "20 triệu, 3 chục nghìn, 7 đơn vị","correctSlot": "medium"},{"id": "d3","content": "2 chục triệu, 3 triệu, 7 đơn vị","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "20 000 037"},{"id": "medium","label": "20 030 007"},{"id": "large","label": "23 000 007"}]}
       ]
     },
     {
@@ -1559,7 +1574,12 @@
           "choices": ["375 000", "370 500", "Bằng nhau"],
           "answer": "375 000",
           "explanation": "Hàng nghìn: 5 > 0."
-        }
+        },
+        { "id": "g4-l13-q11", "type": "multiple-choice", "prompt": "Chữ số 5 trong số 45837 thuộc hàng nào?", "choices": ["Hàng chục", "Hàng trăm", "Hàng nghìn", "Hàng chục nghìn"], "answer": "Hàng nghìn", "explanation": "40 000 + 5 000 + 800 + 30 + 7" },
+        { "id": "g4-l13-q12", "type": "counting", "question": "Có một hình vuông chu vi 16 cm, nếu mở rộng về một phía thêm 2cm để được một hình chữ nhật thì diện tích hình chữ nhật bằng bao nhiêu xăng ti mét vuông?", "prompt": "", "countingItems": [{ "image": "/assets/grades/grade4/geometry-world/questions/l1q12.png", "count": 1 }], "countingAnswer": 24, "explanation": "24 xăng ti mét vuông" },
+        { "id": "g4-l13-q13", "type": "matching-pairs", "question": "Chọn kết quả thích hợp", "pairs": [{ "id": "p1", "left": "Chu vi hình vuộng có cạnh a = 5cm", "right": "2dm" }, { "id": "p2", "left": "Diện tích hình chữ nhật có chiều dài là 5cm, chiều rộng 4cm", "right": "20cm vuông" }, { "id": "p3", "left": "Cạnh của hình vuông có chu vi là 8m", "right": "20dm" }], "explanation": "" },
+        { "id": "g4-l13-q14", "type": "fill-blank", "question": " ___ : 3 = 12321", "blanks": [{ "position": 0, "answer": "36963", "placeholder": "___" }], "explanation": " 3 x 4 = 12" },
+        { "id": "g4-l13-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "11232 + 987","correctSlot": "small"},{"id": "d2","content": "11987 + 323","correctSlot": "medium"},{"id": "d3","content": "12232 + 923","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "12219"},{"id": "medium","label": "12310"},{"id": "large","label": "13155"}]}
       ]
     },
     {
@@ -1656,7 +1676,12 @@
           "choices": ["50 m", "60 m", "70 m", "80 m"],
           "answer": "60 m",
           "explanation": "180 - 120 = 60 m."
-        }
+        },
+        { "id": "g4-l14-q11", "type": "multiple-choice", "prompt": "số đó gồm 5 triệu, 3 trăm, 2 chục và 1 đơn vị", "choices": ["5321", "50321", "500321", "5000321"], "answer": "5000321", "explanation": "5 000 000 + 300 + 20 + 1" },
+        { "id": "g4-l14-q12", "type": "counting", "question": "Chu vi của hình bình hành BECD lớn hơn chu vi hình chữ nhật ABCD là bao nhiêu cm?", "prompt": "", "countingItems": [{ "image": "/assets/grades/grade4/geometry-world/questions/l2q12.png", "count": 1 }], "countingAnswer": 8, "explanation": "" },
+        { "id": "g4-l14-q13", "type": "matching-pairs", "question": "Chọn kết quả thích hợp", "pairs": [{ "id": "p1", "left": "7 + 800 + 4060", "right": "4867" }, { "id": "p2", "left": "103 + 8710 + 40104", "right": "48917" }, { "id": "p3", "left": "4002 + 420 + 40000", "right": "44422" }], "explanation": "" },
+        { "id": "g4-l14-q14", "type": "fill-blank", "question": "Giá trị của chữ số 9 trong số 931035 là ___", "blanks": [{ "position": 0, "answer": "900000", "placeholder": "___" }], "explanation": "9 trăm ngàn" },
+        { "id": "g4-l14-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "3 tạ 70 ký","correctSlot": "small"},{"id": "d2","content": "3 yến 700 ký","correctSlot": "medium"},{"id": "d3","content": "7 ký 300 yến","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "370kg"},{"id": "medium","label": "730kg"},{"id": "large","label": "3007kg"}]}
       ]
     },
     {
@@ -1757,7 +1782,12 @@
           "choices": ["150 000", "180 000", "200 000", "220 000"],
           "answer": "200 000",
           "explanation": "600 000 : 3 = 200 000 hạt."
-        }
+        },
+        { "id": "g4-l15-q11", "type": "multiple-choice", "prompt": "Số lẻ bé nhất có tám chữ số là", "choices": ["11 111 111", "10 000 001", "11 000 000", "10 000 000"], "answer": "10 000 001", "explanation": "10 000 001 là số lẻ 8 chữ số bé nhất" },
+        { "id": "g4-l15-q12", "type": "counting", "question": "Có một hình vuông, nếu mở rộng hình vuông đó thêm 3cm về bên phải thì diện tích tăng thêm 21 cm2. Hỏi hình vuông đã cho có diện tích bằng bao nhiêu mi-li-mét vuông?", "prompt": "", "countingItems": [{ "image": "/assets/grades/grade4/geometry-world/questions/l3q12.png", "count": 1 }], "countingAnswer": 4900, "explanation": "49 xăng ti mét vuông" },
+        { "id": "g4-l15-q13", "type": "matching-pairs", "question": "Chọn kết quả thích hợp", "pairs": [{ "id": "p1", "left": "Số lớn nhất nhỏ hơn 1 000 000", "right": "999 999" }, { "id": "p2", "left": "Số liền sau số bé nhất có bảy chữ số khác nhau", "right": "1 023 457" }, { "id": "p3", "left": "Số liền trước số bé nhất có tám chữ số là", "right": "9 999 999" }], "explanation": "" },
+        { "id": "g4-l15-q14", "type": "fill-blank", "question": "Số ___ đọc là 8 chục nghìn, 7 trăm, 2 chục, 1 đơn vị.", "blanks": [{ "position": 0, "answer": "80721", "placeholder": "___" }], "explanation": "9 trăm ngàn" },
+        { "id": "g4-l15-q15", "type": "drag-drop", "question": "Sắp xếp kết quả từ nhỏ đến lớn","dragItems": [{"id": "d1","content": "20 triệu, 3 chục, 7 đơn vị","correctSlot": "small"},{"id": "d2","content": "20 triệu, 3 chục nghìn, 7 đơn vị","correctSlot": "medium"},{"id": "d3","content": "2 chục triệu, 3 triệu, 7 đơn vị","correctSlot": "large"}],"dropSlots": [{"id": "small","label": "20 000 037"},{"id": "medium","label": "20 030 007"},{"id": "large","label": "23 000 007"}]}
       ]
     }
   ]
