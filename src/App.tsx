@@ -7,10 +7,12 @@ import Index from "./pages/Index";
 import Lessons from "./pages/Lessons";
 import Library from "./pages/Library";
 import Auth from "./pages/Auth";
+import ResetPassword from "./pages/ResetPassword";
 import TrangQuynhGame from "./pages/TrangQuynhGame";
 import Profile from "./pages/Profile";
 import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
+import { ProtectedClassroom } from "./components/ProtectedClassroom";
 import SongHongGame from "./pages/SongHongGame";
 import PreschoolGame from "./pages/PreschoolGame";
 import Grade1Game from "./pages/Grade1Game";
@@ -30,9 +32,10 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/lessons" element={<Lessons />} />
+          <Route path="/lessons" element={<ProtectedClassroom><Lessons /></ProtectedClassroom>} />
           <Route path="/library" element={<Library />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/profile" element={<Profile />} />
                     <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/classroom/trangquynh" element={<TrangQuynhGame />} />

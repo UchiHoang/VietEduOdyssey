@@ -1,14 +1,24 @@
 import { useState, useMemo, useEffect } from "react";
-import { PlayCircle, BookOpen, CheckCircle, Search, Video, FileText } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
+import { PlayCircle, BookOpen, CheckCircle, Search, FileText, Loader2, Menu, X, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useLessonProgress } from "@/hooks/useLessonProgress";
+import { VideoPlayer } from "@/components/lesson/VideoPlayer";
+import { LessonProgressBadge } from "@/components/lesson/LessonProgressBadge";
+import { NotesTab } from "@/components/lesson/NotesTab";
+import { CommentsTab } from "@/components/lesson/CommentsTab";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 /* ==================================================================================
    KHU VỰC ĐỊNH NGHĨA KIỂU DỮ LIỆU
@@ -1684,30 +1694,99 @@ const topicsData: Topic[] = [
    LOGIC GIAO DIỆN
    ================================================================================== */
 const Lessons = () => {
+  // Hook lấy dữ liệu từ Supabase
+  const {
+    lessons: dbLessons,
+    topics: dbTopics,
+    lessonProgress,
+    isLoading,
+    markTopicCompleted,
+    getLessonProgressById,
+    isTopicCompleted,
+  } = useLessonProgress();
+
+  // Fallback: Sử dụng dữ liệu cứng nếu chưa có dữ liệu từ DB
+  const activeLessons = dbLessons.length > 0 ? dbLessons : lessonsData.map(l => ({
+    id: l.id,
+    title: l.title,
+    topic_count: l.topicCount,
+    quiz_count: l.quizCount,
+  }));
+
+  const activeTopics = dbTopics.length > 0 ? dbTopics : topicsData.map(t => ({
+    id: t.id,
+    lesson_id: t.lessonId,
+    semester: t.semester,
+    title: t.title,
+    video_url: t.videoUrl,
+    description: t.description,
+    order_index: 0,
+    duration_minutes: 15,
+  }));
+
+  // Read URL search params for deep linking
+  const [searchParams] = useSearchParams();
+  const urlGrade = searchParams.get("grade");
+  const urlTopic = searchParams.get("topic");
+  const urlTab = searchParams.get("tab");
+
   // State chọn Lớp
-  const [selectedLessonId, setSelectedLessonId] = useState<string>("L5");
+  const [selectedLessonId, setSelectedLessonId] = useState<string>(() => {
+    // Initialize from URL if available
+    if (urlGrade && activeLessons.find(l => l.id === urlGrade)) {
+      return urlGrade;
+    }
+    return "L5";
+  });
 
   // State chọn Học kì (Mặc định là 1)
-  const [selectedSemester, setSelectedSemester] = useState<number>(1);
+  const [selectedSemester, setSelectedSemester] = useState<number>(() => {
+    // If we have a topic from URL, find its semester
+    if (urlTopic) {
+      const topic = activeTopics.find(t => t.id === urlTopic);
+      if (topic) return topic.semester;
+    }
+    return 1;
+  });
 
   // State tìm kiếm
   const [searchQuery, setSearchQuery] = useState("");
 
   // State chọn Bài giảng (Video)
-  const [selectedTopicId, setSelectedTopicId] = useState<string>("");
+  const [selectedTopicId, setSelectedTopicId] = useState<string>(() => {
+    // Initialize from URL if available
+    if (urlTopic && activeTopics.find(t => t.id === urlTopic)) {
+      return urlTopic;
+    }
+    return "";
+  });
+
+  // State cho active tab (notes/qa)
+  const [activeToolTab, setActiveToolTab] = useState<string>(() => {
+    return urlTab === "notes" ? "notes" : "qa";
+  });
+
+  // State cho mobile sidebar
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   // LỌC DỮ LIỆU: Lớp + Học kì + Tìm kiếm
   const filteredTopics = useMemo(() => {
-    return topicsData.filter(
+    return activeTopics.filter(
       (t) =>
-        t.lessonId === selectedLessonId &&
-        t.semester === selectedSemester && // Thêm điều kiện học kì
+        t.lesson_id === selectedLessonId &&
+        t.semester === selectedSemester &&
         t.title.toLowerCase().includes(searchQuery.toLowerCase()),
     );
-  }, [selectedLessonId, selectedSemester, searchQuery]);
+  }, [activeTopics, selectedLessonId, selectedSemester, searchQuery]);
 
-  // Tự động chọn bài đầu tiên
+  // Tự động chọn bài đầu tiên (chỉ khi không có URL topic)
   useEffect(() => {
+    // Skip if we have a valid topic from URL on initial load
+    if (urlTopic && activeTopics.find(t => t.id === urlTopic)) {
+      return;
+    }
+    
     if (filteredTopics.length > 0) {
       if (!selectedTopicId || !filteredTopics.find((t) => t.id === selectedTopicId)) {
         setSelectedTopicId(filteredTopics[0].id);
@@ -1718,186 +1797,313 @@ const Lessons = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filteredTopics]);
 
-  const selectedLesson = lessonsData.find((l) => l.id === selectedLessonId);
-  const selectedTopic = topicsData.find((t) => t.id === selectedTopicId);
+  const selectedLesson = activeLessons.find((l) => l.id === selectedLessonId);
+  const selectedTopic = activeTopics.find((t) => t.id === selectedTopicId);
 
-  return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Header />
+  // Xử lý khi video kết thúc
+  const handleVideoComplete = async () => {
+    if (selectedTopicId) {
+      await markTopicCompleted(selectedTopicId);
+    }
+  };
 
-      {/* KHU VỰC NỘI DUNG */}
-      <div className="flex flex-1 min-h-0">
-        {/* --- SIDEBAR TRÁI (320px) --- */}
-        <div className="w-[320px] border-r flex flex-col bg-card shadow-sm z-10 flex-shrink-0 h-[780px] overflow-hidden rounded-br-2xl">
-          {/* Phần điều khiển trên cùng */}
-          <div className="p-4 space-y-4 flex-shrink-0">
-            {/* 1. Chọn Lớp */}
-            <div>
-              <label className="text-sm font-black text-foreground uppercase mb-1.5 block tracking-wider">
-                Lớp Học
-              </label>
-              <Select
-                value={selectedLessonId}
-                onValueChange={(val) => {
-                  setSelectedLessonId(val);
-                  setSearchQuery("");
-                  // Khi đổi lớp, có thể reset về học kì 1 hoặc giữ nguyên tuỳ ý
-                  setSelectedSemester(1);
-                }}
-              >
-                <SelectTrigger className="w-full font-bold h-11 bg-background border-2 hover:border-primary/50 transition-colors">
-                  <SelectValue placeholder="Chọn lớp..." />
-                </SelectTrigger>
-                <SelectContent>
-                  {lessonsData.map((lesson) => (
-                    <SelectItem key={lesson.id} value={lesson.id}>
-                      {lesson.title}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+  // Lấy tiến độ của lesson hiện tại
+  const currentLessonProgress = getLessonProgressById(selectedLessonId);
 
-            {/* 2. Chọn Học Kì (Tabs) */}
-            <div className="bg-muted/50 p-1 rounded-lg">
-              <div className="grid grid-cols-2 gap-1">
-                <button
-                  onClick={() => setSelectedSemester(1)}
-                  className={`text-sm font-black py-2 rounded-md transition-all ${
-                    selectedSemester === 1
-                      ? "bg-primary text-primary-foreground shadow-lg scale-105"
-                      : "text-muted-foreground hover:bg-white/70 font-bold"
-                  }`}
-                >
-                  Học kì 1
-                </button>
-                <button
-                  onClick={() => setSelectedSemester(2)}
-                  className={`text-sm font-black py-2 rounded-md transition-all ${
-                    selectedSemester === 2
-                      ? "bg-primary text-primary-foreground shadow-lg scale-105"
-                      : "text-muted-foreground hover:bg-white/70 font-bold"
-                  }`}
-                >
-                  Học kì 2
-                </button>
+  // Handler chọn topic trên mobile
+  const handleTopicSelect = (topicId: string) => {
+    setSelectedTopicId(topicId);
+    if (isMobile) {
+      setIsMobileSidebarOpen(false);
+    }
+  };
+
+  // Component nội dung sidebar (dùng chung cho cả desktop và mobile)
+  const SidebarContent = () => (
+    <>
+      {/* Phần điều khiển trên cùng */}
+      <div className="p-4 space-y-4 flex-shrink-0">
+        {/* 1. Chọn Lớp */}
+        <div>
+          <label className="text-sm font-black text-foreground uppercase mb-1.5 block tracking-wider">
+            Lớp Học
+          </label>
+          <Select
+            value={selectedLessonId}
+            onValueChange={(val) => {
+              setSelectedLessonId(val);
+              setSearchQuery("");
+              setSelectedSemester(1);
+            }}
+          >
+            <SelectTrigger className="w-full font-bold h-11 bg-background border-2 hover:border-primary/50 transition-colors">
+              <SelectValue placeholder="Chọn lớp..." />
+            </SelectTrigger>
+            <SelectContent>
+              {activeLessons.map((lesson) => {
+                const progress = getLessonProgressById(lesson.id);
+                return (
+                  <SelectItem key={lesson.id} value={lesson.id}>
+                    <div className="flex items-center justify-between w-full gap-3">
+                      <span>{lesson.title}</span>
+                      {progress && progress.completion_percentage > 0 && (
+                        <span className="text-xs text-primary font-bold">
+                          {Math.round(progress.completion_percentage)}%
+                        </span>
+                      )}
+                    </div>
+                  </SelectItem>
+                );
+              })}
+            </SelectContent>
+          </Select>
+          
+          {/* Progress bar cho lesson hiện tại */}
+          {currentLessonProgress && currentLessonProgress.total_topics > 0 && (
+            <div className="mt-2 space-y-1">
+              <div className="flex justify-between text-xs">
+                <span className="text-muted-foreground font-medium">Tiến độ</span>
+                <span className="text-primary font-bold">
+                  {currentLessonProgress.completed_topics}/{currentLessonProgress.total_topics} bài
+                </span>
               </div>
-            </div>
-
-            {/* 3. Tìm kiếm */}
-            <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Tìm bài học..."
-                className="pl-9 bg-background border-2 font-semibold h-11 focus:border-primary/50 transition-colors"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+              <Progress 
+                value={currentLessonProgress.completion_percentage} 
+                className="h-2"
               />
             </div>
+          )}
+        </div>
+
+        {/* 2. Chọn Học Kì (Tabs) */}
+        <div className="bg-muted/50 p-1 rounded-lg">
+          <div className="grid grid-cols-2 gap-1">
+            <button
+              onClick={() => setSelectedSemester(1)}
+              className={`text-sm font-black py-2 rounded-md transition-all ${
+                selectedSemester === 1
+                  ? "bg-primary text-primary-foreground shadow-lg scale-105"
+                  : "text-muted-foreground hover:bg-white/70 font-bold"
+              }`}
+            >
+              Học kì 1
+            </button>
+            <button
+              onClick={() => setSelectedSemester(2)}
+              className={`text-sm font-black py-2 rounded-md transition-all ${
+                selectedSemester === 2
+                  ? "bg-primary text-primary-foreground shadow-lg scale-105"
+                  : "text-muted-foreground hover:bg-white/70 font-bold"
+              }`}
+            >
+              Học kì 2
+            </button>
           </div>
+        </div>
 
-          <Separator className="flex-shrink-0" />
+        {/* 3. Tìm kiếm */}
+        <div className="relative">
+          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input
+            placeholder="Tìm bài học..."
+            className="pl-9 bg-background border-2 font-semibold h-11 focus:border-primary/50 transition-colors"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+      </div>
 
-          {/* Danh sách chủ điểm (Topics) */}
-          <div className="flex-1 flex flex-col bg-gradient-to-b from-muted/20 to-muted/5 min-h-0 overflow-hidden">
-            {/* Header danh sách */}
-            <div className="px-4 py-3 bg-gradient-to-r from-primary/10 to-primary/5 text-sm font-black text-foreground uppercase tracking-wider border-b-2 border-primary/30 flex justify-between items-center flex-shrink-0">
-              <span className="text-base">DANH SÁCH BÀI HỌC</span>
-              <Badge
-                variant="outline"
-                className="text-xs h-6 px-2.5 bg-background/90 font-black border-primary/40 text-primary"
-              >
-                {filteredTopics.length} BÀI
-              </Badge>
-            </div>
+      <Separator className="flex-shrink-0" />
 
-            {/* Container scroll với chiều cao cố định */}
-            <div className="flex-1 overflow-y-auto overflow-x-hidden lesson-list-scroll min-h-0 pb-4">
-              <div className="p-3 space-y-3">
-                {filteredTopics.length > 0 ? (
-                  filteredTopics.map((topic, index) => (
-                    <button
-                      key={topic.id}
-                      onClick={() => setSelectedTopicId(topic.id)}
-                      className={`w-full text-left p-4 rounded-2xl transition-all duration-200 border-2 flex gap-3.5 group items-start ${
-                        selectedTopicId === topic.id
-                          ? "bg-gradient-to-r from-primary/20 to-primary/15 border-primary shadow-lg ring-2 ring-primary/30"
-                          : "bg-white hover:bg-muted/50 border-border/60 hover:border-primary/50 shadow-sm hover:shadow-lg"
-                      }`}
-                    >
-                      {/* Icon số thứ tự - larger */}
-                      <div className="flex-shrink-0 pt-0.5">
-                        {selectedTopicId === topic.id ? (
-                          <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground shadow-lg">
-                            <PlayCircle className="h-5 w-5" />
-                          </div>
-                        ) : topic.completed ? (
-                          <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground shadow-lg">
-                            <CheckCircle className="h-5 w-5" />
-                          </div>
+      {/* Danh sách chủ điểm (Topics) */}
+      <div className="flex-1 flex flex-col bg-gradient-to-b from-muted/20 to-muted/5 min-h-0 overflow-hidden">
+        {/* Header danh sách */}
+        <div className="px-4 py-3 bg-gradient-to-r from-primary/10 to-primary/5 text-sm font-black text-foreground uppercase tracking-wider border-b-2 border-primary/30 flex justify-between items-center flex-shrink-0">
+          <span className="text-base">DANH SÁCH BÀI HỌC</span>
+          <Badge
+            variant="outline"
+            className="text-xs h-6 px-2.5 bg-background/90 font-black border-primary/40 text-primary"
+          >
+            {filteredTopics.length} BÀI
+          </Badge>
+        </div>
+
+        {/* Container scroll với chiều cao cố định */}
+        <div className="flex-1 overflow-y-auto overflow-x-hidden lesson-list-scroll min-h-0 pb-4">
+          <div className="p-3 space-y-3">
+            {isLoading ? (
+              <div className="flex items-center justify-center py-12">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              </div>
+            ) : filteredTopics.length > 0 ? (
+              filteredTopics.map((topic, index) => {
+                const completed = isTopicCompleted(topic.id);
+                return (
+                  <motion.button
+                    key={topic.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ 
+                      delay: isMobile && isMobileSidebarOpen ? index * 0.05 : 0,
+                      duration: 0.2 
+                    }}
+                    onClick={() => handleTopicSelect(topic.id)}
+                    className={`w-full text-left p-4 rounded-2xl transition-all duration-200 border-2 flex gap-3.5 group items-start ${
+                      selectedTopicId === topic.id
+                        ? "bg-gradient-to-r from-primary/20 to-primary/15 border-primary shadow-lg ring-2 ring-primary/30"
+                        : "bg-white hover:bg-muted/50 border-border/60 hover:border-primary/50 shadow-sm hover:shadow-lg"
+                    }`}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {/* Icon số thứ tự */}
+                    <div className="flex-shrink-0 pt-0.5">
+                      {selectedTopicId === topic.id ? (
+                        <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground shadow-lg">
+                          <PlayCircle className="h-5 w-5" />
+                        </div>
+                      ) : completed ? (
+                        <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground shadow-lg">
+                          <CheckCircle className="h-5 w-5" />
+                        </div>
+                      ) : (
+                        <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center text-xs font-black text-foreground/70 group-hover:bg-primary/20 group-hover:text-primary transition-all border-2 border-border">
+                          {index + 1}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Nội dung bài học */}
+                    <div className="flex-1 min-w-0">
+                      <h3
+                        className={`text-base font-bold leading-snug mb-2 line-clamp-2 ${
+                          selectedTopicId === topic.id
+                            ? "text-primary"
+                            : "text-foreground group-hover:text-primary/90"
+                        }`}
+                      >
+                        {topic.title}
+                      </h3>
+
+                      {/* Badge trạng thái */}
+                      <div className="flex items-center gap-2">
+                        {completed ? (
+                          <span className="text-xs px-2.5 py-1 bg-primary/15 text-primary rounded-lg font-bold inline-flex items-center gap-1.5">
+                            <CheckCircle className="h-3 w-3" /> Hoàn thành
+                          </span>
                         ) : (
-                          <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center text-xs font-black text-foreground/70 group-hover:bg-primary/20 group-hover:text-primary transition-all border-2 border-border">
-                            {index + 1}
-                          </div>
+                          <span className="text-xs text-muted-foreground inline-flex items-center gap-1.5 px-2.5 py-1 bg-muted/60 rounded-lg font-bold">
+                            <PlayCircle className="h-3 w-3" /> {topic.duration_minutes || 15}p
+                          </span>
                         )}
                       </div>
-
-                      {/* Nội dung bài học - larger font */}
-                      <div className="flex-1 min-w-0">
-                        <h3
-                          className={`text-base font-bold leading-snug mb-2 line-clamp-2 ${
-                            selectedTopicId === topic.id
-                              ? "text-primary"
-                              : "text-foreground group-hover:text-primary/90"
-                          }`}
-                        >
-                          {topic.title}
-                        </h3>
-
-                        {/* Badge trạng thái - larger */}
-                        <div className="flex items-center gap-2">
-                          {topic.completed ? (
-                            <span className="text-xs px-2.5 py-1 bg-primary/15 text-primary rounded-lg font-bold inline-flex items-center gap-1.5">
-                              <CheckCircle className="h-3 w-3" /> Hoàn thành
-                            </span>
-                          ) : (
-                            <span className="text-xs text-muted-foreground inline-flex items-center gap-1.5 px-2.5 py-1 bg-muted/60 rounded-lg font-bold">
-                              <PlayCircle className="h-3 w-3" /> 15p
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </button>
-                  ))
-                ) : (
-                  <div className="text-center py-12 px-4 text-muted-foreground">
-                    <FileText className="h-10 w-10 mx-auto mb-2 opacity-20" />
-                    <p className="text-xs">Không tìm thấy bài học nào cho Học kì {selectedSemester}.</p>
-                  </div>
-                )}
+                    </div>
+                  </motion.button>
+                );
+              })
+            ) : (
+              <div className="text-center py-12 px-4 text-muted-foreground">
+                <FileText className="h-10 w-10 mx-auto mb-2 opacity-20" />
+                <p className="text-xs">Không tìm thấy bài học nào cho Học kì {selectedSemester}.</p>
               </div>
-            </div>
-
+            )}
           </div>
-          
-          {/* Viền xanh lá ở đuôi sidebar */}
-          <div className="h-3 bg-primary rounded-b-2xl flex-shrink-0" />
+        </div>
+      </div>
+      
+      {/* Viền xanh lá ở đuôi sidebar */}
+      <div className="h-3 bg-primary rounded-b-2xl flex-shrink-0" />
+    </>
+  );
+
+  return (
+    <div className="flex-1 flex flex-col bg-background">
+
+      {/* KHU VỰC NỘI DUNG */}
+      <div className="flex flex-1 min-h-0 relative">
+        
+        {/* Mobile: Floating button với animation */}
+        <AnimatePresence>
+          {!isMobileSidebarOpen && (
+            <motion.div
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              className="lg:hidden fixed bottom-20 left-4 z-50"
+            >
+              <Button 
+                variant="default" 
+                size="sm" 
+                onClick={() => setIsMobileSidebarOpen(true)}
+                className="shadow-xl rounded-full h-14 w-14 p-0 hover:scale-110 transition-transform"
+              >
+                <Menu className="h-6 w-6" />
+              </Button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Mobile: Sheet sidebar với animation mượt */}
+        <Sheet open={isMobileSidebarOpen} onOpenChange={setIsMobileSidebarOpen}>
+          <SheetContent 
+            side="left" 
+            className="w-[320px] sm:w-[360px] p-0 flex flex-col border-r-2 border-primary/20"
+          >
+            <SheetTitle className="sr-only">Danh sách bài học</SheetTitle>
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1, duration: 0.3 }}
+              className="flex-1 flex flex-col overflow-hidden"
+            >
+              <SidebarContent />
+            </motion.div>
+          </SheetContent>
+        </Sheet>
+
+        {/* Desktop: Sidebar cố định */}
+        <div className="hidden lg:flex w-[320px] xl:w-[360px] border-r flex-col bg-card shadow-sm z-10 flex-shrink-0 h-[780px] overflow-hidden rounded-br-2xl">
+          <SidebarContent />
         </div>
 
         {/* --- KHUNG CHÍNH (MAIN CONTENT) --- */}
         <div className="flex-1 flex flex-col bg-background h-full overflow-hidden relative">
+          {/* Mobile header bar */}
+          <div className="lg:hidden flex items-center gap-3 p-3 border-b bg-card/80 backdrop-blur-sm sticky top-0 z-40">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => setIsMobileSidebarOpen(true)}
+              className="flex items-center gap-2"
+            >
+              <Menu className="h-4 w-4" />
+              <span className="font-bold">Bài học</span>
+            </Button>
+            {selectedTopic && (
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-bold text-foreground truncate">
+                  {selectedTopic.title}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {selectedLesson?.title} • Học kì {selectedSemester}
+                </p>
+              </div>
+            )}
+          </div>
+
           {!selectedTopic ? (
             <div className="flex-1 flex flex-col items-center justify-center text-muted-foreground p-8 text-center bg-muted/5">
               <BookOpen className="h-16 w-16 mb-4 opacity-20" />
               <h2 className="text-xl font-semibold mb-2">Chưa chọn bài học</h2>
-              <p>Vui lòng chọn một bài học từ danh sách bên trái.</p>
+              <p className="hidden lg:block">Vui lòng chọn một bài học từ danh sách bên trái.</p>
+              <p className="lg:hidden">Nhấn nút "Bài học" để chọn bài học.</p>
             </div>
           ) : (
             <ScrollArea className="flex-1">
               {/* SỬA LỖI VIDEO BÉ: Tăng max-w từ 5xl lên 7xl hoặc full */}
-              <div className="max-w-[1600px] mx-auto p-4 md:p-6 lg:p-8 space-y-6">
-                {/* Header Bài Học */}
-                <div className="flex flex-col gap-3">
+              <div className="max-w-[1600px] mx-auto p-3 sm:p-4 md:p-6 lg:p-8 space-y-4 md:space-y-6">
+                {/* Header Bài Học - Ẩn trên mobile vì đã có header bar */}
+                <div className="hidden lg:flex flex-col gap-3">
                   <div className="flex items-center gap-3 text-sm md:text-base">
                     <span className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground px-3 py-1.5 rounded-lg text-xs md:text-sm font-bold uppercase tracking-wider shadow-md">
                       {selectedLesson?.title}
@@ -1912,75 +2118,91 @@ const Lessons = () => {
                   </h1>
                 </div>
 
-                {/* Video Player*/}
-                <div className="w-full bg-gradient-to-br from-black via-black to-gray-900 rounded-2xl overflow-hidden shadow-2xl ring-2 ring-primary/20 hover:ring-primary/40 transition-all duration-300">
-                  {/* Aspect ratio giữ nguyên để video không bị méo, nhưng width sẽ full container */}
-                  <div className="aspect-video w-full relative">
-                    <iframe
-                      src={selectedTopic.videoUrl}
-                      title={selectedTopic.title}
-                      className="w-full h-full"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
-                    {/* Overlay gradient effect */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                {/* Video Player với nút hoàn thành */}
+                <VideoPlayer
+                  videoUrl={selectedTopic.video_url}
+                  title={selectedTopic.title}
+                  topicId={selectedTopic.id}
+                  onComplete={handleVideoComplete}
+                  isCompleted={isTopicCompleted(selectedTopic.id)}
+                />
+
+                {/* Phần nội dung bài học + XP - Layout 2 cột */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+                  {/* Cột trái: Nội dung bài học - Thiết kế mới theo mẫu */}
+                  <div className="lg:col-span-2 bg-card dark:bg-card rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow duration-300">
+                    {/* Header */}
+                    <div className="px-5 pt-5 pb-3">
+                      <h3 className="font-bold text-xl flex items-center gap-3 text-foreground">
+                        <BookOpen className="h-5 w-5 text-primary" />
+                        Nội dung bài học
+                      </h3>
+                    </div>
+                    
+                    {/* Nội dung */}
+                    <div className="px-5 pb-5">
+                      <h4 className="font-bold text-lg text-primary mb-3">
+                        {selectedTopic.title}
+                      </h4>
+                      <p className="text-muted-foreground leading-relaxed">
+                        Hãy xem kỹ video và ghi chép lại các công thức quan trọng. 
+                        Sau khi xem xong, bạn có thể ghi chú bên dưới hoặc đặt câu hỏi trong phần Hỏi đáp.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Cột phải: XP Info */}
+                  <div className="lg:col-span-1 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl p-4 md:p-6 border border-primary/20 flex flex-col items-center justify-center text-center gap-3">
+                    <div className="text-4xl">🎯</div>
+                    <div className="text-lg md:text-xl font-bold text-primary">
+                      Hoàn thành bài học
+                    </div>
+                    <div className="text-2xl md:text-3xl font-black text-primary">
+                      +20 XP
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Xem video và hoàn thành để nhận điểm kinh nghiệm
+                    </p>
                   </div>
                 </div>
 
-                {/* Phần thông tin và nút bấm */}
-                <div className="grid lg:grid-cols-3 gap-6 lg:gap-10">
-                  {/* Cột trái: Nội dung mô tả */}
-                  <div className="lg:col-span-2 space-y-6">
-                    <div className="space-y-4">
-                      <h3 className="font-semibold text-xl md:text-2xl flex items-center gap-3 border-b border-primary/20 pb-2 text-foreground">
-                        <BookOpen className="h-6 w-6 text-primary" />
-                        Nội dung bài học
-                      </h3>
-                      <div className="text-foreground/90 leading-relaxed text-base md:text-lg">
-                        <p className="mb-3 font-semibold text-primary">{selectedTopic.description}</p>
-                        <p className="mt-2">
-                          Hãy xem kỹ video và ghi chép lại các công thức quan trọng. Sau khi xem xong, bạn có thể nhấn
-                          nút "Làm bài tập" bên cạnh để củng cố kiến thức.
-                        </p>
-                      </div>
+                {/* Phần Ghi chú & Hỏi đáp - Nằm dưới, full width */}
+                <div className="bg-card rounded-xl md:rounded-2xl border shadow-lg overflow-hidden">
+                  <Tabs value={activeToolTab} onValueChange={setActiveToolTab} className="w-full">
+                    {/* Header với gradient xanh lá - responsive */}
+                    <div className="bg-gradient-to-r from-primary to-primary/80 px-3 sm:px-4 md:px-6 py-3 md:py-5 flex justify-center">
+                      <TabsList className="bg-primary-foreground/20 backdrop-blur-sm border-none h-10 sm:h-12 md:h-14 p-1 md:p-1.5 rounded-full w-full max-w-md">
+                        <TabsTrigger 
+                          value="notes" 
+                          className="flex-1 text-xs sm:text-sm md:text-lg font-bold px-2 sm:px-4 md:px-8 py-2 md:py-3 rounded-full data-[state=active]:bg-background data-[state=active]:text-primary data-[state=inactive]:text-primary-foreground/90 transition-all"
+                        >
+                          <span className="hidden sm:inline">📝 </span>Ghi chú
+                        </TabsTrigger>
+                        <TabsTrigger 
+                          value="qa" 
+                          className="flex-1 text-xs sm:text-sm md:text-lg font-bold px-2 sm:px-4 md:px-8 py-2 md:py-3 rounded-full data-[state=active]:bg-background data-[state=active]:text-primary data-[state=inactive]:text-primary-foreground/90 transition-all"
+                        >
+                          <span className="hidden sm:inline">💬 </span>Hỏi đáp
+                        </TabsTrigger>
+                      </TabsList>
                     </div>
-                  </div>
-
-                  {/* Cột phải: Actions Panel */}
-                  <div className="space-y-4">
-                    <div className="bg-gradient-to-br from-card to-card/95 p-5 rounded-xl border border-primary/10 shadow-md space-y-4 sticky top-4 backdrop-blur-sm">
-                      <h4 className="font-semibold text-lg md:text-xl text-foreground mb-3 tracking-tight">
-                        Hoạt động học tập
-                      </h4>
-
-                      <Button
-                        className="w-full justify-start h-12 text-base font-semibold shadow hover:shadow-md transition-all duration-300"
-                        size="lg"
-                      >
-                        <div className="bg-white/20 p-1.5 rounded-lg mr-3">
-                          <BookOpen className="h-6 w-6" />
-                        </div>
-                        Làm bài tập ngay
-                      </Button>
-
-                      <Button
-                        variant="outline"
-                        className="w-full justify-start h-12 text-base font-medium border border-primary/30 hover:bg-primary/10 hover:text-primary hover:border-primary/50 transition-all duration-300"
-                      >
-                        <div className="bg-primary/10 p-1.5 rounded-lg mr-3 text-primary">
-                          <FileText className="h-6 w-6" />
-                        </div>
-                        Tải tài liệu PDF
-                      </Button>
-
-                      <div className="pt-4 border-t-2 border-primary/20 mt-4">
-                        <div className="text-xs font-medium text-center text-primary">
-                          Hoàn thành bài học để nhận 20 XP
-                        </div>
-                      </div>
+                    
+                    <div className="p-4 md:p-6 bg-card">
+                      <TabsContent value="notes" className="mt-0">
+                        <NotesTab 
+                          topicId={selectedTopic.id} 
+                          topicTitle={selectedTopic.title} 
+                        />
+                      </TabsContent>
+                      
+                      <TabsContent value="qa" className="mt-0">
+                        <CommentsTab 
+                          topicId={selectedTopic.id} 
+                          topicTitle={selectedTopic.title} 
+                        />
+                      </TabsContent>
                     </div>
-                  </div>
+                  </Tabs>
                 </div>
               </div>
             </ScrollArea>
