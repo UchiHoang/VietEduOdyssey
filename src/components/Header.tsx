@@ -1,7 +1,7 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, GraduationCap, LogOut, User, Shield, Moon, Sun, Library, Home, BookOpen, Info, Users, Trophy, Phone } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import {
@@ -21,6 +21,7 @@ interface HeaderProps {
 
 const Header = ({ onRoleChange, currentRole = "student" }: HeaderProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // dùng đúng kiểu state như yêu cầu
@@ -28,19 +29,27 @@ const Header = ({ onRoleChange, currentRole = "student" }: HeaderProps) => {
   const [profile, setProfile] = useState<any>(null);
   const [userRole, setUserRole] = useState<string | null>(null);
 
-  // Scroll mượt
-  const navigateAndScroll = (id: string) => {
-    if (window.location.pathname !== "/") {
-      navigate("/");
-      setTimeout(() => {
-        const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 350);
-    } else {
-      const el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+// Smooth scroll to section
+const scrollToSection = useCallback((sectionId: string) => {
+  // If not on home page, navigate to home first then scroll
+  if (location.pathname !== "/") {
+    navigate("/");
+    // Wait for navigation then scroll
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 100);
+  } else {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-  };
+  }
+  setMobileMenuOpen(false);
+}, [location.pathname, navigate]);
+
 
   // Load profile + role
   useEffect(() => {
@@ -122,35 +131,43 @@ const Header = ({ onRoleChange, currentRole = "student" }: HeaderProps) => {
             Trang chủ
           </Link>
 
+
+          <button 
+            onClick={() => scrollToSection("about")} 
+            className="text-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5 cursor-pointer"
+          >
+            <Info className="h-4 w-4" />
+            Giới thiệu
+            </button>
           <Link to="/lessons" className="text-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5">
             <BookOpen className="h-4 w-4" />
             Bài giảng
           </Link>
-
-          <Link to="/library" className="text-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5">
-          <Library className="h-4 w-4" />
-            Thư viện
-          </Link>
-
-          <Link to="#about" className="text-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5">
-            <Info className="h-4 w-4" />
-            Giới thiệu
-          </Link>
-
-          <Link to="#classes" className="text-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5">
+          <button 
+            onClick={() => scrollToSection("classes")} 
+            className="text-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5 cursor-pointer"
+          >
             <Users className="h-4 w-4" />
             Lớp học
+            </button>
+            <Link to="/library" className="text-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5">
+            <Library className="h-4 w-4" />
+            Thư viện
           </Link>
-
-          <Link to="#leaderboard" className="text-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5">
+          <button 
+            onClick={() => scrollToSection("leaderboard")} 
+            className="text-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5 cursor-pointer"
+          >
             <Trophy className="h-4 w-4" />
             Xếp hạng
-          </Link>
-
-          <Link to="#contact" className="text-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5">
+            </button>
+          <button 
+            onClick={() => scrollToSection("contact")} 
+            className="text-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5 cursor-pointer"
+          >
             <Phone className="h-4 w-4" />
             Liên hệ
-          </Link>
+            </button>
         </nav>
 
         {/* User + Mobile toggle */}
@@ -213,30 +230,43 @@ const Header = ({ onRoleChange, currentRole = "student" }: HeaderProps) => {
             <Home className="h-4 w-4" />
             Trang chủ
           </Link>
+         
+          <button 
+            onClick={() => scrollToSection("about")} 
+            className="flex items-center gap-2 py-2 text-foreground hover:text-primary w-full text-left"
+          >
+            <Info className="h-4 w-4" />
+            Giới thiệu
+            </button>
           <Link to="/lessons" className="flex items-center gap-2 py-2 text-foreground hover:text-primary">
             <BookOpen className="h-4 w-4" />
             Bài giảng
           </Link>
-          <Link to="/library" className="flex items-center gap-2 py-2 text-foreground hover:text-primary">
+          <button 
+            onClick={() => scrollToSection("classes")} 
+            className="flex items-center gap-2 py-2 text-foreground hover:text-primary w-full text-left"
+          >
+            <Users className="h-4 w-4" />
+            Lớp học
+          </button>
+            <Link to="/library" className="flex items-center gap-2 py-2 text-foreground hover:text-primary">
             <Library className="h-4 w-4" />
             Thư viện
           </Link>
-          <Link to="#about" className="flex items-center gap-2 py-2 text-foreground hover:text-primary">
-            <Info className="h-4 w-4" />
-            Giới thiệu
-          </Link>
-          <Link to="#classes" className="flex items-center gap-2 py-2 text-foreground hover:text-primary">
-            <Users className="h-4 w-4" />
-            Lớp học
-          </Link>
-          <Link to="#leaderboard" className="flex items-center gap-2 py-2 text-foreground hover:text-primary">
+          <button 
+            onClick={() => scrollToSection("leaderboard")} 
+            className="flex items-center gap-2 py-2 text-foreground hover:text-primary w-full text-left"
+          >
             <Trophy className="h-4 w-4" />
             Xếp hạng
-          </Link>
-          <Link to="#contact" className="flex items-center gap-2 py-2 text-foreground hover:text-primary">
+            </button>
+          <button 
+            onClick={() => scrollToSection("contact")} 
+            className="flex items-center gap-2 py-2 text-foreground hover:text-primary w-full text-left"
+          >
             <Phone className="h-4 w-4" />
             Liên hệ
-          </Link>
+          </button>
 
 
           {user ? (
