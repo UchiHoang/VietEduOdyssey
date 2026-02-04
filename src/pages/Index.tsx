@@ -5,7 +5,6 @@ import ClassesSection from "@/components/ClassesSection";
 import About from "@/components/About";
 import Leaderboard from "@/components/Leaderboard";
 import Rewards from "@/components/Rewards";
-import AchievementsSection from "@/components/AchievementsSection";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 import type { UserRole } from "@/data/mockData";
@@ -22,7 +21,6 @@ const Index = () => {
         <ClassesSection />
         <Leaderboard />
         <Rewards />
-        <AchievementsSection />
         <ContactForm />
       </main>
       <Footer />
