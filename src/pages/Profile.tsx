@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState, useCallback } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -10,7 +10,11 @@ import SettingsTab from "@/components/profile/SettingsTab";
 import PasswordTab from "@/components/profile/PasswordTab";
 import CoursesTab from "@/components/profile/CoursesTab";
 import AnalyticsTab from "@/components/profile/AnalyticsTab";
+import ActivityTab from "@/components/profile/ActivityTab";
 import AvatarUploadModal from "@/components/profile/AvatarUploadModal";
+import { AchievementNotification } from "@/components/achievements/AchievementNotification";
+import { useAchievements, UserStats } from "@/hooks/useAchievements";
+import { EarnedAchievement } from "@/data/achievements";
 import { toast } from "@/hooks/use-toast";
 
 interface Profile {
@@ -47,19 +51,18 @@ interface StreakData {
   last_activity_date: string | null;
 }
 
-interface Achievement {
-  id: string;
-  achievement_id: string;
-  achievement_name: string;
-  achievement_icon: string;
-  achievement_description: string;
-  earned_at: string;
-}
+
 
 const Profile = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("info");
+  const [searchParams] = useSearchParams();
+  const [activeTab, setActiveTab] = useState(() => {
+    const tabFromUrl = searchParams.get("tab");
+    return tabFromUrl && ["info", "stats", "analytics", "activity", "settings", "password", "courses"].includes(tabFromUrl)
+      ? tabFromUrl
+      : "info";
+  });
   const [profile, setProfile] = useState<Profile | null>(null);
   const [gameProgress, setGameProgress] = useState<GameProgress | null>(null);
   const [userRole, setUserRole] = useState<string>("student");
@@ -67,9 +70,50 @@ const Profile = () => {
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [avatarModalOpen, setAvatarModalOpen] = useState(false);
 
+    // Achievement system hook
+    const {
+      earnedAchievements,
+      newlyUnlocked,
+      checkAndUnlockAchievements,
+      dismissNewAchievement,
+    } = useAchievements();
+    
+    // Check achievements when data is loaded
+  const checkAchievements = useCallback(async (
+    gp: GameProgress | null,
+    sk: StreakData | null
+  ) => {
+    if (!gp && !sk) return;
+
+    // Build user stats from loaded data
+    const stats: UserStats = {
+      lessonsCompleted: gp?.completed_nodes?.length || 0,
+      streakDays: sk?.current_streak || 0,
+      totalXp: gp?.total_xp || 0,
+      totalPoints: gp?.total_points || 0,
+      levelReached: gp?.level || 1,
+      perfectLessons: 0, // Would need separate tracking
+      totalLearningDays: sk?.total_learning_days || 0,
+      levelsCompleted: gp?.completed_nodes?.length || 0,
+      starsEarned: 0, // Would need to aggregate from level_history
+      badgesEarned: gp?.earned_badges?.length || 0,
+      timeSpentMinutes: 0, // Would need to aggregate from daily_activity
+    };
+
+    await checkAndUnlockAchievements(stats);
+  }, [checkAndUnlockAchievements]);
+
   useEffect(() => {
     checkUser();
   }, []);
+
+  // Check achievements when gameProgress or streak changes
+  useEffect(() => {
+    if (!loading && (gameProgress || streak)) {
+      checkAchievements(gameProgress, streak);
+    }
+  }, [loading, gameProgress, streak, checkAchievements]);
+
 
   const checkUser = async () => {
     try {
@@ -80,12 +124,11 @@ const Profile = () => {
         return;
       }
 
-      await Promise.all([
+      const results = await Promise.all([
         loadProfile(session.user.id),
         loadGameProgress(session.user.id),
         loadUserRole(session.user.id),
         loadStreak(session.user.id),
-        loadAchievements(session.user.id),
       ]);
 
       // Update streak on login
@@ -123,7 +166,7 @@ const Profile = () => {
       .from("game_globals")
       .select("*")
       .eq("user_id", userId)
-      .single();
+      .single(); 
 
     // Load all course progress to calculate total completed nodes
     const { data: coursesData } = await supabase
@@ -158,23 +201,19 @@ const Profile = () => {
     // Use global_xp from game_globals as PRIMARY source
     const totalXP = (globalData?.total_xp as number) || (progressData?.total_xp as number) || 0;
     const globalLevel = (globalData?.global_level as number) || (progressData?.level as number) || 1;
-
-    // Combine data from all sources
-    const combinedProgress: GameProgress = {
+    setGameProgress({
       total_xp: totalXP,
-      total_points: totalPoints || (progressData?.total_points as number) || 0,
+      total_points: totalPoints,
       level: globalLevel,
-      current_node: (progressData?.current_node as number) || 0,
-      completed_nodes: allCompletedNodes.length > 0 
-        ? allCompletedNodes 
-        : ((progressData?.completed_nodes as string[]) || []),
-      earned_badges: ((globalData?.unlocked_badges as string[]) || (progressData?.earned_badges as string[]) || []),
+      current_node: progressData?.current_node || 0,
+      completed_nodes: allCompletedNodes,
+      earned_badges: progressData?.earned_badges || [],
       global_level: globalLevel,
-      coins: (globalData?.coins as number) || 0,
-    };
-
-    setGameProgress(combinedProgress);
+      coins: globalData?.coins || 0,
+    });
   };
+
+     // loadAchievements is now handled by useAchievements hook
 
   const loadUserRole = async (userId: string) => {
     const { data, error } = await supabase
@@ -320,7 +359,7 @@ const Profile = () => {
           <StatsTab
             gameProgress={gameProgress}
             streak={streak}
-            achievements={achievements}
+            achievements={earnedAchievements as EarnedAchievement[]}
           />
         );
       case "analytics":
@@ -330,6 +369,8 @@ const Profile = () => {
             streak={streak}
           />
         );
+      case "activity":
+        return <ActivityTab />;
       case "settings":
         return <SettingsTab />;
       case "password":
@@ -374,6 +415,11 @@ const Profile = () => {
         onClose={() => setAvatarModalOpen(false)}
         currentAvatar={profile?.avatar || "👤"}
         onSave={handleAvatarSave}
+      />
+     {/* Achievement Notification */}
+     <AchievementNotification
+        achievement={newlyUnlocked}
+        onDismiss={dismissNewAchievement}
       />
     </div>
   );

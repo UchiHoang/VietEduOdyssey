@@ -1,136 +1,221 @@
-import { Trophy, Star, Medal, CheckCircle, Sparkles, Flag } from "lucide-react";
+import { ALL_ACHIEVEMENTS } from "@/data/achievements";
 import { motion } from "framer-motion";
-import { staggerContainer, fadeInUp } from "./animations";
+import { Award, Trophy, Star, Target, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+
+// Lấy 6 thành tựu nổi bật nhất để giới thiệu
+const FEATURED_ACHIEVEMENTS = [
+  ALL_ACHIEVEMENTS.find(a => a.id === "first-lesson")!,
+  ALL_ACHIEVEMENTS.find(a => a.id === "streak-7")!,
+  ALL_ACHIEVEMENTS.find(a => a.id === "xp-500")!,
+  ALL_ACHIEVEMENTS.find(a => a.id === "perfect-lesson")!,
+  ALL_ACHIEVEMENTS.find(a => a.id === "level-10")!,
+  ALL_ACHIEVEMENTS.find(a => a.id === "badges-10")!,
+];
 
 const Rewards = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const badgeVariants = {
+    hidden: { opacity: 0, scale: 0, rotate: -180 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      rotate: 0,
+      transition: {
+        type: "spring" as const,
+        stiffness: 200,
+        damping: 15
+      }
+    }
+  };
+
   return (
-    <section className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-b from-background to-secondary/10">
-      {/* Mascot background */}
-      <img
-        src="/mascot-buffalo.png"
-        alt="Mascot"
-        onError={(e) => {
-          const target = e.currentTarget as HTMLImageElement;
-          if (target.src.indexOf('/icon.png') === -1) target.src = '/icon.png';
-        }}
-        className="pointer-events-none select-none opacity-90 absolute left-2 md:left-6 bottom-0 w-40 md:w-56 lg:w-72 z-10 animate-float"
-      />
-
-      {/* Curved dotted path background */}
-      <svg
-        className="pointer-events-none absolute inset-x-0 top-28 hidden md:block"
-        height="180"
-        viewBox="0 0 1200 180"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M0 150 C 250 40, 450 40, 700 150 C 900 230, 1050 80, 1200 120"
-          stroke="currentColor"
-          className="text-muted-foreground/30"
-          strokeDasharray="6 10"
-          strokeWidth="2"
-          fill="transparent"
+    <section className="py-16 md:py-24 bg-gradient-to-br from-highlight/30 to-secondary/20 relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div
+          className="absolute top-20 left-20 text-6xl opacity-10"
+          animate={{ 
+            rotate: [0, 360],
+            scale: [1, 1.2, 1]
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        >
+          🏆
+        </motion.div>
+        <motion.div
+          className="absolute bottom-20 right-20 text-5xl opacity-10"
+          animate={{ 
+            rotate: [360, 0],
+            scale: [1, 1.3, 1]
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        >
+          ⭐
+        </motion.div>
+        <motion.div
+          className="absolute top-1/2 left-1/3 w-72 h-72 bg-primary/5 rounded-full blur-3xl"
+          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+          transition={{ duration: 8, repeat: Infinity }}
         />
-      </svg>
-
-      {/* Subtle trophy icons */}
-      <div className="absolute inset-0 pointer-events-none opacity-10">
-        <Trophy className="absolute top-16 right-10 h-10 w-10 text-primary/80" />
-        <Medal className="absolute bottom-16 left-16 h-9 w-9 text-accent/80" />
       </div>
 
-      <div className="container mx-auto px-4 md:pl-24 relative z-0">
-        <motion.div
+      <div className="container mx-auto px-4 relative z-10">
+        <motion.div 
           className="text-center mb-12 space-y-4"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.4 }}
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
         >
           <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-medium shimmer-wrapper mx-auto"
-            variants={fadeInUp}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-medium mx-auto mb-4"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            whileHover={{ scale: 1.05 }}
           >
-            <Sparkles className="h-4 w-4" />
-            <span>Học chăm là có quà</span>
+            <motion.div
+              animate={{ rotate: [0, 15, -15, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <Award className="h-4 w-4" />
+            </motion.div>
+            <span>Thành tựu</span>
           </motion.div>
-          <motion.h2
+          
+          <motion.h2 
             className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold"
-            variants={fadeInUp}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
           >
-            Lộ trình học tập cá nhân hóa
+            Huy hiệu và thành tựu
           </motion.h2>
-          <motion.p
-            className="text-lg text-muted-foreground max-w-3xl mx-auto"
-            variants={fadeInUp}
+          <motion.p 
+            className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
           >
-            Học qua video online và trò chơi toán học với các mốc thành tựu hấp dẫn.
+            Khám phá hành trình học tập đầy thú vị với hơn <span className="text-primary font-semibold">27+ thành tựu</span> độc đáo! 
+            Từ những bước đầu tiên đến bậc thầy kiến thức, mỗi cột mốc đều được ghi nhận bằng huy hiệu đặc biệt. 
+            Duy trì streak học tập, chinh phục các level, tích lũy XP và trở thành huyền thoại trong cộng đồng học sinh!
           </motion.p>
+          
+          {/* Stats highlights */}
+          <motion.div 
+            className="flex flex-wrap justify-center gap-6 mt-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+          >
+            <div className="flex items-center gap-2 text-sm">
+              <Trophy className="h-5 w-5 text-yellow-500" />
+              <span className="text-muted-foreground">27+ thành tựu</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm">
+              <Star className="h-5 w-5 text-orange-500" />
+              <span className="text-muted-foreground">3 danh mục</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm">
+              <Target className="h-5 w-5 text-green-500" />
+              <span className="text-muted-foreground">Tự động mở khóa</span>
+            </div>
+          </motion.div>
         </motion.div>
 
-        {/* Three curved columns centered */}
-        <motion.div
-          className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto items-end"
-          variants={staggerContainer}
+        <motion.div 
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6 max-w-5xl mx-auto"
+          variants={containerVariants}
           initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
         >
-          {/* Step 1 */}
-          <motion.div
-            className="rounded-[2.5rem] overflow-hidden card-shadow bg-gradient-to-b from-primary/10 to-background p-6 md:p-8"
-            variants={fadeInUp}
-            whileHover={{ y: -6, scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 220, damping: 20 }}
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-bold">1</span>
-              <div className="font-heading font-bold text-lg">Đánh giá đầu vào miễn phí</div>
-            </div>
-            <div className="space-y-2 text-muted-foreground">
-              <div className="inline-flex items-center gap-2"><CheckCircle className="h-4 w-4 text-primary"/>Đánh giá năng lực</div>
-            </div>
-          </motion.div>
+          {FEATURED_ACHIEVEMENTS.map((achievement, index) => (
+            <motion.div
+              key={achievement.id}
+              variants={badgeVariants}
+              whileHover={{ 
+                y: -10, 
+                scale: 1.05,
+                boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.15)"
+              }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-card rounded-2xl p-6 card-shadow text-center space-y-3 group cursor-pointer relative overflow-hidden transition-colors duration-300 hover:bg-highlight/60"
+            >
+              {/* Full color background on hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-highlight/80 to-secondary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+              
+              {/* Shimmer effect */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100"
+                initial={{ x: "-100%" }}
+                whileHover={{ x: "100%" }}
+                transition={{ duration: 0.6 }}
+              />
+              
+              <motion.div 
+                className="text-5xl relative z-10"
+                animate={{ 
+                  y: [0, -5, 0],
+                }}
+                transition={{ 
+                  duration: 2, 
+                  repeat: Infinity,
+                  delay: index * 0.2 
+                }}
+              >
+                {achievement.icon}
+              </motion.div>
+              <div className="relative z-10">
+                <div className="font-heading font-bold text-sm group-hover:text-primary transition-colors duration-300">
+                  {achievement.name}
+                </div>
+                <div className="text-xs text-muted-foreground mt-1 group-hover:text-foreground/80 transition-colors duration-300">
+                  {achievement.description}
+                </div>
+              </div>
+              
+              {/* Sparkle particles on hover */}
+              <motion.div
+                className="absolute top-2 right-2 text-xs opacity-0 group-hover:opacity-100"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              >
+                ✨
+              </motion.div>
+            </motion.div>
+          ))}
+        </motion.div>
 
-          {/* Step 2 */}
-          <motion.div
-            className="rounded-[2.5rem] overflow-hidden card-shadow bg-gradient-to-b from-highlight/20 to-background p-6 md:p-8"
-            variants={fadeInUp}
-            whileHover={{ y: -6, scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 220, damping: 20 }}
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <span className="w-8 h-8 rounded-lg bg-secondary/20 text-foreground flex items-center justify-center font-bold">2</span>
-              <div className="font-heading font-bold text-lg">Học tập chủ động</div>
-            </div>
-            <div className="space-y-3 text-muted-foreground">
-              <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-muted glass-panel"><Star className="h-4 w-4 text-primary"/>Xem video lý thuyết</div>
-              <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-muted glass-panel"><Trophy className="h-4 w-4 text-primary"/>Luyện tập</div>
-              <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-muted glass-panel"><Medal className="h-4 w-4 text-primary"/>Bài kiểm tra định kỳ</div>
-            </div>
-          </motion.div>
-
-          {/* Step 3 */}
-          <motion.div
-            className="rounded-[2.5rem] overflow-hidden card-shadow bg-gradient-to-b from-secondary/20 to-background p-6 md:p-8"
-            variants={fadeInUp}
-            whileHover={{ y: -6, scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 220, damping: 20 }}
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <span className="w-8 h-8 rounded-lg bg-green-200 text-foreground flex items-center justify-center font-bold">3</span>
-              <div className="font-heading font-bold text-lg">Tương tác, chinh phục</div>
-            </div>
-            <div className="space-y-3 text-muted-foreground">
-              <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-muted"><Trophy className="h-4 w-4 text-primary"/>Thách đấu, đấu trường</div>
-              <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-muted shimmer-wrapper"><Medal className="h-4 w-4 text-primary"/>Đổi quà – huy hiệu</div>
-            </div>
-            <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
-              <Flag className="h-4 w-4 text-primary" />
-              <span>Hoàn thành lộ trình để mở khóa phần thưởng đặc biệt</span>
-            </div>
-          </motion.div>
+        {/* CTA Button */}
+        <motion.div 
+          className="text-center mt-10"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+        >
+          <Button asChild size="lg" className="group">
+            <Link to="/profile?tab=stats">
+              Xem tất cả thành tựu
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </Button>
         </motion.div>
       </div>
     </section>
