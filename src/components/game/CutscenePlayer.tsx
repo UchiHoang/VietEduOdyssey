@@ -1,6 +1,7 @@
 import { useState, memo, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, SkipForward } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface CutsceneFrame {
   id: string;
@@ -17,15 +18,15 @@ interface CutscenePlayerProps {
 }
 
 const CutscenePlayerComponent = ({ frames, onComplete, onSkip }: CutscenePlayerProps) => {
+  const { t } = useLanguage();
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
   
-  // Safety check for empty frames
   if (!frames || frames.length === 0) {
     return (
       <div className="w-full h-[500px] flex items-center justify-center bg-card rounded-lg">
         <div className="text-center space-y-4">
-          <p className="text-muted-foreground">Không có cutscene</p>
-          <Button onClick={onComplete}>Bắt đầu</Button>
+          <p className="text-muted-foreground">{t.game.noCutscene}</p>
+          <Button onClick={onComplete}>{t.game.start}</Button>
         </div>
       </div>
     );
@@ -34,13 +35,12 @@ const CutscenePlayerComponent = ({ frames, onComplete, onSkip }: CutscenePlayerP
   const currentFrame = frames[currentFrameIndex];
   const isLastFrame = currentFrameIndex === frames.length - 1;
   
-  // Safety check for undefined frame
   if (!currentFrame) {
     return (
       <div className="w-full h-[500px] flex items-center justify-center bg-card rounded-lg">
         <div className="text-center space-y-4">
-          <p className="text-muted-foreground">Lỗi tải cutscene</p>
-          <Button onClick={onComplete}>Bỏ qua</Button>
+          <p className="text-muted-foreground">{t.game.cutsceneError}</p>
+          <Button onClick={onComplete}>{t.game.skip}</Button>
         </div>
       </div>
     );
@@ -72,7 +72,6 @@ const CutscenePlayerComponent = ({ frames, onComplete, onSkip }: CutscenePlayerP
       aria-label="Cutscene"
     >
       <div className="grid md:grid-cols-[400px_1fr] gap-0">
-        {/* Character Image - Left Side */}
         <div className="bg-primary/10 p-8 flex flex-col items-center justify-center gap-4 min-h-[500px] md:min-h-[600px]">
           {currentFrame.sprite ? (
             <img 
@@ -81,13 +80,10 @@ const CutscenePlayerComponent = ({ frames, onComplete, onSkip }: CutscenePlayerP
               className="w-full max-w-[300px] h-auto object-contain animate-fade-in"
             />
           ) : (
-            <div className="w-full max-w-[300px] h-[300px] flex items-center justify-center text-muted-foreground/20">
-              {/* Empty state when no character sprite */}
-            </div>
+            <div className="w-full max-w-[300px] h-[300px] flex items-center justify-center text-muted-foreground/20" />
           )}
         </div>
 
-        {/* Content - Right Side */}
         <div className="p-6 md:p-8 flex flex-col justify-between min-h-[500px] md:min-h-[600px]">
           <div className="space-y-6 flex-1 flex flex-col justify-center">
             <div className="space-y-4">
@@ -102,7 +98,6 @@ const CutscenePlayerComponent = ({ frames, onComplete, onSkip }: CutscenePlayerP
               </p>
             </div>
 
-            {/* Progress indicator */}
             <div className="flex items-center gap-2 pt-4">
               {frames.map((_, index) => (
                 <div
@@ -119,30 +114,24 @@ const CutscenePlayerComponent = ({ frames, onComplete, onSkip }: CutscenePlayerP
             </div>
           </div>
 
-          {/* Actions */}
           <div className="flex items-center justify-between pt-4 border-t border-border">
             <span className="text-sm text-muted-foreground">
               {currentFrameIndex + 1} / {frames.length}
             </span>
             
             <div className="flex gap-3">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={onSkip}
-                className="gap-2"
-              >
+              <Button variant="ghost" size="sm" onClick={onSkip} className="gap-2">
                 <SkipForward className="w-4 h-4" />
-                Bỏ qua
+                {t.game.skip}
               </Button>
               
               <Button
                 onClick={handleNext}
                 size="lg"
                 className="gap-2"
-                aria-label={isLastFrame ? "Bắt đầu câu hỏi" : "Tiếp theo"}
+                aria-label={isLastFrame ? t.game.startQuestions : t.game.next}
               >
-                {isLastFrame ? "Bắt đầu" : "Tiếp theo"}
+                {isLastFrame ? t.game.start : t.game.next}
                 <ChevronRight className="w-5 h-5" />
               </Button>
             </div>

@@ -67,7 +67,10 @@ export interface CompleteStageResult {
 // Hook: useGameProgress
 // ============================================
 
-export const useGameProgress = (courseId: string) => {
+export const useGameProgress = (
+  courseId: string,
+  options?: { onStageComplete?: (result: CompleteStageResult) => void }
+) => {
   const queryClient = useQueryClient();
 
   // Query: Lấy full game state
@@ -131,7 +134,7 @@ export const useGameProgress = (courseId: string) => {
           };
         }
 
-        if (!data.success) {
+        if (!(data as unknown as FullGameState).success) {
           const errorMsg = (data as { error?: string })?.error || "Không thể tải tiến độ";
           console.warn("get_full_game_state returned success=false:", errorMsg);
           // Return default state với error message
@@ -158,7 +161,7 @@ export const useGameProgress = (courseId: string) => {
           };
         }
 
-        return data as FullGameState;
+        return data as unknown as FullGameState;
       } catch (err) {
         console.error("Unexpected error in queryFn:", err);
         // Return default state để không crash
@@ -200,7 +203,7 @@ export const useGameProgress = (courseId: string) => {
         p_score: score,
         p_stars: stars,
         p_xp_reward: xpReward,
-        p_game_specific_data: gameSpecificData || {},
+        p_game_specific_data: (gameSpecificData || {}) as unknown as import("@/integrations/supabase/types").Json,
       });
 
       if (error) {
@@ -215,7 +218,7 @@ export const useGameProgress = (courseId: string) => {
         throw new Error(errorMsg);
       }
 
-      const result = data as CompleteStageResult;
+      const result = data as unknown as CompleteStageResult;
       
       // Show success feedback
       if (result.globals.global_level > (stateQuery.data?.globals.global_level || 1)) {
@@ -280,10 +283,15 @@ export const useGameProgress = (courseId: string) => {
 
       // Invalidate và refetch state nền để đồng bộ server
       queryClient.invalidateQueries({ queryKey: ["game-state", courseId] });
+
+      // Trigger achievement check callback
+      if (options?.onStageComplete) {
+        options.onStageComplete(result);
+      }
     },
   });
 
-  // Helper: Update current node (không cần complete stage)
+
   const updateCurrentNode = useMutation({
     mutationFn: async (nodeIndex: number) => {
       // TODO: Có thể tạo RPC riêng nếu cần

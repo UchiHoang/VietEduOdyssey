@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { fisherYatesShuffle, QUESTIONS_PER_LEVEL } from "@/utils/shuffle";
 import { CutscenePlayer } from "./CutscenePlayer";
 import { QuestionCard } from "./QuestionCard";
 import { GameHud } from "./GameHud";
@@ -8,9 +9,12 @@ import { BadgeModal } from "./BadgeModal";
 import { LevelSelection } from "./LevelSelection";
 import { StoryIntro } from "./StoryIntro";
 import { findActivityByRef as findActivityByRefLegacy, loadStory as loadStoryLegacy } from "@/utils/storyLoader";
-import { useGameProgress, type CourseState, type GlobalState } from "@/hooks/useGameProgress";
+import { useGameProgressWithAchievements } from "@/hooks/useGameProgressWithAchievements";
+import { type CourseState, type GlobalState } from "@/hooks/useGameProgress";
+import { AchievementNotification } from "@/components/achievements/AchievementNotification";
 import { ArrowLeft, RotateCcw, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type GamePhase = "prologue" | "level-selection" | "cutscene" | "questions" | "complete";
 
@@ -37,7 +41,7 @@ type SimpleQuestion = {
   dropSlots?: Array<{ id: string; label: string; image?: string }>;
   blanks?: Array<{ position: number; answer: string; placeholder?: string }>;
   countingItems?: Array<{ image: string; count: number }>;
-  countingAnswer?: number;
+  countingAnswer?: number | string;
   [key: string]: unknown; // Allow other fields
 };
 
@@ -80,7 +84,7 @@ interface TrangQuynhMiniGameProps {
 
 const shuffleWithConstraints = (questions: SimpleQuestion[]) => {
   // 1. Xáo trộn ngẫu nhiên toàn bộ danh sách trước
-  let shuffled = [...questions].sort(() => Math.random() - 0.5);
+  let shuffled = fisherYatesShuffle(questions);
   let result: SimpleQuestion[] = [];
   
   while (shuffled.length > 0) {
@@ -111,9 +115,8 @@ const shuffleWithConstraints = (questions: SimpleQuestion[]) => {
 };
 
 export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", storyLoader, theme }: TrangQuynhMiniGameProps) => {
-  // ========== HOOKS - Phải gọi theo thứ tự cố định ==========
+  const { t } = useLanguage();
   
-  // 1. useNavigate, useParams (React Router hooks)
   const navigate = useNavigate();
   const urlParams = useParams();
   
@@ -132,9 +135,20 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
   const [correctThisLevel, setCorrectThisLevel] = useState(0);
   const [incorrectThisLevel, setIncorrectThisLevel] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [starsThisLevel, setStarsThisLevel] = useState(0);
   
   // 3. useRef
   const levelStartTime = useRef<number>(Date.now());
+  // Refs to access latest state in handleTimeUp callback
+  const correctThisLevelRef = useRef(correctThisLevel);
+  const incorrectThisLevelRef = useRef(incorrectThisLevel);
+  const currentActivityRef = useRef(currentActivity);
+  const currentNodeIndexRef = useRef(currentNodeIndex);
+
+  useEffect(() => { correctThisLevelRef.current = correctThisLevel; }, [correctThisLevel]);
+  useEffect(() => { incorrectThisLevelRef.current = incorrectThisLevel; }, [incorrectThisLevel]);
+  useEffect(() => { currentActivityRef.current = currentActivity; }, [currentActivity]);
+  useEffect(() => { currentNodeIndexRef.current = currentNodeIndex; }, [currentNodeIndex]);
   
   // 4. Custom hooks (useGameProgress)
   const { 
@@ -144,8 +158,9 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
     error: queryError,
     completeStage: completeStageMutation,
     refetch,
-    updateCurrentNode: updateCurrentNodeMutation
-  } = useGameProgress(courseId || "grade2-trangquynh");
+    updateCurrentNode: updateCurrentNodeMutation,
+    achievements: { newlyUnlocked, dismissNewAchievement },
+  } = useGameProgressWithAchievements(courseId || "grade2-trangquynh");
 
   // 5. Tính toán derived values (sau khi có hooks)
   const gradeFromUrl = urlParams.grade?.replace("grade", "");
@@ -357,9 +372,9 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
       console.warn("Query error (continuing with default state):", queryError);
       const errorMessage = queryError instanceof Error ? queryError.message : String(queryError);
       if (errorMessage.includes("function") || errorMessage.includes("does not exist")) {
-        toast.error("Lỗi: RPC function chưa được tạo. Vui lòng chạy SQL migration trước!");
+        toast.error(t.game.rpcError);
       } else {
-        toast.error("Không thể tải tiến độ từ server. Bạn vẫn có thể chơi nhưng tiến độ có thể không được lưu.");
+        toast.error(t.game.cannotLoadProgressToast);
       }
     }
   }, [queryError]);
@@ -390,7 +405,8 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
       const activity = getActivity(node.activityRef);
       if (activity && activity.questions) {
         // ÁP DỤNG THUẬT TOÁN XÁO TRỘN
-        const smartRandomQuestions = shuffleWithConstraints(activity.questions as SimpleQuestion[]);
+        const smartRandomQuestions = shuffleWithConstraints(activity.questions as SimpleQuestion[])
+          .slice(0, QUESTIONS_PER_LEVEL);
         
         setCurrentActivity({
           ...activity,
@@ -410,25 +426,114 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
     setGamePhase("cutscene");
   };
 
-  const handleTimeUp = useCallback(() => {
-    toast.error("Hết giờ! Thời gian đã hết, hãy thử lại nhé!");
-    setLevelPerformance("retry");
+  const handleTimeUp = useCallback(async () => {
+    const activity = currentActivityRef.current;
+    const nodeIdx = currentNodeIndexRef.current;
+    const correct = correctThisLevelRef.current;
+    const incorrect = incorrectThisLevelRef.current;
+    const totalQuestions = activity?.questions?.length || 1;
+    const xpReward = activity?.xpReward || 10;
+
+    const accuracy = (correct / totalQuestions) * 100;
+    let stars: number;
+    if (accuracy >= 90) stars = 3;
+    else if (accuracy >= 70) stars = 2;
+    else if (accuracy >= 40) stars = 1;
+    else stars = 0;
+
+    const calculatedXp = correct * xpReward;
+    const score = correct * xpReward;
+    const timeSpent = Math.floor((Date.now() - levelStartTime.current) / 1000);
+
+    setStarsThisLevel(stars);
+    setEarnedXpThisLevel(calculatedXp);
+
+    const performance: "excellent" | "good" | "retry" = stars >= 3 ? "excellent" : stars >= 2 ? "good" : "retry";
+    setLevelPerformance(performance);
+
+    if (correct > 0) {
+      toast.info(t.game.timeUpResult.replace("{correct}", String(correct)).replace("{total}", String(totalQuestions)));
+    } else {
+      toast.error(t.game.timeUpZero);
+    }
+
+    try {
+      const result = await completeStageMutation.mutateAsync({
+        nodeIndex: nodeIdx,
+        score,
+        stars,
+        xpReward: calculatedXp,
+        gameSpecificData: {
+          correct,
+          incorrect,
+          accuracy,
+          timeSpent,
+          timeUp: true,
+          nodeId: story.nodes[nodeIdx]?.id || `stage-${nodeIdx}`,
+        },
+      });
+
+      if (result?.success) {
+        if ((result as any).course) {
+          setLastCourseState((result as any).course as CourseState);
+        }
+        if ((result as any).globals) {
+          const rg = (result as any).globals;
+          setLastGlobals({
+            user_id: globals?.user_id || "",
+            total_xp: rg.total_xp || 0,
+            global_level: rg.global_level || 1,
+            coins: rg.coins || 0,
+            avatar_config: globals?.avatar_config || {},
+            unlocked_badges: globals?.unlocked_badges || [],
+            created_at: globals?.created_at || new Date().toISOString(),
+            updated_at: globals?.updated_at || new Date().toISOString(),
+          } as GlobalState);
+        }
+
+        const node = story.nodes[nodeIdx];
+        if (performance !== "retry" && node?.badgeOnComplete) {
+          setCompletedBadgeId(node.badgeOnComplete);
+        } else {
+          setCompletedBadgeId(null);
+        }
+      }
+    } catch (err) {
+      console.error("Error saving time-up results:", err);
+    }
+
     setShowBadgeModal(true);
-  }, []);
+  }, [completeStageMutation, story.nodes, globals]);
+
+  const getTimerByGrade = (g?: string): number => {
+    switch (g) {
+      case "0": // Mầm non
+      case "1": // Lớp 1
+        return 10 * 60; // 10 phút
+      case "2": // Lớp 2
+      case "3": // Lớp 3
+        return 7 * 60; // 7 phút
+      case "4": // Lớp 4
+      case "5": // Lớp 5
+        return 5 * 60; // 5 phút
+      default:
+        return 7 * 60;
+    }
+  };
 
   const startLevelLogic = () => {
     const node = story.nodes[currentNodeIndex];
     if (node?.activityRef) {
       const activity = getActivity(node.activityRef);
       if (activity && activity.questions) {
-        // Xáo trộn câu hỏi
-        const shuffledQuestions = shuffleWithConstraints(activity.questions as SimpleQuestion[]);
+        const shuffledQuestions = shuffleWithConstraints(activity.questions as SimpleQuestion[])
+          .slice(0, QUESTIONS_PER_LEVEL);
         setCurrentActivity({
           ...activity,
           questions: shuffledQuestions
         } as SimpleActivity);
         
-        setTimerSeconds(activity?.timerSec || activity?.duration || 120);
+        setTimerSeconds(getTimerByGrade(grade));
       }
     }
     setGamePhase("questions");
@@ -465,7 +570,7 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
       newIncorrect = incorrectThisLevel;
       setEarnedXpThisLevel(prev => prev + xpReward);
       setCorrectThisLevel(newCorrect);
-      toast.success(`Chính xác! +${xpReward} XP`);
+      toast.success(t.game.correctToast.replace("{xp}", String(xpReward)));
     } else {
       newCorrect = correctThisLevel;
       newIncorrect = incorrectThisLevel + 1;
@@ -485,8 +590,13 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
       const maxScore = totalQuestions * xpReward;
         const accuracy = (newCorrect / totalQuestions) * 100;
         
-        // Tính số sao (0-3)
-        const stars = Math.floor((newCorrect / totalQuestions) * 3);
+        // Tính số sao (0-3) theo threshold
+        let stars: number;
+        if (accuracy >= 90) stars = 3;
+        else if (accuracy >= 70) stars = 2;
+        else if (accuracy >= 40) stars = 1;
+        else stars = 0;
+        setStarsThisLevel(stars);
         
         // Tính XP reward dựa trên số câu đúng
         const calculatedXpReward = newCorrect * xpReward;
@@ -508,9 +618,9 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
         
         if (result?.success) {
         let performance: "excellent" | "good" | "retry";
-          if (accuracy >= 90) {
+          if (stars >= 3) {
           performance = "excellent";
-          } else if (accuracy >= 60) {
+          } else if (stars >= 2) {
           performance = "good";
         } else {
           performance = "retry";
@@ -566,12 +676,12 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
           });
       } else {
           setIsSubmitting(false);
-          toast.error("Không thể lưu kết quả (chưa ghi vào tài khoản). Vui lòng thử lại.");
+          toast.error(t.game.cannotSaveResult);
         }
       } catch (error) {
         console.error('Error completing stage:', error);
         setIsSubmitting(false);
-        toast.error("Đã xảy ra lỗi khi lưu kết quả. Vui lòng thử lại.");
+        toast.error(t.game.errorSaving);
       }
     } else {
       setCurrentQuestionIndex(prev => prev + 1);
@@ -639,9 +749,9 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
       <div className="min-h-screen flex items-center justify-center bg-background" style={rootStyle}>
         <div className="flex flex-col items-center gap-4">
           <Loader2 className="h-12 w-12 animate-spin text-primary" />
-          <p className="text-muted-foreground">Đang tải tiến độ...</p>
+          <p className="text-muted-foreground">{t.game.loadingProgress}</p>
           {queryError && (
-            <p className="text-sm text-orange-500">Lưu ý: Không thể tải tiến độ từ server</p>
+            <p className="text-sm text-orange-500">{t.game.cannotLoadProgress}</p>
           )}
         </div>
       </div>
@@ -669,15 +779,15 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
 
      return (
       <div className="min-h-screen" style={rootStyle}>
-        <div className="fixed top-24 right-6 z-50">
+        <div className="fixed top-24 left-6 z-50">
           <Button 
-            onClick={handleExit} 
+            onClick={() => setGamePhase("prologue")} 
             size="sm"
             variant="outline"
-            className="gap-2 bg-sky-50 hover:bg-sky-100 text-sky-700 border-sky-200 backdrop-blur-sm shadow-sm"
+            className="gap-2 bg-sky-50 hover:bg-sky-700 hover:text-white text-sky-700 border-sky-200 backdrop-blur-sm shadow-sm transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            Quay về
+            {t.game.back}
           </Button>
         </div>
         <LevelSelection
@@ -698,14 +808,14 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
         <div className="max-w-2xl w-full text-center space-y-8 animate-fade-in">
           <div className="space-y-4">
             <h1 className="text-4xl md:text-5xl font-heading font-bold text-primary">
-              🎉 Chúc mừng!
+              🎉 {t.game.congratulations}
             </h1>
              <p className="text-xl text-muted-foreground">
               {finalGrade === "5"
-                ? "Bạn đã hoàn thành bảo vệ đất nước cùng Trạng Nguyên!"
+                ? t.game.completeGrade5
                 : finalGrade === "1"
-                ? "Bạn đã hoàn thành cuộc đua cùng 12 con giáp!"
-                : "Bạn đã hoàn thành hành trình đếm bánh chưng cùng chú Cuội!"}
+                ? t.game.completeGrade1
+                : t.game.completeDefault}
             </p>
           </div>
 
@@ -713,26 +823,26 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
             <div className="grid grid-cols-3 gap-4 text-center">
               <div className="bg-primary/10 rounded-lg p-4">
                 <div className="text-3xl font-bold text-primary">{progress.xp}</div>
-                <div className="text-sm text-muted-foreground">Tổng XP</div>
+                <div className="text-sm text-muted-foreground">{t.game.totalXp}</div>
               </div>
               <div className="bg-primary/10 rounded-lg p-4">
                 <div className="text-3xl font-bold text-primary">{progress.level}</div>
-                <div className="text-sm text-muted-foreground">Cấp độ</div>
+                <div className="text-sm text-muted-foreground">{t.game.level}</div>
               </div>
               <div className="bg-primary/10 rounded-lg p-4">
                 <div className="text-3xl font-bold text-primary">{progress.earnedBadges.length}</div>
-                <div className="text-sm text-muted-foreground">Huy hiệu</div>
+                <div className="text-sm text-muted-foreground">{t.game.badges}</div>
               </div>
             </div>
 
             <div className="flex gap-4">
               <Button onClick={handleRestart} variant="outline" className="flex-1 gap-2">
                 <RotateCcw className="w-4 h-4" />
-                Chơi lại
+                {t.game.restart}
               </Button>
               <Button onClick={handleExit} className="flex-1 gap-2">
                 <ArrowLeft className="w-4 h-4" />
-                Quay về
+                {t.game.back}
               </Button>
             </div>
           </div>
@@ -778,7 +888,7 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
               size="sm"
               className="gap-2"
             >
-              ← Chọn màn
+              ← {t.game.selectLevel}
             </Button>
             <Button
               onClick={handleExit}
@@ -787,7 +897,7 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
               className="gap-2"
             >
               <ArrowLeft className="w-4 h-4" />
-              Quay về
+              {t.game.back}
             </Button>
           </div>
           
@@ -814,7 +924,7 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
         <div className="min-h-screen flex items-center justify-center bg-background" style={rootStyle}>
           <div className="flex flex-col items-center gap-4">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            <p>Đang tải câu hỏi...</p>
+            <p>{t.game.loadingQuestions}</p>
           </div>
         </div>
       );
@@ -830,8 +940,8 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
       return (
         <div className="min-h-screen flex items-center justify-center bg-background" style={rootStyle}>
           <div className="flex flex-col items-center gap-4">
-            <p className="text-red-500">Không tìm thấy câu hỏi!</p>
-            <Button onClick={handleBackToLevelSelection}>Quay về chọn màn</Button>
+            <p className="text-red-500">{t.game.questionNotFound}</p>
+            <Button onClick={handleBackToLevelSelection}>{t.game.selectLevel}</Button>
           </div>
         </div>
       );
@@ -859,8 +969,8 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
       return (
         <div className="min-h-screen flex items-center justify-center bg-background" style={rootStyle}>
           <div className="flex flex-col items-center gap-4">
-            <p className="text-red-500">Lỗi: Không thể tải câu hỏi {currentQuestionIndex + 1}</p>
-            <Button onClick={handleBackToLevelSelection}>Quay về chọn màn</Button>
+            <p className="text-red-500">{t.game.errorLoadQuestion} {currentQuestionIndex + 1}</p>
+            <Button onClick={handleBackToLevelSelection}>{t.game.selectLevel}</Button>
           </div>
         </div>
       );
@@ -891,6 +1001,7 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
 
         <BadgeModal
           isOpen={showBadgeModal}
+          stars={starsThisLevel}
           badgeId={completedBadgeId}
           earnedXp={earnedXpThisLevel}
           performance={levelPerformance}
@@ -908,11 +1019,15 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
           <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50">
             <div className="flex flex-col items-center gap-4 bg-card p-8 rounded-lg shadow-lg border">
               <Loader2 className="h-12 w-12 animate-spin text-primary" />
-              <p className="text-lg font-medium">Đang lưu kết quả...</p>
-              <p className="text-sm text-muted-foreground">Vui lòng đợi trong giây lát</p>
+              <p className="text-lg font-medium">{t.game.savingResults}</p>
+              <p className="text-sm text-muted-foreground">{t.game.pleaseWait}</p>
             </div>
           </div>
-        )}
+         )}
+        <AchievementNotification
+          achievement={newlyUnlocked}
+          onDismiss={dismissNewAchievement}
+        />
       </div>
     );
   }
@@ -921,7 +1036,7 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
     <div className="min-h-screen flex items-center justify-center" style={rootStyle}>
       <div className="flex flex-col items-center gap-4">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        <p>Đang tải...</p>
+        <p>{t.game.loadingGeneral}</p>
       </div>
     </div>
   );

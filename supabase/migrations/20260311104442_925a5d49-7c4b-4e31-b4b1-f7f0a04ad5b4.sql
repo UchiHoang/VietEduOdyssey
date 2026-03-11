@@ -1,0 +1,1 @@
+INSERT INTO lessons (id, title, description) VALUES ('L0', 'Toán Mầm non', 'Chương trình toán cho bé mầm non') ON CONFLICT (id) DO NOTHING;

@@ -5,9 +5,11 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const TrangQuynhGame = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -40,7 +42,7 @@ const TrangQuynhGame = () => {
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="flex flex-col items-center gap-4">
           <Loader2 className="h-12 w-12 animate-spin text-primary" />
-          <p className="text-muted-foreground">Đang kiểm tra đăng nhập...</p>
+          <p className="text-muted-foreground">{t.game.checkingLogin}</p>
         </div>
       </div>
     );

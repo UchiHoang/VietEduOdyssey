@@ -16,6 +16,7 @@ import { AchievementNotification } from "@/components/achievements/AchievementNo
 import { useAchievements, UserStats } from "@/hooks/useAchievements";
 import { EarnedAchievement } from "@/data/achievements";
 import { toast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Profile {
   id: string;
@@ -39,7 +40,7 @@ interface GameProgress {
   level: number;
   current_node: number;
   completed_nodes: (string | number)[];
-  earned_badges: string[];
+  earned_badges: (string | number | boolean | null | Record<string, unknown>)[];
   global_level?: number;
   coins?: number;
 }
@@ -55,6 +56,7 @@ interface StreakData {
 
 const Profile = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState(() => {
@@ -67,7 +69,7 @@ const Profile = () => {
   const [gameProgress, setGameProgress] = useState<GameProgress | null>(null);
   const [userRole, setUserRole] = useState<string>("student");
   const [streak, setStreak] = useState<StreakData | null>(null);
-  const [achievements, setAchievements] = useState<Achievement[]>([]);
+  const [achievements, setAchievements] = useState<any[]>([]);
   const [avatarModalOpen, setAvatarModalOpen] = useState(false);
 
     // Achievement system hook
@@ -85,23 +87,37 @@ const Profile = () => {
   ) => {
     if (!gp && !sk) return;
 
-    // Build user stats from loaded data
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) return;
+    const userId = session.user.id;
+
+    // Query real stats from database
+    const [coursesRes, historyRes, activityRes] = await Promise.all([
+      supabase.from("course_progress").select("total_stars").eq("user_id", userId),
+      supabase.from("level_history").select("stars").eq("user_id", userId),
+      supabase.from("daily_activity").select("time_spent_minutes").eq("user_id", userId),
+    ]);
+
+    const starsEarned = (coursesRes.data || []).reduce((s, c) => s + (c.total_stars || 0), 0);
+    const perfectLessons = (historyRes.data || []).filter(h => h.stars === 3).length;
+    const timeSpentMinutes = (activityRes.data || []).reduce((s, a) => s + (a.time_spent_minutes || 0), 0);
+
     const stats: UserStats = {
       lessonsCompleted: gp?.completed_nodes?.length || 0,
       streakDays: sk?.current_streak || 0,
       totalXp: gp?.total_xp || 0,
       totalPoints: gp?.total_points || 0,
       levelReached: gp?.level || 1,
-      perfectLessons: 0, // Would need separate tracking
+      perfectLessons,
       totalLearningDays: sk?.total_learning_days || 0,
       levelsCompleted: gp?.completed_nodes?.length || 0,
-      starsEarned: 0, // Would need to aggregate from level_history
-      badgesEarned: gp?.earned_badges?.length || 0,
-      timeSpentMinutes: 0, // Would need to aggregate from daily_activity
+      starsEarned,
+      badgesEarned: earnedAchievements.length,
+      timeSpentMinutes,
     };
 
     await checkAndUnlockAchievements(stats);
-  }, [checkAndUnlockAchievements]);
+  }, [checkAndUnlockAchievements, earnedAchievements.length]);
 
   useEffect(() => {
     checkUser();
@@ -136,8 +152,8 @@ const Profile = () => {
     } catch (error) {
       console.error("Error checking user:", error);
       toast({
-        title: "Lỗi",
-        description: "Không thể tải thông tin người dùng",
+        title: t.profilePage.error,
+        description: t.profilePage.cannotLoadUser,
         variant: "destructive",
       });
     } finally {
@@ -174,13 +190,6 @@ const Profile = () => {
       .select("*")
       .eq("user_id", userId);
 
-    // Load from game_progress (legacy, for compatibility)
-    const { data: progressData } = await supabase
-      .from("game_progress")
-      .select("*")
-      .eq("user_id", userId)
-      .single();
-
     if (globalError && !globalData) {
       console.error("Error loading global progress:", globalError);
     }
@@ -191,7 +200,6 @@ const Profile = () => {
     
     if (coursesData && coursesData.length > 0) {
       coursesData.forEach((course: any) => {
-        // completed_nodes can be array of numbers [0,1,2] or strings ["n1","n2"]
         const nodes = Array.isArray(course.completed_nodes) ? course.completed_nodes : [];
         allCompletedNodes.push(...nodes);
         totalPoints += (course.total_stars || 0);
@@ -199,15 +207,15 @@ const Profile = () => {
     }
 
     // Use global_xp from game_globals as PRIMARY source
-    const totalXP = (globalData?.total_xp as number) || (progressData?.total_xp as number) || 0;
-    const globalLevel = (globalData?.global_level as number) || (progressData?.level as number) || 1;
+    const totalXP = (globalData?.total_xp as number) || 0;
+    const globalLevel = (globalData?.global_level as number) || 1;
     setGameProgress({
       total_xp: totalXP,
       total_points: totalPoints,
       level: globalLevel,
-      current_node: progressData?.current_node || 0,
+      current_node: 0,
       completed_nodes: allCompletedNodes,
-      earned_badges: progressData?.earned_badges || [],
+      earned_badges: [],
       global_level: globalLevel,
       coins: globalData?.coins || 0,
     });
@@ -264,7 +272,7 @@ const Profile = () => {
       return;
     }
 
-    setAchievements((data as Achievement[]) || []);
+    setAchievements((data as any[]) || []);
   };
 
   const updateStreak = async (userId: string) => {
@@ -286,16 +294,16 @@ const Profile = () => {
 
     if (error) {
       toast({
-        title: "Lỗi",
-        description: "Không thể cập nhật thông tin",
+        title: t.profilePage.error,
+        description: t.profilePage.cannotUpdate,
         variant: "destructive",
       });
       return;
     }
 
     toast({
-      title: "Thành công",
-      description: "Đã cập nhật thông tin cá nhân",
+      title: t.profilePage.success,
+      description: t.profilePage.profileUpdated,
     });
 
     await loadProfile(profile.id);
@@ -316,16 +324,16 @@ const Profile = () => {
 
     if (error) {
       toast({
-        title: "Lỗi",
-        description: "Không thể cập nhật avatar",
+        title: t.profilePage.error,
+        description: t.profilePage.cannotUpdateAvatar,
         variant: "destructive",
       });
       return;
     }
 
     toast({
-      title: "Thành công",
-      description: "Đã cập nhật avatar",
+      title: t.profilePage.success,
+      description: t.profilePage.avatarUpdated,
     });
 
     await loadProfile(profile.id);
@@ -336,7 +344,7 @@ const Profile = () => {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-4 text-muted-foreground">Đang tải...</p>
+          <p className="mt-4 text-muted-foreground">{t.profilePage.loading}</p>
         </div>
       </div>
     );
@@ -357,7 +365,7 @@ const Profile = () => {
       case "stats":
         return (
           <StatsTab
-            gameProgress={gameProgress}
+            gameProgress={gameProgress as any}
             streak={streak}
             achievements={earnedAchievements as EarnedAchievement[]}
           />
@@ -376,7 +384,7 @@ const Profile = () => {
       case "password":
         return <PasswordTab />;
       case "courses":
-        return <CoursesTab gameProgress={gameProgress} />;
+        return <CoursesTab gameProgress={gameProgress as any} />;
       default:
         return null;
     }

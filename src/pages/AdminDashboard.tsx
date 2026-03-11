@@ -6,6 +6,7 @@ import AdminSidebar from "@/components/admin/AdminSidebar";
 import StudentsTab from "@/components/admin/StudentsTab";
 import ClassesTab from "@/components/admin/ClassesTab";
 import LibraryTab from "@/components/admin/LibraryTab";
+import LessonsManagementTab from "@/components/admin/LessonsManagementTab";
 import CommentsManagementTab from "@/components/admin/CommentsManagementTab";
 import ReportsTab from "@/components/admin/ReportsTab";
 import AdminSettingsTab from "@/components/admin/AdminSettingsTab";
@@ -98,6 +99,8 @@ const AdminDashboard = () => {
         return <StudentsTab />;
       case "classes":
         return <ClassesTab />;
+      case "lessons":
+        return <LessonsManagementTab />;
       case "library":
         return <LibraryTab />;
       case "comments":

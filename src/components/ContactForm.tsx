@@ -3,29 +3,46 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { useRecaptcha } from "@/hooks/useRecaptcha";
+import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
 import { motion } from "framer-motion";
 import { Send, MessageCircle, Mail, User, FileText, Phone, MapPin, Star, Heart, Sparkles, BookOpen, Pencil } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const contactSchema = z.object({
-  name: z.string().trim().min(1, { message: "Vui lòng nhập họ tên" }).max(100, { message: "Họ tên không được quá 100 ký tự" }),
-  email: z.string().trim().email({ message: "Email không hợp lệ" }).max(255, { message: "Email không được quá 255 ký tự" }),
-  subject: z.string().trim().min(1, { message: "Vui lòng nhập chủ đề" }).max(200, { message: "Chủ đề không được quá 200 ký tự" }),
-  message: z.string().trim().min(1, { message: "Vui lòng nhập tin nhắn" }).max(1000, { message: "Tin nhắn không được quá 1000 ký tự" })
+const createContactSchema = (t: any) => z.object({
+  name: z.string().trim().min(1, { message: t.contact.validation.name }).max(100, { message: t.contact.validation.nameMax }),
+  email: z.string().trim().email({ message: t.contact.validation.email }).max(255, { message: t.contact.validation.emailMax })
+    .refine(val => val.endsWith('@gmail.com'), { message: t.contact.validation.gmailOnly }),
+  phone: z.string().trim()
+    .regex(/^[0-9+\-\s]*$/, { message: t.contact.validation.phoneNumeric })
+    .max(20).optional().or(z.literal("")),
+  subject: z.string().trim().min(1, { message: t.contact.validation.subject }).max(200, { message: t.contact.validation.subjectMax }),
+  message: z.string().trim().min(1, { message: t.contact.validation.message }).max(1000, { message: t.contact.validation.messageMax })
 });
 
-type ContactFormData = z.infer<typeof contactSchema>;
+type ContactFormData = {
+  name: string;
+  email: string;
+  phone?: string;
+  subject: string;
+  message: string;
+};
 
 const ContactForm = () => {
+  const { t } = useLanguage();
+  const contactSchema = createContactSchema(t);
   const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
+    phone: "",
     subject: "",
     message: ""
   });
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const { executeRecaptcha, isReady: recaptchaReady } = useRecaptcha();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -54,23 +71,36 @@ const ContactForm = () => {
     setIsSubmitting(true);
     
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      // Get reCAPTCHA token
+      let recaptchaToken = "";
+      if (recaptchaReady) {
+        const token = await executeRecaptcha("contact_form");
+        recaptchaToken = token || "";
+      }
+
+      const { data, error } = await supabase.functions.invoke("send-contact-email", {
+        body: {
+          name: result.data.name,
+          email: result.data.email,
+          subject: result.data.subject,
+          message: result.data.message,
+          recaptchaToken,
+        },
+      });
+
+      if (error) throw error;
+
       toast({
-        title: "Gửi thành công!",
-        description: "Chúng mình sẽ liên hệ với bạn sớm nhất có thể.",
+        title: t.contact.successTitle,
+        description: t.contact.successDesc,
       });
       
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: ""
-      });
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
     } catch (error) {
+      console.error("Contact form error:", error);
       toast({
-        title: "Có lỗi xảy ra",
-        description: "Vui lòng thử lại sau.",
+        title: t.contact.errorTitle,
+        description: t.contact.errorDesc,
         variant: "destructive",
       });
     } finally {
@@ -86,21 +116,21 @@ const ContactForm = () => {
   const contactInfo = [
     {
       icon: Mail,
-      title: "Email",
+      title: t.contact.email,
       value: "hoangquockhanh204@gmail.com",
       href: "mailto:hoangquockhanh204@gmail.com",
       color: "text-blue-500"
     },
     {
       icon: Phone,
-      title: "Điện thoại",
+      title: t.contact.phone,
       value: "0392 290 338",
       href: "tel:0392290338",
       color: "text-green-500"
     },
     {
       icon: MapPin,
-      title: "Địa chỉ",
+      title: t.contact.address,
       value: "280 An Dương Vương, Phường 4, Quận 5, Thành phố Hồ Chí Minh",
       href: "https://maps.google.com/?q=280+An+Dương+Vương,+Quận+5,+TP.HCM",
       color: "text-red-500"
@@ -216,7 +246,7 @@ const ContactForm = () => {
             >
               <MessageCircle className="h-4 w-4" />
             </motion.div>
-            <span>Liên hệ</span>
+            <span>{t.contact.badge}</span>
           </motion.div>
           
           <motion.h2 
@@ -225,7 +255,7 @@ const ContactForm = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
           >
-            Liên hệ với chúng mình
+            {t.contact.title}
           </motion.h2>
           <motion.p 
             className="text-lg text-muted-foreground max-w-2xl mx-auto"
@@ -234,7 +264,7 @@ const ContactForm = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            Có câu hỏi hoặc cần hỗ trợ? Chúng mình luôn sẵn sàng giúp đỡ bạn!
+            {t.contact.description}
           </motion.p>
         </motion.div>
 
@@ -256,7 +286,7 @@ const ContactForm = () => {
                 >
                   📍
                 </motion.span>
-                Thông tin liên hệ
+                {t.contact.contactInfo}
               </h3>
 
               <div className="space-y-5">
@@ -305,7 +335,7 @@ const ContactForm = () => {
                   >
                     💌
                   </motion.span>
-                  Chúng mình sẽ phản hồi trong 24h!
+                  {t.contact.responseTime}
                 </p>
               </motion.div>
             </div>
@@ -338,14 +368,14 @@ const ContactForm = () => {
                 >
                   <label htmlFor="name" className="flex items-center gap-2 font-semibold mb-2">
                     <User className="h-4 w-4 text-primary" />
-                    Họ và tên
+                    {t.contact.nameLabel}
                   </label>
                   <motion.div whileHover={{ scale: 1.01 }}>
                     <Input
                       id="name"
                       name="name"
                       type="text"
-                      placeholder="Nhập họ tên của bạn"
+                      placeholder={t.contact.namePlaceholder}
                       value={formData.name}
                       onChange={handleChange}
                       className={`border-2 transition-all duration-300 ${errors.name ? 'border-destructive' : 'border-secondary hover:border-primary/50'} focus:border-primary focus:ring-2 focus:ring-primary/20`}
@@ -366,14 +396,14 @@ const ContactForm = () => {
                 <motion.div variants={inputVariants} whileFocus="focus">
                   <label htmlFor="email" className="flex items-center gap-2 font-semibold mb-2">
                     <Mail className="h-4 w-4 text-primary" />
-                    Email
+                    {t.contact.email}
                   </label>
                   <motion.div whileHover={{ scale: 1.01 }}>
                     <Input
                       id="email"
                       name="email"
                       type="email"
-                      placeholder="email@example.com"
+                      placeholder={t.contact.emailPlaceholder}
                       value={formData.email}
                       onChange={handleChange}
                       className={`border-2 transition-all duration-300 ${errors.email ? 'border-destructive' : 'border-secondary hover:border-primary/50'} focus:border-primary focus:ring-2 focus:ring-primary/20`}
@@ -392,44 +422,74 @@ const ContactForm = () => {
                 </motion.div>
               </div>
 
-              <motion.div className="mb-6 relative z-10" variants={inputVariants} whileFocus="focus">
-                <label htmlFor="subject" className="flex items-center gap-2 font-semibold mb-2">
-                  <FileText className="h-4 w-4 text-primary" />
-                  Chủ đề
-                </label>
-                <motion.div whileHover={{ scale: 1.01 }}>
-                  <Input
-                    id="subject"
-                    name="subject"
-                    type="text"
-                    placeholder="Bạn muốn hỏi về điều gì?"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    className={`border-2 transition-all duration-300 ${errors.subject ? 'border-destructive' : 'border-secondary hover:border-primary/50'} focus:border-primary focus:ring-2 focus:ring-primary/20`}
-                    disabled={isSubmitting}
-                  />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 relative z-10">
+                <motion.div variants={inputVariants} whileFocus="focus">
+                  <label htmlFor="phone" className="flex items-center gap-2 font-semibold mb-2">
+                    <Phone className="h-4 w-4 text-primary" />
+                    {t.contact.contactPhoneLabel}
+                  </label>
+                  <motion.div whileHover={{ scale: 1.01 }}>
+                    <Input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      placeholder={t.contact.contactPhonePlaceholder}
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className={`border-2 transition-all duration-300 ${errors.phone ? 'border-destructive' : 'border-secondary hover:border-primary/50'} focus:border-primary focus:ring-2 focus:ring-primary/20`}
+                      disabled={isSubmitting}
+                    />
+                  </motion.div>
+                  {errors.phone && (
+                    <motion.p 
+                      className="text-sm text-destructive mt-1"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                    >
+                      {errors.phone}
+                    </motion.p>
+                  )}
                 </motion.div>
-                {errors.subject && (
-                  <motion.p 
-                    className="text-sm text-destructive mt-1"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                  >
-                    {errors.subject}
-                  </motion.p>
-                )}
-              </motion.div>
+
+                <motion.div variants={inputVariants} whileFocus="focus">
+                  <label htmlFor="subject" className="flex items-center gap-2 font-semibold mb-2">
+                    <FileText className="h-4 w-4 text-primary" />
+                    {t.contact.subjectLabel}
+                  </label>
+                  <motion.div whileHover={{ scale: 1.01 }}>
+                    <Input
+                      id="subject"
+                      name="subject"
+                      type="text"
+                      placeholder={t.contact.subjectPlaceholder}
+                      value={formData.subject}
+                      onChange={handleChange}
+                      className={`border-2 transition-all duration-300 ${errors.subject ? 'border-destructive' : 'border-secondary hover:border-primary/50'} focus:border-primary focus:ring-2 focus:ring-primary/20`}
+                      disabled={isSubmitting}
+                    />
+                  </motion.div>
+                  {errors.subject && (
+                    <motion.p 
+                      className="text-sm text-destructive mt-1"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                    >
+                      {errors.subject}
+                    </motion.p>
+                  )}
+                </motion.div>
+              </div>
 
               <motion.div className="mb-6 relative z-10" variants={inputVariants} whileFocus="focus">
                 <label htmlFor="message" className="flex items-center gap-2 font-semibold mb-2">
                   <MessageCircle className="h-4 w-4 text-primary" />
-                  Tin nhắn
+                  {t.contact.messageLabel}
                 </label>
                 <motion.div whileHover={{ scale: 1.005 }}>
                   <Textarea
                     id="message"
                     name="message"
-                    placeholder="Viết tin nhắn của bạn ở đây..."
+                    placeholder={t.contact.messagePlaceholder}
                     value={formData.message}
                     onChange={handleChange}
                     className={`border-2 min-h-[150px] transition-all duration-300 ${errors.message ? 'border-destructive' : 'border-secondary hover:border-primary/50'} focus:border-primary focus:ring-2 focus:ring-primary/20`}
@@ -474,7 +534,7 @@ const ContactForm = () => {
                   ) : (
                     <Send className="h-4 w-4 mr-2 group-hover:translate-x-1 transition-transform" />
                   )}
-                  {isSubmitting ? "Đang gửi..." : "Gửi tin nhắn"}
+                  {isSubmitting ? t.contact.submitting : t.contact.submit}
                 </Button>
               </motion.div>
             </form>

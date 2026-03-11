@@ -1,11 +1,13 @@
-import { useState, memo, useCallback } from "react";
+import { useState, memo, useCallback, useMemo } from "react";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, XCircle, Lightbulb } from "lucide-react";
+import { CheckCircle2, XCircle, Lightbulb, ArrowRight } from "lucide-react";
+import { fisherYatesShuffle } from "@/utils/shuffle";
 import { Question } from "@/utils/storyLoader";
 import { MatchingPairsGame } from "./MatchingPairsGame";
 import { DragDropGame } from "./DragDropGame";
 import { FillInTheBlankGame } from "./FillInTheBlankGame";
 import { CountingGame } from "./CountingGame";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface QuestionCardProps {
   question: Question;
@@ -20,24 +22,35 @@ const QuestionCardComponent = ({
   totalQuestions,
   onAnswer 
 }: QuestionCardProps) => {
+  const { t } = useLanguage();
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const [showHint, setShowHint] = useState(false);
 
+  const { shuffledOptions, shuffledCorrectIndex } = useMemo(() => {
+    if (!question.options || question.options.length === 0 || question.type) {
+      return { shuffledOptions: question.options || [], shuffledCorrectIndex: question.correctAnswer };
+    }
+    const indexed = question.options.map((opt, i) => ({ opt, i }));
+    const shuffled = fisherYatesShuffle(indexed);
+    return {
+      shuffledOptions: shuffled.map(s => s.opt),
+      shuffledCorrectIndex: shuffled.findIndex(s => s.i === question.correctAnswer),
+    };
+  }, [question.id]);
+
   const handleAnswer = (index: number) => {
     if (showFeedback) return;
-    
     setSelectedAnswer(index);
     setShowFeedback(true);
-    
-    const isCorrect = index === question.correctAnswer;
-    
-    setTimeout(() => {
-      onAnswer(isCorrect);
-      setSelectedAnswer(null);
-      setShowFeedback(false);
-      setShowHint(false);
-    }, 2000);
+  };
+
+  const handleContinue = () => {
+    const isCorrect = selectedAnswer === shuffledCorrectIndex;
+    onAnswer(isCorrect);
+    setSelectedAnswer(null);
+    setShowFeedback(false);
+    setShowHint(false);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
@@ -47,27 +60,33 @@ const QuestionCardComponent = ({
     }
   };
 
-  const isCorrect = selectedAnswer === question.correctAnswer;
+  const isCorrect = selectedAnswer === shuffledCorrectIndex;
 
-  // Question progress indicator for special game types
   const QuestionProgress = () => (
-    <div className="text-center mb-4">
-      <span className="text-sm font-medium text-muted-foreground">
-        Câu hỏi {questionNumber} / {totalQuestions}
-      </span>
+    <div className="flex items-center justify-center mb-4">
+      <div className="relative flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-yellow-100 via-pink-50 to-sky-100 dark:from-yellow-900/30 dark:via-pink-900/20 dark:to-sky-900/30 border-2 border-dashed border-orange-300 dark:border-orange-500/50 shadow-md">
+        <div className="flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 text-white text-base font-extrabold shadow-lg ring-2 ring-white dark:ring-white/20">
+          {questionNumber}
+        </div>
+        <div className="flex flex-col items-start leading-tight">
+          <span className="text-[11px] text-orange-500 dark:text-orange-400 font-bold uppercase tracking-wider">{t.game.question}</span>
+          <span className="text-sm font-extrabold text-foreground">{questionNumber} <span className="text-muted-foreground font-normal">/ {totalQuestions}</span></span>
+        </div>
+        <div className="w-20 h-2.5 rounded-full bg-orange-100 dark:bg-orange-900/30 overflow-hidden border border-orange-200 dark:border-orange-700/50">
+          <div
+            className="h-full rounded-full bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-500 transition-all duration-500 ease-out"
+            style={{ width: `${(questionNumber / totalQuestions) * 100}%` }}
+          />
+        </div>
+      </div>
     </div>
   );
 
-  // Render different game types
   if (question.type === "matching-pairs" && question.pairs) {
     return (
       <div className="w-full max-w-3xl mx-auto">
         <QuestionProgress />
-        <MatchingPairsGame
-          pairs={question.pairs}
-          title={question.question}
-          onComplete={onAnswer}
-        />
+        <MatchingPairsGame pairs={question.pairs} title={question.question} onComplete={onAnswer} />
       </div>
     );
   }
@@ -76,12 +95,7 @@ const QuestionCardComponent = ({
     return (
       <div className="w-full max-w-3xl mx-auto">
         <QuestionProgress />
-        <DragDropGame
-          items={question.dragItems}
-          slots={question.dropSlots}
-          title={question.question}
-          onComplete={onAnswer}
-        />
+        <DragDropGame items={question.dragItems} slots={question.dropSlots} title={question.question} onComplete={onAnswer} />
       </div>
     );
   }
@@ -91,12 +105,7 @@ const QuestionCardComponent = ({
       <div className="w-full max-w-3xl mx-auto">
         <QuestionProgress />
         <FillInTheBlankGame
-          question={{
-            id: question.id,
-            text: question.question,
-            blanks: question.blanks,
-            explanation: question.explanation
-          }}
+          question={{ id: question.id, text: question.question, blanks: question.blanks, explanation: question.explanation }}
           onComplete={onAnswer}
         />
       </div>
@@ -107,38 +116,24 @@ const QuestionCardComponent = ({
     return (
       <div className="w-full max-w-3xl mx-auto">
         <QuestionProgress />
-        <CountingGame
-          items={question.countingItems}
-          correctAnswer={question.countingAnswer}
-          question={question.question}
-          explanation={question.explanation}
-          onComplete={onAnswer}
-        />
+        <CountingGame items={question.countingItems} correctAnswer={question.countingAnswer} question={question.question} explanation={question.explanation} onComplete={onAnswer} />
       </div>
     );
   }
 
-  // Default: multiple-choice
   return (
     <div className="w-full max-w-3xl mx-auto space-y-6 animate-fade-in">
-      {/* Progress */}
-      <div className="text-center">
-        <span className="text-sm font-medium text-muted-foreground">
-          Câu hỏi {questionNumber} / {totalQuestions}
-        </span>
-      </div>
+      <QuestionProgress />
 
-      {/* Question */}
       <div className="bg-card rounded-xl p-6 md:p-8 shadow-lg border-2 border-primary/20">
         <h2 className="text-2xl md:text-3xl font-heading font-bold text-center mb-8">
           {question.question}
         </h2>
 
-        {/* Options */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {question.options.map((option, index) => {
+          {shuffledOptions.map((option, index) => {
             const isSelected = selectedAnswer === index;
-            const isCorrectOption = index === question.correctAnswer;
+            const isCorrectOption = index === shuffledCorrectIndex;
             const showCorrect = showFeedback && isCorrectOption;
             const showIncorrect = showFeedback && isSelected && !isCorrect;
 
@@ -156,7 +151,7 @@ const QuestionCardComponent = ({
                   ${!showFeedback ? "bg-secondary hover:bg-secondary/80 border-primary/30" : ""}
                   ${showFeedback ? "cursor-not-allowed" : "cursor-pointer"}
                 `}
-                aria-label={`Đáp án ${String.fromCharCode(65 + index)}: ${option}`}
+                aria-label={`${t.game.answerLabel} ${String.fromCharCode(65 + index)}: ${option}`}
               >
                 <div className="flex items-center justify-between gap-3">
                   <span className="flex-1 text-left">{option}</span>
@@ -168,7 +163,6 @@ const QuestionCardComponent = ({
           })}
         </div>
 
-        {/* Feedback */}
         {showFeedback && (
           <div 
             className={`mt-6 p-4 rounded-lg animate-fade-in ${
@@ -177,28 +171,30 @@ const QuestionCardComponent = ({
             role="alert"
           >
             <p className="font-semibold mb-2">
-              {isCorrect ? "🎉 Chính xác!" : "💡 Gần đúng rồi!"}
+              {isCorrect ? `🎉 ${t.game.correct}` : `💡 ${t.game.almostCorrect}`}
             </p>
             <p className="text-sm">{question.explanation}</p>
           </div>
         )}
+
+        {showFeedback && (
+          <div className="text-center mt-4">
+            <Button onClick={handleContinue} size="lg" className="animate-fade-in gap-2">
+              {t.game.continueBtn} <ArrowRight className="w-5 h-5" />
+            </Button>
+          </div>
+        )}
       </div>
 
-      {/* Hint Button */}
       {!showFeedback && (
         <div className="text-center">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setShowHint(!showHint)}
-            className="gap-2"
-          >
+          <Button variant="ghost" size="sm" onClick={() => setShowHint(!showHint)} className="gap-2">
             <Lightbulb className="w-4 h-4" />
-            {showHint ? "Ẩn gợi ý" : "Xem gợi ý"}
+            {showHint ? t.game.hideHint : t.game.showHint}
           </Button>
           {showHint && (
             <p className="mt-3 text-sm text-muted-foreground animate-fade-in">
-              💡 Đọc kỹ câu hỏi và suy nghĩ từng bước một nhé!
+              💡 {t.game.hintText}
             </p>
           )}
         </div>

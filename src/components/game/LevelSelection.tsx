@@ -3,6 +3,7 @@ import { Lock, CheckCircle, Star } from "lucide-react";
 import { GameProgress } from "@/hooks/useGameEngine";
 import { StoryNode } from "@/types/game";
 import { getLevelIcon } from "@/utils/levelIcons";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface LevelSelectionProps {
   title: string;
@@ -19,6 +20,8 @@ const LevelSelectionComponent = ({
   progress,
   onSelectLevel,
 }: LevelSelectionProps) => {
+  const { t } = useLanguage();
+
   // Chuẩn hóa completed nodes và ngưỡng mở khóa để tránh khóa lùi khi chơi lại màn cũ
   const completedNodeIndices: number[] = progress.completedNodes
     .map((n: unknown) => {
@@ -53,7 +56,7 @@ const LevelSelectionComponent = ({
           {/* Progress Summary */}
           <div className="flex items-center justify-center gap-6 mt-6">
             <div className="bg-card px-6 py-3 rounded-full border border-primary/20">
-              <span className="text-sm text-muted-foreground">Hoàn thành: </span>
+              <span className="text-sm text-muted-foreground">{t.game.completed}: </span>
               <span className="text-lg font-bold text-primary">
                 {progress.completedNodes.length}/{nodes.length}
               </span>
@@ -95,7 +98,7 @@ const LevelSelectionComponent = ({
                       : ""
                   }
                 `}
-                aria-label={`Màn ${node.order}: ${node.title}`}
+                aria-label={`${node.order}: ${node.title}`}
               >
                 {/* Level Number Badge */}
                 <div className="absolute -top-3 -left-3 w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg">
@@ -147,11 +150,11 @@ const LevelSelectionComponent = ({
                 <div className="mt-4">
                   {isUnlocked ? (
                     <div className="text-sm font-semibold text-primary">
-                      {isCompleted ? "Chơi lại" : "Bắt đầu"} →
+                      {isCompleted ? t.game.playAgain : t.game.start} →
                     </div>
                   ) : (
                     <div className="text-sm text-muted-foreground">
-                      Hoàn thành màn trước
+                      {t.game.completePrevLevel}
                     </div>
                   )}
                 </div>
@@ -163,7 +166,7 @@ const LevelSelectionComponent = ({
         {/* Footer */}
         <div className="mt-12 text-center">
           <p className="text-sm text-muted-foreground">
-            💡 Hoàn thành từng màn để mở khóa màn tiếp theo
+            💡 {t.game.levelHint}
           </p>
         </div>
       </div>

@@ -20,16 +20,25 @@ import Grade3Game from "./pages/Grade3Game";
 import Grade4Game from "./pages/Grade4Game";
 import Grade5Game from "./pages/Grade5Game";
 import DataPage from "./pages/data";
+import UserGuide from "./pages/UserGuide";
+import FAQ from "./pages/FAQ";
 
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import StudyTimeLimitWrapper from "./components/game/StudyTimeLimitWrapper";
+import { LanguageProvider } from "./contexts/LanguageContext";
+import { SoundProvider } from "./contexts/SoundContext";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
+    <LanguageProvider>
+    <SoundProvider>
     <TooltipProvider>
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <StudyTimeLimitWrapper />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/lessons" element={<ProtectedClassroom><Lessons /></ProtectedClassroom>} />
@@ -37,7 +46,7 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/profile" element={<Profile />} />
-                    <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/classroom/trangquynh" element={<TrangQuynhGame />} />
           <Route path="/classroom/songhong" element={<SongHongGame />} />
           <Route path="/classroom/preschool" element={<PreschoolGame />} />
@@ -46,11 +55,17 @@ const App = () => (
           <Route path="/classroom/grade4" element={<Grade4Game />} />
           <Route path="/classroom/grade5" element={<Grade5Game />} />
           <Route path="/data" element={<DataPage />} />
+          <Route path="/user-guide" element={<UserGuide />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
+    </SoundProvider>
+    </LanguageProvider>
   </QueryClientProvider>
 );
 

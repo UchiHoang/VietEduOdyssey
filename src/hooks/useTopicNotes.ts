@@ -17,7 +17,7 @@ export const useTopicNotes = (topicId: string | null) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const { toast } = useToast();
-  const debounceTimer = useRef<NodeJS.Timeout | null>(null);
+  const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Fetch note for current topic
   const fetchNote = useCallback(async () => {

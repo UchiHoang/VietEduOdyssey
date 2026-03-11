@@ -1,13 +1,11 @@
 import { useState, memo, useRef, useMemo } from "react";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, XCircle } from "lucide-react";
+import { CheckCircle2, XCircle, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface CountingGameProps {
-  items: {
-    image: string;
-    count: number;
-  }[];
+  items: { image: string; count: number }[];
   correctAnswer: number;
   question: string;
   explanation?: string;
@@ -15,6 +13,7 @@ interface CountingGameProps {
 }
 
 const CountingGameComponent = ({ items, correctAnswer, question, explanation, onComplete }: CountingGameProps) => {
+  const { t } = useLanguage();
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const onCompleteRef = useRef(onComplete);
@@ -22,26 +21,22 @@ const CountingGameComponent = ({ items, correctAnswer, question, explanation, on
 
   const handleAnswer = (answer: number) => {
     if (showFeedback) return;
-    
     setSelectedAnswer(answer);
     setShowFeedback(true);
-    
-    const isCorrect = answer === correctAnswer;
-    
-    setTimeout(() => {
-      onCompleteRef.current(isCorrect);
-    }, 2500);
+  };
+
+  const handleContinue = () => {
+    const isCorrect = selectedAnswer === correctAnswer;
+    onCompleteRef.current(isCorrect);
   };
 
   const isCorrect = selectedAnswer === correctAnswer;
 
-  // Memoize options to prevent recalculation on every render
   const options = useMemo(() => {
     const opts = Array.from({ length: 4 }, (_, i) => {
       const offset = i - 2;
       return Math.max(1, correctAnswer + offset);
     }).filter((v, i, arr) => arr.indexOf(v) === i).sort((a, b) => a - b);
-
     if (!opts.includes(correctAnswer)) {
       opts[Math.floor(Math.random() * opts.length)] = correctAnswer;
     }
@@ -51,11 +46,8 @@ const CountingGameComponent = ({ items, correctAnswer, question, explanation, on
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6 animate-fade-in">
       <div className="bg-card rounded-xl p-6 md:p-8 shadow-lg border-2 border-primary/20">
-        <h2 className="text-2xl md:text-3xl font-heading font-bold text-center mb-6">
-          {question}
-        </h2>
+        <h2 className="text-2xl md:text-3xl font-heading font-bold text-center mb-6">{question}</h2>
 
-        {/* Items to count */}
         <div className="bg-secondary/30 rounded-xl p-6 mb-6 min-h-[200px] flex items-center justify-center">
           <div className="flex flex-wrap gap-4 justify-center">
             {items.map((item, groupIdx) => (
@@ -76,7 +68,6 @@ const CountingGameComponent = ({ items, correctAnswer, question, explanation, on
           </div>
         </div>
 
-        {/* Answer options */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           {options.map((option) => {
             const isSelected = selectedAnswer === option;
@@ -100,40 +91,37 @@ const CountingGameComponent = ({ items, correctAnswer, question, explanation, on
                 whileTap={{ scale: showFeedback ? 1 : 0.95 }}
               >
                 {option}
-                {showCorrect && (
-                  <CheckCircle2 className="absolute top-2 right-2 w-6 h-6" />
-                )}
-                {showIncorrect && (
-                  <XCircle className="absolute top-2 right-2 w-6 h-6" />
-                )}
+                {showCorrect && <CheckCircle2 className="absolute top-2 right-2 w-6 h-6" />}
+                {showIncorrect && <XCircle className="absolute top-2 right-2 w-6 h-6" />}
               </motion.button>
             );
           })}
         </div>
 
-        {/* Feedback */}
         {showFeedback && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`p-4 rounded-lg ${
-              isCorrect 
-                ? "bg-green-100 text-green-800" 
-                : "bg-orange-100 text-orange-800"
-            }`}
+            className={`p-4 rounded-lg ${isCorrect ? "bg-green-100 text-green-800" : "bg-orange-100 text-orange-800"}`}
           >
             <p className="font-semibold mb-2">
-              {isCorrect ? "🎉 Chính xác!" : "💡 Gần đúng rồi!"}
+              {isCorrect ? `🎉 ${t.game.correct}` : `💡 ${t.game.almostCorrect}`}
             </p>
-            {explanation && (
-              <p className="text-sm">{explanation}</p>
-            )}
+            {explanation && <p className="text-sm">{explanation}</p>}
             {!isCorrect && (
               <p className="text-sm mt-2">
-                Đáp án đúng là: <span className="font-bold text-lg">{correctAnswer}</span>
+                {t.game.correctAnswerWas} <span className="font-bold text-lg">{correctAnswer}</span>
               </p>
             )}
           </motion.div>
+        )}
+
+        {showFeedback && (
+          <div className="text-center mt-4">
+            <Button onClick={handleContinue} size="lg" className="animate-fade-in gap-2">
+              {t.game.continueBtn} <ArrowRight className="w-5 h-5" />
+            </Button>
+          </div>
         )}
       </div>
     </div>
