@@ -137,8 +137,8 @@ const LessonsManagementTab = () => {
         fetchTopics();
       }
     } else {
-      const sameGroup = topics.filter(t => t.lesson_id === form.lesson_id && t.semester === Number(form.semester));
-      const nextIndex = sameGroup.length > 0 ? Math.max(...sameGroup.map(t => t.order_index)) + 1 : 1;
+      const allInGrade = topics.filter(t => t.lesson_id === form.lesson_id);
+      const nextIndex = allInGrade.length > 0 ? Math.max(...allInGrade.map(t => t.order_index)) + 1 : 1;
       const newId = `${form.lesson_id}-${nextIndex}`;
 
       const { error } = await supabase.from("topics").insert({

@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { PlayCircle, BookOpen, CheckCircle, Search, FileText, Loader2, Menu, X, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -132,12 +132,43 @@ const Lessons = () => {
     );
   }, [activeTopics, selectedLessonId, selectedSemester, searchQuery]);
 
-  // Tự động chọn bài đầu tiên (chỉ khi không có URL topic)
+  // Apply URL deep-link params once data has loaded
+  const [deepLinkApplied, setDeepLinkApplied] = useState(false);
+  const toolTabsRef = useRef<HTMLDivElement>(null);
+  
   useEffect(() => {
-    // Skip if we have a valid topic from URL on initial load
-    if (urlTopic && activeTopics.find(t => t.id === urlTopic)) {
-      return;
+    if (deepLinkApplied || activeTopics.length === 0) return;
+    
+    if (urlGrade && activeLessons.find(l => l.id === urlGrade)) {
+      setSelectedLessonId(urlGrade);
     }
+    if (urlTopic) {
+      const topic = activeTopics.find(t => t.id === urlTopic);
+      if (topic) {
+        setSelectedLessonId(topic.lesson_id);
+        setSelectedSemester(topic.semester);
+        setSelectedTopicId(urlTopic);
+        if (urlTab === "notes") {
+          setActiveToolTab("notes");
+        } else if (urlTab === "qa") {
+          setActiveToolTab("qa");
+        }
+        setDeepLinkApplied(true);
+        // Scroll to the notes/qa section after a short delay
+        if (urlTab === "notes" || urlTab === "qa") {
+          setTimeout(() => {
+            toolTabsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 500);
+        }
+        return;
+      }
+    }
+    setDeepLinkApplied(true);
+  }, [activeTopics, activeLessons, urlGrade, urlTopic, urlTab, deepLinkApplied]);
+
+  // Tự động chọn bài đầu tiên (chỉ khi không có URL topic hoặc deep link đã xử lý)
+  useEffect(() => {
+    if (!deepLinkApplied) return;
     
     if (filteredTopics.length > 0) {
       if (!selectedTopicId || !filteredTopics.find((t) => t.id === selectedTopicId)) {
@@ -147,7 +178,7 @@ const Lessons = () => {
       setSelectedTopicId("");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filteredTopics]);
+  }, [filteredTopics, deepLinkApplied]);
 
   const selectedLesson = activeLessons.find((l) => l.id === selectedLessonId);
   const selectedTopic = activeTopics.find((t) => t.id === selectedTopicId);
@@ -518,7 +549,7 @@ const Lessons = () => {
                 </div>
 
                 {/* Phần Ghi chú & Hỏi đáp - Nằm dưới, full width */}
-                <div className="bg-card rounded-xl md:rounded-2xl border shadow-lg overflow-hidden">
+                <div ref={toolTabsRef} className="bg-card rounded-xl md:rounded-2xl border shadow-lg overflow-hidden">
                   <Tabs value={activeToolTab} onValueChange={setActiveToolTab} className="w-full">
                     {/* Header với gradient xanh lá - responsive */}
                     <div className="bg-gradient-to-r from-primary to-primary/80 px-3 sm:px-4 md:px-6 py-3 md:py-5 flex justify-center">

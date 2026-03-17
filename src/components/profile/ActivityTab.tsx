@@ -212,7 +212,7 @@ export const ActivityTab = () => {
                           {format(new Date(comment.created_at), "dd/MM/yyyy HH:mm", { locale: viLocale })}
                         </div>
                         <div className="flex items-center gap-2">
-                          <Button variant="ghost" size="sm" className="h-8 text-xs" onClick={() => handleViewLesson(comment.lesson_id || "", comment.topic_id)}>
+                          <Button variant="ghost" size="sm" className="h-8 text-xs" onClick={() => handleViewLesson(comment.lesson_id || "", comment.topic_id, "qa")}>
                             <ExternalLink className="h-3.5 w-3.5 mr-1" />{t.activityTab.viewLesson}
                           </Button>
                           <Button variant="ghost" size="sm" className="h-8 text-xs text-destructive hover:text-destructive hover:bg-destructive/10" onClick={() => handleDeleteComment(comment.id)}>

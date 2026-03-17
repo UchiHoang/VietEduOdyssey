@@ -61,7 +61,7 @@ const Profile = () => {
   const [searchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState(() => {
     const tabFromUrl = searchParams.get("tab");
-    return tabFromUrl && ["info", "stats", "analytics", "activity", "settings", "password", "courses"].includes(tabFromUrl)
+       return tabFromUrl && ["info", "stats", "analytics", "activity", "settings", "courses"].includes(tabFromUrl)
       ? tabFromUrl
       : "info";
   });
@@ -381,8 +381,6 @@ const Profile = () => {
         return <ActivityTab />;
       case "settings":
         return <SettingsTab />;
-      case "password":
-        return <PasswordTab />;
       case "courses":
         return <CoursesTab gameProgress={gameProgress as any} />;
       default:

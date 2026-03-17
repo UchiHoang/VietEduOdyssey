@@ -143,8 +143,8 @@ const ReportsTab = () => {
         supabase.from("user_roles").select("user_id").eq("role", "student"),
         supabase.from("game_globals").select("user_id, total_xp, global_level").gt("total_xp", 0).order("total_xp", { ascending: false }).limit(5),
         startDate
-          ? supabase.from("level_history").select("user_id, course_id, score, stars, created_at, node_index, passed").gte("created_at", startDate)
-          : supabase.from("level_history").select("user_id, course_id, score, stars, created_at, node_index, passed"),
+          ? supabase.from("level_history").select("user_id, course_id, score, stars, created_at, node_index, passed, meta").gte("created_at", startDate)
+          : supabase.from("level_history").select("user_id, course_id, score, stars, created_at, node_index, passed, meta"),
       ]);
 
       setTotalStudents(studentCount || 0);
@@ -217,7 +217,8 @@ const ReportsTab = () => {
         gradeMap[gradeName].users.add(r.user_id);
         gradeMap[gradeName].totalStages++;
         if (r.passed) {
-          gradeMap[gradeName].totalScore += Number(r.score);
+          const accuracy = Number(r.meta?.accuracy ?? 0);
+          gradeMap[gradeName].totalScore += accuracy;
           gradeMap[gradeName].scoreCount++;
         }
       });
@@ -288,26 +289,26 @@ const ReportsTab = () => {
 
   const buildExportData = () => {
     const summary = [
-      ["Bao cao & Thong ke - " + periodLabel(period)],
-      ["Ngay xuat", new Date().toLocaleDateString("vi-VN")],
+      ["Báo cáo & Thống kê - " + periodLabel(period)],
+      ["Ngày xuất", new Date().toLocaleDateString("vi-VN")],
       [],
-      ["Tong hoc sinh", totalStudents],
-      ["So lop hoc", totalClasses],
-      ["Bai hoan thanh", totalLessonsCompleted],
-      ["Thoi gian hoc TB (phut)", averageStudyTime],
+      ["Tổng học sinh", totalStudents],
+      ["Số lớp học", totalClasses],
+      ["Bài hoàn thành", totalLessonsCompleted],
+      ["Thời gian học TB (phút)", averageStudyTime],
     ];
     const gradeRows = gradeCompletions.map((gc) => ({
-      "Khoi lop": gc.grade, "So HS hoat dong": gc.activeStudents,
-      "Tong luot choi": gc.totalStages, "Do chinh xac TB (%)": gc.avgAccuracy,
+      "Khối lớp": gc.grade, "Số HS hoạt động": gc.activeStudents,
+      "Tổng lượt chơi": gc.totalStages, "Độ chính xác TB (%)": gc.avgAccuracy,
     }));
     const topRows = topStudents.map((s, i) => ({
-      "Hang": i + 1, "Ten": s.name, "XP": s.xp, "Level": s.level,
+      "Hạng": i + 1, "Tên": s.name, "XP": s.xp, "Level": s.level,
     }));
     const distRows = gradeDistribution.map((g) => ({
-      "Khoi": g.name, "So hoc sinh": g.value,
+      "Khối": g.name, "Số học sinh": g.value,
     }));
     const trendRows = trendData.map((td) => ({
-      "Ngay": td.date, "XP": td.XP,
+      "Ngày": td.date, "XP": td.XP,
     }));
     return { summary, gradeRows, topRows, distRows, trendRows };
   };
@@ -323,63 +324,73 @@ const ReportsTab = () => {
     XLSX.writeFile(wb, `bao-cao-${period}-${new Date().toISOString().split("T")[0]}.xlsx`);
   };
 
-  const exportPDF = () => {
+  const exportPDF = async () => {
     const { gradeRows, topRows, distRows } = buildExportData();
     const doc = new jsPDF();
+
+    // Load and register Roboto font for Vietnamese support
+    const { ROBOTO_FONT_BASE64 } = await import("@/utils/robotoFont");
+    doc.addFileToVFS("Roboto-Regular.ttf", ROBOTO_FONT_BASE64);
+    doc.addFont("Roboto-Regular.ttf", "Roboto", "normal");
+    doc.addFont("Roboto-Regular.ttf", "Roboto", "bold");
+    doc.setFont("Roboto");
+
+    const baseStyles = { font: "Roboto" as const };
+
     doc.setFontSize(18);
-    doc.text("Bao cao & Thong ke", 14, 20);
+    doc.text("Báo cáo & Thống kê", 14, 20);
     doc.setFontSize(11);
-    doc.text("Thoi gian: " + periodLabel(period), 14, 28);
-    doc.text("Ngay xuat: " + new Date().toLocaleDateString("vi-VN"), 14, 34);
+    doc.text("Thời gian: " + periodLabel(period), 14, 28);
+    doc.text("Ngày xuất: " + new Date().toLocaleDateString("vi-VN"), 14, 34);
 
     doc.setFontSize(13);
-    doc.text("Tong quan", 14, 46);
+    doc.text("Tổng quan", 14, 46);
     autoTable(doc, {
       startY: 50,
-      head: [["Chi so", "Gia tri"]],
+      head: [["Chỉ số", "Giá trị"]],
       body: [
-        ["Tong hoc sinh", String(totalStudents)],
-        ["So lop hoc", String(totalClasses)],
-        ["Bai hoan thanh", String(totalLessonsCompleted)],
-        ["Thoi gian hoc TB", averageStudyTime + " phut"],
+        ["Tổng học sinh", String(totalStudents)],
+        ["Số lớp học", String(totalClasses)],
+        ["Bài hoàn thành", String(totalLessonsCompleted)],
+        ["Thời gian học TB", averageStudyTime + " phút"],
       ],
-      theme: "grid", headStyles: { fillColor: [59, 130, 246] },
+      theme: "grid", headStyles: { fillColor: [59, 130, 246], ...baseStyles }, styles: { ...baseStyles },
     });
 
     let lastY = (doc as any).lastAutoTable?.finalY ?? 70;
 
     if (gradeRows.length) {
       const y1 = lastY + 10;
-      doc.text("Theo khoi lop", 14, y1);
+      doc.text("Theo khối lớp", 14, y1);
       autoTable(doc, {
         startY: y1 + 4,
-        head: [["Khoi", "HS", "Luot choi", "Chinh xac (%)"]],
-        body: gradeRows.map((r) => [r["Khoi lop"], r["So HS hoat dong"], r["Tong luot choi"], r["Do chinh xac TB (%)"]]),
-        theme: "grid", headStyles: { fillColor: [34, 197, 94] },
+        head: [["Khối", "HS", "Lượt chơi", "Chính xác (%)"]],
+        body: gradeRows.map((r) => [r["Khối lớp"], r["Số HS hoạt động"], r["Tổng lượt chơi"], r["Độ chính xác TB (%)"]]),
+        theme: "grid", headStyles: { fillColor: [34, 197, 94], ...baseStyles }, styles: { ...baseStyles },
       });
       lastY = (doc as any).lastAutoTable?.finalY ?? lastY + 40;
     }
 
     if (topRows.length) {
       const y2 = lastY + 10;
-      doc.text("Top hoc sinh", 14, y2);
+      doc.text("Top học sinh", 14, y2);
       autoTable(doc, {
         startY: y2 + 4,
-        head: [["Hang", "Ten", "XP", "Level"]],
-        body: topRows.map((r) => [r["Hang"], r["Ten"], r["XP"], r["Level"]]),
-        theme: "grid", headStyles: { fillColor: [245, 158, 11] },
+        head: [["Hạng", "Tên", "XP", "Level"]],
+        body: topRows.map((r) => [r["Hạng"], r["Tên"], r["XP"], r["Level"]]),
+        theme: "grid", headStyles: { fillColor: [245, 158, 11], ...baseStyles }, styles: { ...baseStyles },
       });
       lastY = (doc as any).lastAutoTable?.finalY ?? lastY + 40;
     }
 
     if (distRows.length) {
       const y3 = lastY + 10;
-      doc.text("Phan bo hoc sinh", 14, y3);
+      doc.text("Phân bổ học sinh", 14, y3);
       autoTable(doc, {
         startY: y3 + 4,
-        head: [["Khoi", "So hoc sinh"]],
-        body: distRows.map((r) => [r["Khoi"], r["So hoc sinh"]]),
-        theme: "grid", headStyles: { fillColor: [139, 92, 246] },
+        head: [["Khối", "Số học sinh"]],
+        body: distRows.map((r) => [r["Khối"], r["Số học sinh"]]),
+        theme: "grid", headStyles: { fillColor: [139, 92, 246], ...baseStyles }, styles: { ...baseStyles },
       });
     }
 

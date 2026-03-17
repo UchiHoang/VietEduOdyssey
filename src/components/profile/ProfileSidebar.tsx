@@ -31,7 +31,6 @@ const ProfileSidebar = ({
     { id: "analytics", label: t.profilePage.sidebar.learningAnalytics, icon: BarChart3 },
     { id: "activity", label: t.profilePage.sidebar.yourActivity, icon: History },
     { id: "settings", label: t.profilePage.sidebar.settings, icon: Settings },
-    { id: "password", label: t.profilePage.sidebar.changePassword, icon: Lock },
     { id: "courses", label: t.profilePage.sidebar.yourCourses, icon: BookOpen },
   ];
 
