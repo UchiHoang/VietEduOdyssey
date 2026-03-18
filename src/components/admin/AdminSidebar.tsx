@@ -23,8 +23,6 @@ const AdminSidebar = ({ activeTab, onTabChange, profile, onLogout }: AdminSideba
     { id: "library", label: t.adminSidebar.library, icon: FolderOpen },
     { id: "comments", label: t.adminSidebar.comments, icon: MessageSquare },
     { id: "reports", label: t.adminSidebar.reports, icon: BarChart3 },
-    { id: "profile", label: t.adminSidebar.profile, icon: User },
-    { id: "settings", label: t.adminSidebar.settings, icon: Settings },
   ];
 
   const isEmojiAvatar = !profile?.avatar || 

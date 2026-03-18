@@ -9,8 +9,6 @@ import LibraryTab from "@/components/admin/LibraryTab";
 import LessonsManagementTab from "@/components/admin/LessonsManagementTab";
 import CommentsManagementTab from "@/components/admin/CommentsManagementTab";
 import ReportsTab from "@/components/admin/ReportsTab";
-import AdminSettingsTab from "@/components/admin/AdminSettingsTab";
-import AdminProfileTab from "@/components/admin/AdminProfileTab";
 import { Loader2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
@@ -107,10 +105,6 @@ const AdminDashboard = () => {
         return <CommentsManagementTab />;
       case "reports":
         return <ReportsTab />;
-      case "settings":
-        return <AdminSettingsTab />;
-      case "profile":
-        return <AdminProfileTab profile={profile} userId={userId} />;
       default:
         return <StudentsTab />;
     }
