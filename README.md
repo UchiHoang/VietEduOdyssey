@@ -45,4 +45,8 @@ Dự án được xây dựng trên các công nghệ hiện đại nhằm đả
 * `/supabase`: Chứa các bản thiết kế cơ sở dữ liệu (schema) và các bản migration.
 
 ---
+<<<<<<< HEAD
 © 2026 Đội ngũ phát triển Website VietEdu Odyssey.
+=======
+© 2026 Đội ngũ phát triển Website VietEdu Odyssey.
+>>>>>>> 441076f07a859c63819f9783cd7e9250acdde5bb
