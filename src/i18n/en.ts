@@ -254,6 +254,13 @@ const en: Translations = {
     passwordMismatch: "Passwords do not match",
     genericError: "An error occurred. Please try again.",
     googleError: "Unable to login with Google",
+    invalidCredentials: "Incorrect email or password. Please try again.",
+    emailNotConfirmed: "Account not confirmed. Please check your email to verify.",
+    userNotFound: "No account found with this email.",
+    emailAlreadyRegistered: "This email is already registered. Please login or use a different email.",
+    passwordTooShort: "Password must be at least 6 characters.",
+    invalidEmail: "Invalid email address. Please check and try again.",
+    tooManyRequests: "Too many attempts. Please wait a moment and try again.",
   },
 
   // NotFound

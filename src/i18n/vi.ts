@@ -252,6 +252,13 @@ const vi = {
     passwordMismatch: "Mật khẩu xác nhận không khớp",
     genericError: "Đã xảy ra lỗi. Vui lòng thử lại.",
     googleError: "Không thể đăng nhập bằng Google",
+    invalidCredentials: "Email hoặc mật khẩu không đúng. Vui lòng kiểm tra lại.",
+    emailNotConfirmed: "Tài khoản chưa được xác nhận. Vui lòng kiểm tra email để xác nhận.",
+    userNotFound: "Không tìm thấy tài khoản với email này.",
+    emailAlreadyRegistered: "Email này đã được đăng ký. Vui lòng đăng nhập hoặc sử dụng email khác.",
+    passwordTooShort: "Mật khẩu phải có ít nhất 6 ký tự.",
+    invalidEmail: "Địa chỉ email không hợp lệ. Vui lòng kiểm tra lại.",
+    tooManyRequests: "Bạn đã thử quá nhiều lần. Vui lòng đợi một lát rồi thử lại.",
   },
 
   // NotFound

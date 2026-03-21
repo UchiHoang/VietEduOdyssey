@@ -123,9 +123,28 @@ const Auth = () => {
         });
       }
     } catch (error: any) {
+            const msg = error.message || "";
+      let description = t.auth.genericError;
+      if (msg.includes("Invalid login credentials")) {
+        description = t.auth.invalidCredentials;
+      } else if (msg.includes("Email not confirmed")) {
+        description = t.auth.emailNotConfirmed;
+      } else if (msg.includes("User not found")) {
+        description = t.auth.userNotFound;
+      } else if (msg.includes("already registered") || msg.includes("already been registered")) {
+        description = t.auth.emailAlreadyRegistered;
+      } else if (msg.includes("at least 6 characters") || msg.includes("too short")) {
+        description = t.auth.passwordTooShort;
+      } else if (msg.includes("invalid email") || msg.includes("Unable to validate email")) {
+        description = t.auth.invalidEmail;
+      } else if (msg.includes("rate limit") || msg.includes("too many requests") || msg.includes("For security purposes")) {
+        description = t.auth.tooManyRequests;
+      }
+
       toast({
         title: t.auth.error,
         description: error.message || t.auth.genericError,
+         description,
         variant: "destructive"
       });
     } finally {
