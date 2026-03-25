@@ -10,19 +10,19 @@ export const getLevelIcon = (gradeOrGameTitle: string, levelIndex: number): stri
     const grade2Icons = [
       '/assets/grades/grade2/trangquynh/icons/icon_apple.png',
       '/assets/grades/grade2/trangquynh/icons/icon_bridge.png',
-      '/assets/grades/grade2/trangquynh/icons/icon_bunch.png',
+      '/assets/grades/grade2/trangquynh/icons/icon_neighborhood.png',
       '/assets/grades/grade2/trangquynh/icons/icon_clock.png',
-      '/assets/common/icons/icon_ruler.png', // TODO: Move to grade2/trangquynh/icons/
-      '/assets/common/icons/icon_sack.png',  // TODO: Move to grade2/trangquynh/icons/
-      '/assets/grades/grade2/trangquynh/icons/icon_money.png',
-      '/assets/grades/grade2/trangquynh/icons/icon_puzzle.png',
+      '/assets/grades/grade2/trangquynh/icons/icon_puzzle.png', // TODO: Move to grade2/trangquynh/icons/
+      '/assets/grades/grade2/trangquynh/icons/icon_aosen.png',  // TODO: Move to grade2/trangquynh/icons/
+      '/assets/grades/grade2/trangquynh/icons/icon_duongde.png',
+      '/assets/grades/grade2/trangquynh/icons/icon_sack.png',
+      '/assets/grades/grade2/trangquynh/icons/icon_market.png',
+      '/assets/grades/grade2/trangquynh/icons/icon_apple.png',
+      '/assets/grades/grade2/trangquynh/icons/icon_money.png', // fallback
+      '/assets/grades/grade2/trangquynh/icons/icon_sack.png',
       '/assets/grades/grade2/trangquynh/icons/icon_badge.png',
-      '/assets/grades/grade2/trangquynh/icons/icon_money.png',
-      '/assets/grades/grade2/trangquynh/icons/icon_apple.png', // fallback
       '/assets/grades/grade2/trangquynh/icons/icon_bridge.png',
-      '/assets/grades/grade2/trangquynh/icons/icon_bunch.png',
-      '/assets/grades/grade2/trangquynh/icons/icon_clock.png',
-      '/assets/common/icons/icon_ruler.png',
+      '/assets/grades/grade2/trangquynh/icons/icon_puzzle.png',
     ];
     return grade2Icons[levelIndex] || grade2Icons[0];
   }
@@ -58,21 +58,21 @@ export const getLevelIcon = (gradeOrGameTitle: string, levelIndex: number): stri
   if (title.includes('sơn tinh') || title.includes('son tinh') || title.includes('thủy tinh') || title.includes('thuy tinh')) {
     const grade3Icons = [
       // PLACEHOLDER: Dùng tạm characters/questions, cần thay bằng icons/
-      '/assets/grades/grade3/fraction-quest/characters/sontinh_idle.png',
-      '/assets/grades/grade3/fraction-quest/characters/thuytinh_idle.png',
       '/assets/grades/grade3/fraction-quest/characters/vuahung_idle.png',
-      '/assets/grades/grade3/fraction-quest/characters/bacdau_idle.png',
-      '/assets/grades/grade3/fraction-quest/characters/namtao_idle.png',
-      '/assets/grades/grade3/fraction-quest/questions/peach.png',
-      '/assets/grades/grade3/fraction-quest/questions/step_blue.png',
-      '/assets/grades/grade3/fraction-quest/questions/step_purple.png',
-      '/assets/grades/grade3/fraction-quest/questions/measurement_tool.png',
-      '/assets/grades/grade3/fraction-quest/characters/sontinh_idle.png',
-      '/assets/grades/grade3/fraction-quest/characters/thuytinh_idle.png',
+      '/assets/grades/grade3/fraction-quest/icons/icon_elephan.jpg',
+      '/assets/grades/grade3/fraction-quest/icons/icon_chicken.png',
+      '/assets/grades/grade3/fraction-quest/icons/icon_horse.png',
+      '/assets/grades/grade3/fraction-quest/icons/icon_levat.png',
       '/assets/grades/grade3/fraction-quest/characters/vuahung_idle.png',
-      '/assets/grades/grade3/fraction-quest/characters/bacdau_idle.png',
-      '/assets/grades/grade3/fraction-quest/characters/namtao_idle.png',
-      '/assets/grades/grade3/fraction-quest/questions/peach.png',
+      '/assets/grades/grade3/fraction-quest/icons/icon_tanvien.png',
+      '/assets/grades/grade3/fraction-quest/icons/icon_cave.png',
+      '/assets/grades/grade3/fraction-quest/icons/icon_levat.png',
+      '/assets/grades/grade3/fraction-quest/characters/thuytinh_idle.png',
+      '/assets/grades/grade3/fraction-quest/characters/sontinh_idle.png',
+      '/assets/grades/grade3/fraction-quest/icons/icon_tanvien.png',
+      '/assets/grades/grade3/fraction-quest/icons/icon_giuplang.jpg',
+      '/assets/grades/grade3/fraction-quest/characters/sontinh_idle.png',
+      '/assets/grades/grade3/fraction-quest/icons/icon_cave.png',
     ];
     return grade3Icons[levelIndex] || grade3Icons[0];
   }
@@ -133,8 +133,8 @@ export const getLevelIcon = (gradeOrGameTitle: string, levelIndex: number): stri
   if (title.includes('hình học') || title.includes('hinh hoc') || title.includes('geometry') || title.includes('lớp 4') || title.includes('grade 4')) {
     const grade4Icons = [
       // PLACEHOLDER: Dùng common icons tạm
-      '/assets/common/questions/shapes-basic.png',
-      '/assets/common/questions/measurement-tools.png',
+      '/assets/grades/grade4/geometry-world/characters/giong.png',
+      '/assets/common/qu',
       '/assets/common/icons/icon_ruler.png',
       '/assets/common/questions/counting-dots.png',
       '/assets/common/questions/number-cards.png',
@@ -154,7 +154,7 @@ export const getLevelIcon = (gradeOrGameTitle: string, levelIndex: number): stri
   
   // Fallback - Common icons
   const fallbackIcons = [
-    '/assets/common/questions/counting-apple.png',
+    '/assets/grades/grade4/geometry-world/characters/giong.png',
     '/assets/common/questions/counting-banana.png',
     '/assets/common/questions/counting-dots.png',
     '/assets/common/questions/counting-flower.png',
