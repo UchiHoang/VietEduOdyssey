@@ -109,20 +109,20 @@ export const getLevelIcon = (gradeOrGameTitle: string, levelIndex: number): stri
     const grade5Icons = [
       // PLACEHOLDER: Dùng tạm characters, cần thay bằng icons/
       '/assets/grades/grade5/math-champion/characters/trangnguyen_idle.png',
-      '/assets/grades/grade5/math-champion/characters/soldier_engineer.png',
+      '/assets/grades/grade5/math-champion/icons/kiemkho.png',
       '/assets/grades/grade5/math-champion/characters/soldier_support.png',
-      '/assets/grades/grade5/math-champion/characters/captain_ship.png',
       '/assets/grades/grade5/math-champion/characters/general_army.png',
-      '/assets/grades/grade5/math-champion/characters/soldier_engineer.png',
-      '/assets/common/icons/icon_ruler.png',
-      '/assets/common/icons/icon_sack.png',
+      '/assets/grades/grade5/math-champion/characters/captain_ship.png',
+      '/assets/grades/grade5/math-champion/icons/doihinh.png',
+      '/assets/grades/grade5/math-champion/icons/dapde.png',
+      '/assets/grades/grade5/math-champion/icons/kiemkho.png',
       '/assets/grades/grade5/math-champion/characters/trangnguyen_idle.png',
       '/assets/grades/grade5/math-champion/characters/soldier_engineer.png',
-      '/assets/grades/grade5/math-champion/characters/soldier_support.png',
+      '/assets/grades/grade5/math-champion/icons/doihinh.png',
       '/assets/grades/grade5/math-champion/characters/captain_ship.png',
+      '/assets/grades/grade5/math-champion/icons/cuocdua.png',
       '/assets/grades/grade5/math-champion/characters/general_army.png',
-      '/assets/grades/grade5/math-champion/characters/soldier_engineer.png',
-      '/assets/common/icons/icon_ruler.png',
+      '/assets/grades/grade5/math-champion/icons/khaihoan.png',
     ];
     return grade5Icons[levelIndex] || grade5Icons[0];
   }
@@ -154,21 +154,21 @@ export const getLevelIcon = (gradeOrGameTitle: string, levelIndex: number): stri
   
   // Fallback - Common icons
   const fallbackIcons = [
-    '/assets/grades/grade4/geometry-world/characters/giong.png',
-    '/assets/common/questions/counting-banana.png',
-    '/assets/common/questions/counting-dots.png',
-    '/assets/common/questions/counting-flower.png',
-    '/assets/common/questions/counting-star.png',
-    '/assets/common/questions/measurement-tools.png',
-    '/assets/common/questions/number-cards.png',
-    '/assets/common/questions/shapes-basic.png',
-    '/assets/common/questions/number-cards.png',
-    '/assets/common/icons/icon_ruler.png',
-    '/assets/common/icons/icon_sack.png',
-    '/assets/common/questions/counting-apple.png',
-    '/assets/common/questions/counting-banana.png',
-    '/assets/common/questions/counting-dots.png',
-    '/assets/common/questions/counting-flower.png',
+    '/assets/grades/grade4/geometry-world/icons/sugia.png',
+    '/assets/grades/grade4/geometry-world/icons/mother.png',
+    '/assets/grades/grade4/geometry-world/icons/giong.png',
+    '/assets/grades/grade4/geometry-world/icons/king.png',
+      '/assets/grades/grade5/math-champion/icons/doihinh.png',
+    '/assets/grades/grade4/geometry-world/icons/horse.png',
+    '/assets/grades/grade4/geometry-world/icons/giapvang.png',
+    '/assets/grades/grade4/geometry-world/icons/giong.png',
+    '/assets/grades/grade4/geometry-world/icons/giong.png',
+      '/assets/grades/grade5/math-champion/icons/cuocdua.png',
+    '/assets/grades/grade4/geometry-world/icons/giong.png',
+    '/assets/grades/grade4/geometry-world/icons/giong.png',
+    '/assets/grades/grade4/geometry-world/icons/giong.png',
+    '/assets/grades/grade4/geometry-world/icons/giong.png',
+    '/assets/grades/grade4/geometry-world/icons/giong.png',
   ];
   return fallbackIcons[levelIndex] || fallbackIcons[0];
 };
