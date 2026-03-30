@@ -156,19 +156,19 @@ export const getLevelIcon = (gradeOrGameTitle: string, levelIndex: number): stri
   const fallbackIcons = [
     '/assets/grades/grade4/geometry-world/icons/sugia.png',
     '/assets/grades/grade4/geometry-world/icons/mother.png',
-    '/assets/grades/grade4/geometry-world/icons/giong.png',
+    '/assets/grades/grade4/geometry-world/icons/vuninh.png',
     '/assets/grades/grade4/geometry-world/icons/king.png',
       '/assets/grades/grade5/math-champion/icons/doihinh.png',
     '/assets/grades/grade4/geometry-world/icons/horse.png',
     '/assets/grades/grade4/geometry-world/icons/giapvang.png',
-    '/assets/grades/grade4/geometry-world/icons/giong.png',
+    '/assets/grades/grade4/geometry-world/icons/gaysat.png',
     '/assets/grades/grade4/geometry-world/icons/giong.png',
       '/assets/grades/grade5/math-champion/icons/cuocdua.png',
-    '/assets/grades/grade4/geometry-world/icons/giong.png',
-    '/assets/grades/grade4/geometry-world/icons/giong.png',
-    '/assets/grades/grade4/geometry-world/icons/giong.png',
-    '/assets/grades/grade4/geometry-world/icons/giong.png',
-    '/assets/grades/grade4/geometry-world/icons/giong.png',
+    '/assets/grades/grade4/geometry-world/icons/vuninh.png',
+    '/assets/grades/grade4/geometry-world/icons/nhotre.png',
+    '/assets/grades/grade4/geometry-world/icons/giacan.png',
+      '/assets/grades/grade3/fraction-quest/icons/icon_tanvien.png',
+    '/assets/grades/grade4/geometry-world/icons/vetroi.png',
   ];
   return fallbackIcons[levelIndex] || fallbackIcons[0];
 };
