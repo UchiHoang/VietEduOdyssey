@@ -144,7 +144,7 @@ const Auth = () => {
       toast({
         title: t.auth.error,
         description: error.message || t.auth.genericError,
-         //description,
+         description,
         variant: "destructive"
       });
     } finally {
