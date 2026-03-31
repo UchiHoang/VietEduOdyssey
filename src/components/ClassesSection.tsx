@@ -28,7 +28,7 @@ const ClassesSection = () => {
           variants={staggerContainer}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={{ once: true, amount: 0.1 }}
         >
           <motion.h2
             className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold"
@@ -49,7 +49,7 @@ const ClassesSection = () => {
           variants={staggerContainer}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.05, margin: "-50px" }}
         >
           {classes.map((classItem, index) => {
             const key = classKeys[index];
