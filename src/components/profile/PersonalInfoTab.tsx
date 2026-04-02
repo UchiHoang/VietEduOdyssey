@@ -46,27 +46,39 @@ const InfoField = ({ label, value, notUpdated }: { label: string; value: string 
 const PersonalInfoTab = ({ profile, isAdmin, onUpdate }: PersonalInfoTabProps) => {
   const { t } = useLanguage();
   const [editing, setEditing] = useState(false);
-  const [formData, setFormData] = useState<Partial<ProfileData>>({
-    display_name: profile?.display_name || "",
-    phone: profile?.phone || "",
-    grade: profile?.grade || "",
-    class_name: profile?.class_name || "",
-    school: profile?.school || "",
-    ward: profile?.ward || "",
-    district: profile?.district || "",
-    province: profile?.province || "",
-    birth_date: profile?.birth_date || "",
-    address: profile?.address || "",
-    gender: profile?.gender || "",
-  });
+  const [saving, setSaving] = useState(false);
+  const [formData, setFormData] = useState<Partial<ProfileData>>({});
+
+  // Re-sync formData from profile whenever editing starts or profile changes
+  const startEditing = () => {
+    setFormData({
+      display_name: profile?.display_name || "",
+      phone: profile?.phone || "",
+      grade: profile?.grade || "",
+      class_name: profile?.class_name || "",
+      school: profile?.school || "",
+      ward: profile?.ward || "",
+      district: profile?.district || "",
+      province: profile?.province || "",
+      birth_date: profile?.birth_date || "",
+      address: profile?.address || "",
+      gender: profile?.gender || "",
+    });
+    setEditing(true);
+  };
 
   const handleChange = (name: keyof ProfileData, value: string) => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSave = async () => {
-    await onUpdate(formData);
-    setEditing(false);
+    setSaving(true);
+    try {
+      await onUpdate(formData);
+      setEditing(false);
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -74,7 +86,7 @@ const PersonalInfoTab = ({ profile, isAdmin, onUpdate }: PersonalInfoTabProps) =
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-primary">{t.personalInfo.title}</h2>
         {!editing && (
-          <Button variant="outline" onClick={() => setEditing(true)} className="flex items-center gap-2">
+          <Button variant="outline" onClick={startEditing} className="flex items-center gap-2">
             {t.personalInfo.update} <Pencil className="h-4 w-4" />
           </Button>
         )}
@@ -198,8 +210,10 @@ const PersonalInfoTab = ({ profile, isAdmin, onUpdate }: PersonalInfoTabProps) =
           </div>
           
           <div className="md:col-span-2 flex gap-3 justify-end mt-4">
-            <Button variant="outline" onClick={() => setEditing(false)}>{t.personalInfo.cancel}</Button>
-            <Button onClick={handleSave}>{t.personalInfo.saveChanges}</Button>
+            <Button variant="outline" onClick={() => setEditing(false)} disabled={saving}>{t.personalInfo.cancel}</Button>
+            <Button onClick={handleSave} disabled={saving}>
+              {saving ? "Đang lưu..." : t.personalInfo.saveChanges}
+            </Button>
           </div>
         </div>
       ) : (

@@ -32,6 +32,7 @@ interface Profile {
   province?: string;
   birth_date?: string;
   class_name?: string;
+  gender?: string;
 }
 
 interface GameProgress {
