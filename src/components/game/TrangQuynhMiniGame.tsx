@@ -992,6 +992,7 @@ export const TrangQuynhMiniGame = ({ grade, courseId = "grade2-trangquynh", stor
         
         <div className="max-w-7xl mx-auto p-4 md:p-8 pt-4">
           <QuestionCard
+            key={currentQuestion.id}
             question={currentQuestion}
             questionNumber={currentQuestionIndex + 1}
             totalQuestions={currentActivity.questions.length}

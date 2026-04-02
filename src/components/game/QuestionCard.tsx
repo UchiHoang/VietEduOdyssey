@@ -86,7 +86,7 @@ const QuestionCardComponent = ({
     return (
       <div className="w-full max-w-3xl mx-auto">
         <QuestionProgress />
-        <MatchingPairsGame pairs={question.pairs} title={question.question} onComplete={onAnswer} />
+        <MatchingPairsGame key={question.id} pairs={question.pairs} title={question.question} onComplete={onAnswer} />
       </div>
     );
   }
@@ -95,7 +95,7 @@ const QuestionCardComponent = ({
     return (
       <div className="w-full max-w-3xl mx-auto">
         <QuestionProgress />
-        <DragDropGame items={question.dragItems} slots={question.dropSlots} title={question.question} onComplete={onAnswer} />
+        <DragDropGame key={question.id} items={question.dragItems} slots={question.dropSlots} title={question.question} onComplete={onAnswer} />
       </div>
     );
   }
@@ -105,6 +105,7 @@ const QuestionCardComponent = ({
       <div className="w-full max-w-3xl mx-auto">
         <QuestionProgress />
         <FillInTheBlankGame
+          key={question.id}
           question={{ id: question.id, text: question.question, blanks: question.blanks, explanation: question.explanation }}
           onComplete={onAnswer}
         />
@@ -116,7 +117,7 @@ const QuestionCardComponent = ({
     return (
       <div className="w-full max-w-3xl mx-auto">
         <QuestionProgress />
-        <CountingGame items={question.countingItems} correctAnswer={question.countingAnswer} question={question.question} explanation={question.explanation} onComplete={onAnswer} />
+        <CountingGame key={question.id} items={question.countingItems} correctAnswer={question.countingAnswer} question={question.question} explanation={question.explanation} onComplete={onAnswer} />
       </div>
     );
   }
