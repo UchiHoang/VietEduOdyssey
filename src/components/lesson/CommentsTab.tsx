@@ -76,7 +76,7 @@ const CommentItem = ({
       <div className={cn(
         "rounded-xl border p-4 md:p-5 hover:shadow-md transition-all",
         comment.is_admin_reply 
-          ? "bg-admin-reply border-success/30" 
+         ? "bg-emerald-50 border-emerald-200"  
           : "bg-[#FFF5E6] border-[#F5DEB3]"
       )}>
         {/* Comment Header */}
