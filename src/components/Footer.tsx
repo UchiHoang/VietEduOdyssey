@@ -175,7 +175,14 @@ const Footer = ({ compact = false, className }: FooterProps) => {
             <motion.span animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1, repeat: Infinity }}>
               <Heart className="h-4 w-4 text-red-500 fill-red-500" />
             </motion.span>
-            in Vietnam
+            in Viet Nam
+          </motion.p>
+          <motion.p className="flex items-center justify-around gap-2 mt-4" whileHover={{ scale: 1.02 }}>
+            <p>Lê Nguyễn Tuấn Anh</p>
+            <p>Trương Nguyễn Hoàng Lâm</p>
+            <p>Hoàng Quốc Khánh (Leader)</p>
+            <p>Phạm Diễm Quỳnh</p>
+            <p>Trần Quốc Hùng</p>
           </motion.p>
         </motion.div>
       </div>
