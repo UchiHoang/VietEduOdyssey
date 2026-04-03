@@ -157,7 +157,7 @@ const Footer = ({ compact = false, className }: FooterProps) => {
                 <motion.div className="bg-primary/10 p-2 rounded-full text-primary" animate={{ rotate: [0, 10, -10, 0] }} transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}>
                   <Phone className="h-4 w-4" />
                 </motion.div>
-                <span>(+84) 28 3835 2020</span>
+                <span>(+84) 39 2290 338</span>
               </motion.li>
               <motion.li className="flex items-start gap-3" whileHover={{ x: 5 }}>
                 <motion.div className="bg-primary/10 p-2 rounded-full text-primary mt-[-2px]" animate={{ y: [0, -3, 0] }} transition={{ duration: 2, repeat: Infinity, delay: 1 }}>
