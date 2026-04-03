@@ -5,7 +5,7 @@
   },
   "prologue": [
     {
-      "sprite": "/assets/grades/grade1/number-adventure/characters/thienbinh.png",
+      "sprite": "/assets/grades/grade4/geometry-world/characters/sugia.png",
       "speaker": "Sứ Giả",
       "text": "Nhà vua cần người tài cứu nước, Gióng hãy lớn nhanh!"
     },
@@ -15,7 +15,7 @@
       "text": "Hãy giúp ta tính toán để rèn ngựa, giáp, roi sắt."
     },
     {
-      "sprite": "/assets/grades/grade1/number-adventure/characters/thienbinh.png",
+      "sprite": "/assets/grades/grade4/geometry-world/characters/nguoike.png",
       "speaker": "Người kể chuyện",
       "text": "Phân số, số lớn, trung bình cộng sẽ là thử thách của bạn."
     }

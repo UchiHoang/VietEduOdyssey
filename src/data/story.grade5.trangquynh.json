@@ -5,7 +5,7 @@
   },
   "prologue": [
     { "speaker": "Tướng Quân", "text": "Ta cần một quân sư giỏi toán để giữ vững biên cương.", "sprite": "/assets/grades/grade5/math-champion/characters/general_army.png" },
-    { "speaker": "Người kể chuyện", "text": "Bạn sẽ tính toán lương thảo, đường hành quân và tốc độ chiến thuyền.", "sprite": "/assets/grades/grade5/math-champion/characters/trangnguyen_idle.png" },
+    { "speaker": "Người kể chuyện", "text": "Bạn sẽ tính toán lương thảo, đường hành quân và tốc độ chiến thuyền.", "sprite": "/assets/grades/grade5/math-champion/characters/tuongquan.png" },
     { "speaker": "Tướng Quân", "text": "Mọi quyết định đều dựa trên số liệu, hãy thật chính xác.", "sprite": "/assets/grades/grade5/math-champion/characters/general_army.png" }
   ],
   "nodes": [
