@@ -327,7 +327,7 @@ export const CommentsTab = ({ topicId, topicTitle }: CommentsTabProps) => {
             <Button
               variant="ghost"
               size="icon"
-              className="h-10 w-10 rounded-full bg-warning hover:bg-warning/90 text-white shrink-0"
+              className="h-10 w-10 rounded-full bg-amber-400 hover:bg-amber-500 text-white shrink-0"
             >
               <Smile className="h-5 w-5" />
             </Button>
