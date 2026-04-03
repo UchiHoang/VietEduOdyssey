@@ -202,7 +202,7 @@ export const ActivityTab = () => {
                           {comment.lesson_title && <p className="text-xs text-muted-foreground mt-0.5">{comment.lesson_title}</p>}
                         </div>
                         {comment.is_admin_reply && (
-                          <Badge variant="secondary" className="bg-admin-reply text-primary shrink-0">{t.activityTab.teacherReply}</Badge>
+                          <Badge variant="secondary" className="bg-emerald-50 text-emerald-700 shrink-0">{t.activityTab.teacherReply}</Badge>
                         )}
                       </div>
                       <p className="text-sm mb-3 whitespace-pre-wrap">{truncateContent(comment.content)}</p>
