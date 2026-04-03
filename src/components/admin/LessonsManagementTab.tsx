@@ -246,7 +246,7 @@ const LessonsManagementTab = () => {
                 <TableRow>
                   <TableHead className="w-[100px]">{al.thumbnail}</TableHead>
                   <TableHead>{al.lessonName}</TableHead>
-                  <TableHead className="w-[120px]">{al.grade}</TableHead>
+                  <TableHead className="w-[120px] text-center">{al.grade}</TableHead>
                   <TableHead className="w-[80px]">{al.semester}</TableHead>
                   <TableHead className="hidden md:table-cell">{al.videoLink}</TableHead>
                   <TableHead className="w-[100px] text-right">{al.actions}</TableHead>
