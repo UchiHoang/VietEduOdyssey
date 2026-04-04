@@ -157,7 +157,7 @@ const Footer = ({ compact = false, className }: FooterProps) => {
                 <motion.div className="bg-primary/10 p-2 rounded-full text-primary" animate={{ rotate: [0, 10, -10, 0] }} transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}>
                   <Phone className="h-4 w-4" />
                 </motion.div>
-                <span>(+84) 28 3835 2020</span>
+                <span>(+84) 39 2290 338</span>
               </motion.li>
               <motion.li className="flex items-start gap-3" whileHover={{ x: 5 }}>
                 <motion.div className="bg-primary/10 p-2 rounded-full text-primary mt-[-2px]" animate={{ y: [0, -3, 0] }} transition={{ duration: 2, repeat: Infinity, delay: 1 }}>
@@ -175,7 +175,14 @@ const Footer = ({ compact = false, className }: FooterProps) => {
             <motion.span animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1, repeat: Infinity }}>
               <Heart className="h-4 w-4 text-red-500 fill-red-500" />
             </motion.span>
-            in Vietnam
+            in Viet Nam
+          </motion.p>
+          <motion.p className="flex items-center justify-around gap-2 mt-4" whileHover={{ scale: 1.02 }}>
+            <p>Lê Nguyễn Tuấn Anh</p>
+            <p>Trương Nguyễn Hoàng Lâm</p>
+            <p>Hoàng Quốc Khánh (Leader)</p>
+            <p>Phạm Diễm Quỳnh</p>
+            <p>Trần Quốc Hùng</p>
           </motion.p>
         </motion.div>
       </div>

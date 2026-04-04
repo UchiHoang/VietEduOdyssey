@@ -33,7 +33,7 @@ export const getLevelIcon = (gradeOrGameTitle: string, levelIndex: number): stri
   if (title.includes('con giáp') || title.includes('con giap') || title.includes('grade 1') || title.includes('lớp 1')) {
     const grade1Icons = [
       // PLACEHOLDER: Dùng tạm characters, cần thay bằng icons/
-      '/assets/grades/grade1/number-adventure/characters/zodiac_rat.png',
+      '/assets/grades/grade1/number-adventure/icons/mouse.png',
       '/assets/grades/grade1/number-adventure/characters/buffalo_golden.png',
       '/assets/grades/grade1/number-adventure/characters/tiger_idle.png',
       '/assets/grades/grade1/number-adventure/icons/cat.png',
@@ -121,7 +121,7 @@ export const getLevelIcon = (gradeOrGameTitle: string, levelIndex: number): stri
       '/assets/grades/grade5/math-champion/icons/doihinh.png',
       '/assets/grades/grade5/math-champion/characters/captain_ship.png',
       '/assets/grades/grade5/math-champion/icons/cuocdua.png',
-      '/assets/grades/grade5/math-champion/characters/general_army.png',
+      '/assets/grades/grade5/math-champion/characters/trangnguyen_idle.png',
       '/assets/grades/grade5/math-champion/icons/khaihoan.png',
     ];
     return grade5Icons[levelIndex] || grade5Icons[0];

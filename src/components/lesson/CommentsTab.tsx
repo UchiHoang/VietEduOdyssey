@@ -76,7 +76,7 @@ const CommentItem = ({
       <div className={cn(
         "rounded-xl border p-4 md:p-5 hover:shadow-md transition-all",
         comment.is_admin_reply 
-          ? "bg-admin-reply border-success/30" 
+         ? "bg-emerald-50 border-emerald-200"  
           : "bg-[#FFF5E6] border-[#F5DEB3]"
       )}>
         {/* Comment Header */}
@@ -327,7 +327,7 @@ export const CommentsTab = ({ topicId, topicTitle }: CommentsTabProps) => {
             <Button
               variant="ghost"
               size="icon"
-              className="h-10 w-10 rounded-full bg-warning hover:bg-warning/90 text-white shrink-0"
+              className="h-10 w-10 rounded-full bg-amber-400 hover:bg-amber-500 text-white shrink-0"
             >
               <Smile className="h-5 w-5" />
             </Button>
