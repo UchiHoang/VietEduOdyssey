@@ -232,17 +232,23 @@ const StudentsTab = () => {
     try {
       const classIdToUpdate = selectedClassId === "none" ? null : selectedClassId;
       
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from("profiles")
         .update({
           class_id: classIdToUpdate,
           updated_at: new Date().toISOString(),
         })
-        .eq("id", assigningStudent.id);
+        .eq("id", assigningStudent.id)
+        .select()
+        .single();
 
       if (error) {
         console.error("Error updating class:", error);
         throw error;
+      }
+
+      if (!data) {
+        throw new Error("Không thể cập nhật. Vui lòng thử lại.");
       }
 
       toast({
@@ -386,11 +392,13 @@ const StudentsTab = () => {
                     </TableCell>
                     <TableCell>
                       {student.class_name ? (
-                        <span className="px-2 py-1 bg-primary/10 text-primary rounded-md text-sm">
+                        <span className="inline-flex items-center justify-center min-w-[4.5rem] px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
                           {student.class_name}
                         </span>
                       ) : (
-                        <span className="text-muted-foreground">—</span>
+                        <span className="inline-flex items-center justify-center min-w-[4.5rem] px-3 py-1 bg-muted text-muted-foreground rounded-full text-sm">
+                          —
+                        </span>
                       )}
                     </TableCell>
                     <TableCell>{student.grade || "—"}</TableCell>
