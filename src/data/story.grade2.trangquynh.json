@@ -11,28 +11,28 @@
     {
       "id": "p1",
       "bg": "/assets/grades/grade2/trangquynh/backgrounds/bg_village.png",
-      "sprite": "/assets/grades/grade2/trangquynh/characters/trang_idle.png",
+      "sprite": "/assets/grades/grade2/trangquynh/characters/nguoike.png",
       "speaker": "Người kể chuyện",
       "text": "Ngày xưa, ở một ngôi làng nhỏ bên bờ sông Hồng, có một cậu bé tên là Trạng Quỳnh. Cậu nổi tiếng thông minh, lanh lợi và rất giỏi toán."
     },
     {
       "id": "p2",
       "bg": "/assets/grades/grade2/trangquynh/backgrounds/bg_village.png",
-      "sprite": "/assets/grades/grade2/trangquynh/characters/trang_cheer.png",
+      "sprite": "/assets/grades/grade2/trangquynh/characters/nguoike.png",
       "speaker": "Người kể chuyện",
       "text": "Một ngày nọ, tin tức lan truyền về kỳ thi Toán tại Kinh Đô. Người chiến thắng sẽ nhận danh hiệu cao quý: Trạng Nguyên!"
     },
     {
       "id": "p3",
       "bg": "/assets/grades/grade2/trangquynh/backgrounds/bg_village.png",
-      "sprite": "/assets/grades/grade2/trangquynh/characters/trang_idle.png",
+      "sprite": "/assets/grades/grade2/trangquynh/characters/trangquynh.png",
       "speaker": "Trạng Quỳnh",
       "text": "Ta phải tham gia kỳ thi này! Đây là cơ hội để chứng minh trí tuệ và mang vinh quang về cho làng."
     },
     {
       "id": "p4",
       "bg": "/assets/grades/grade2/trangquynh/backgrounds/bg_village.png",
-      "sprite": "/assets/grades/grade2/trangquynh/characters/trang_portrait.png",
+      "sprite": "/assets/grades/grade2/trangquynh/characters/nguoike.png",
       "speaker": "Người kể chuyện",
       "text": "Và thế là, hành trình của Trạng Quỳnh bắt đầu - từ làng quê nhỏ bé đến tận điện Rồng nơi kinh thành."
     }
@@ -47,14 +47,17 @@
       "cutscene": [
         {
           "speaker": "Người kể chuyện",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/nguoike.png",
           "text": "Trạng Quỳnh nhận tin có cuộc thi Toán ở kinh đô. Cậu bắt đầu chuẩn bị hành trang."
         },
         {
           "speaker": "Mẹ",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/me.png",
           "text": "Con ơi, mẹ chuẩn bị táo và cam cho con mang đi. Con tính giúp mẹ số lương thực nhé!"
         },
         {
           "speaker": "Trạng Quỳnh",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/trangquynh.png",
           "text": "Vâng ạ! Con sẽ tính toán cẩn thận để không thiếu đồ ăn trên đường đi."
         }
       ],
@@ -77,14 +80,17 @@
       "cutscene": [
         {
           "speaker": "Người kể chuyện",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/nguoike.png",
           "text": "Muốn ra khỏi làng, Quỳnh phải qua cây cầu tre yếu. Người gác cầu cần sự giúp đỡ."
         },
         {
           "speaker": "Người gác cầu",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/trang_portrait.png",
           "text": "Cậu bé ơi, cầu này chỉ chịu được số người nhất định. Giúp ta tính toán số người đã qua với!"
         },
         {
           "speaker": "Trạng Quỳnh",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/trangquynh.png",
           "text": "Để cháu tính! Phép trừ có nhớ là sở trường của cháu mà."
         }
       ],
@@ -106,14 +112,17 @@
       "cutscene": [
         {
           "speaker": "Người kể chuyện",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/nguoike.png",
           "text": "Trước khi đi, Quỳnh ghé sang chào bà hàng xóm. Bà đang bận rộn với vườn cau."
         },
         {
           "speaker": "Bà hàng xóm",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/hangxom.png",
           "text": "Quỳnh ơi, bà già rồi tính toán kém. Con tính giúp bà số buồng cau bán và còn lại nhé!"
         },
         {
           "speaker": "Trạng Quỳnh",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/trangquynh.png",
           "text": "Bà yên tâm! Cháu sẽ giúp bà tính cẩn thận trước khi lên đường."
         }
       ],
@@ -135,14 +144,17 @@
       "cutscene": [
         {
           "speaker": "Người kể chuyện",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/nguoike.png",
           "text": "Quỳnh ghé qua trường làng để bái biệt thầy đồ trước khi khởi hành."
         },
         {
           "speaker": "Thầy đồ",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/thaydo.png",
           "text": "Quỳnh à, ta sẽ thử thách con lần cuối. Con hãy đọc đồng hồ để tìm giờ hoàng đạo xuất hành!"
         },
         {
           "speaker": "Trạng Quỳnh",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/trangquynh.png",
           "text": "Dạ thưa thầy! Con sẽ đọc thật chuẩn để khởi hành đúng giờ tốt."
         }
       ],
@@ -164,14 +176,17 @@
       "cutscene": [
         {
           "speaker": "Người kể chuyện",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/nguoike.png",
           "text": "Quỳnh mở tờ lịch đỏ để tính toán ngày khởi hành và ngày đến kinh đô."
         },
         {
           "speaker": "Trạng Quỳnh",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/trangquynh.png",
           "text": "Mình phải tính kỹ để không bị trễ ngày thi. Xem nào, hôm nay là thứ mấy nhỉ?"
         },
         {
           "speaker": "Mẹ",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/me.png",
           "text": "Con tính cẩn thận nhé! Đường xa lắm đó, phải dự trù đủ ngày."
         }
       ],
@@ -193,14 +208,17 @@
       "cutscene": [
         {
           "speaker": "Người kể chuyện",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/nguoike.png",
           "text": "Bên bờ ao sen, Quỳnh gặp ngư dân đang lúng túng với cây thước cũ."
         },
         {
           "speaker": "Ngư dân",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/trang_portrait.png",
           "text": "Cậu bé ơi, thước của ta chỉ còn vạch 'tấc'. Giúp ta đo chiều cao búp sen và quy đổi ra cm được không?"
         },
         {
           "speaker": "Trạng Quỳnh",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/trangquynh.png",
           "text": "Dễ thôi bác ơi! 1 dm = 10 cm mà. Cháu sẽ giúp bác đo và tính."
         }
       ],
@@ -222,14 +240,17 @@
       "cutscene": [
         {
           "speaker": "Người kể chuyện",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/nguoike.png",
           "text": "Con đường đê dẫn ra sông bị sạt lở, tạo thành các đoạn gấp khúc."
         },
         {
           "speaker": "Trưởng thôn",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/thaydo.png",
           "text": "Cậu bé thông minh kia, giúp ta tính tổng chiều dài đường đê để dân làng biết rải đá nhé!"
         },
         {
           "speaker": "Trạng Quỳnh",
+          "sprite": "/assets/grades/grade2/trangquynh/characters/trangquynh.png",
           "text": "Vâng ạ! Cháu sẽ cộng từng đoạn lại. Đường gấp khúc thì tính tổng các cạnh thôi!"
         }
       ],
