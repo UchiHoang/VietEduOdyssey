@@ -19,7 +19,7 @@ Dự án được xây dựng trên các công nghệ hiện đại nhằm đả
 * **Backend & Database:** Supabase (Backend-as-a-Service) hỗ trợ Realtime database và xác thực người dùng.
 * **Quản lý trạng thái:** React Hooks tùy chỉnh để xử lý logic game và tiến trình học tập.
 
-## Trải nghiệm website của chúng tôi ngay tại link: http://vieteduodyssey.vercel.app
+## 🎓 Trải nghiệm website của chúng tôi ngay tại link: http://vieteduodyssey.vercel.app
 
 ## 🚀 Hướng dẫn cài đặt nhanh
 
